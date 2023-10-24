@@ -1,0 +1,93 @@
+@import url('https://use.fontawesome.com/releases/v6.3.0/js/all.js');
+@import './components/general';
+ 
+// Header 
+ 
+ .page-flex{
+     display: -webkit-box;
+     display: -ms-flexbox;
+     display: flex;
+}
+ .main-wrapper {
+     position: relative;
+     width: 100%;
+}
+ .sidebar {
+     max-width: 305px;
+     width: 100%;
+     padding: 20px 15px 37px 20px;
+     transition: 0.5s all;
+     min-height: 100vh 
+}
+ .sidebar .sidebar_menu>li {
+     margin-right: 0px;
+     margin-bottom: 15px;
+}
+ .sidebar .sidebar_menu>li.active a{
+     border-radius: 15px;
+     color: #fff;
+     background: #2A3A8D;
+}
+.sidebar .sidebar_menu>li.has-child a:after{
+  content: "\e90a";
+  font-family: 'icomoon';
+  position: absolute;
+  right: 10px;
+
+}
+
+
+ .sidebar .sidebar_menu>li a {
+    @include text-16;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    transition: .3s;
+    z-index: 0;
+    display: grid;
+    grid-template-columns: 20px auto;
+    grid-gap: 5px;
+    align-items: center;
+    position: relative;
+    padding: 12px 10px 12px 15px;
+    border-radius: 10px;
+    background: rgb(42 58 141 / 10%);
+    text-decoration: none;
+    color: rgba(43, 55, 141, 0.98);
+    font-family: 'latoregular';
+}
+ 
+
+.sb-topnav a.nav-link {
+  background: #2a3a8d;
+  border-radius: 15px;
+  color: #fff;
+  display: flex;
+  min-height: 46px;
+  min-width: 46px;
+  text-align: center;
+  line-height: 1;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.sb-topnav li {
+  margin-left: 15px;
+}
+
+.sb-topnav a.nav-link:after{
+  display:none;
+}
+
+.sb-topnav.navbar-expand {
+  padding-top: 20px;
+  margin-bottom: 20px;
+}
+
+.page-content {
+  min-height: calc(100vh - 80px);
+  background: #2B368D;
+  opacity: 0.05;
+  border-radius: 20px;
+}

@@ -1,0 +1,140 @@
+// GRADIENT MIXIN
+@mixin gradient {
+    background: linear-gradient(to right, rgba($primary, 0.95), rgba($secondary, 0.95));
+}
+
+// ABSOLUTE CENTER
+@mixin absoluteCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// TRANSITION PROPERTY
+@mixin transitionProperty {
+    transition-duration: 1s;
+    transition-property: all;
+}
+
+@mixin transitionProperty-300 {
+    transition-duration: 0.3s;
+    transition-property: all;
+    transition-timing-function: ease-in-out;
+}
+
+/*functions*/
+$html-font-size: 16px;
+
+@function stripUnit($value) {
+    @return $value / ($value * 0 + 1);
+}
+
+@function rem($pxValue) {
+    @return #{stripUnit($pxValue) / stripUnit($html-font-size)}rem;
+}
+
+@mixin transition-linear {
+    transition: all 0.25s linear;
+    -webkit-transition: all 0.25s linear;
+    -moz-transition: all 0.25s linear;
+    -o-transition: all 0.25s linear;
+    -ms-transition: all 0.25s linear;
+}
+
+@mixin placeholder($value) {
+    &::-webkit-input-placeholder {
+        /* WebKit, Blink, Edge */
+        color: $value;
+    }
+    &:-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: $value;
+        opacity: 1;
+    }
+    &::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: $value;
+        opacity: 1;
+    }
+    &:-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: $value;
+    }
+    &::-ms-input-placeholder {
+        /* Microsoft Edge */
+        color: $value;
+    }
+    &::placeholder {
+        /* Most modern browsers support this now. */
+        color: $value;
+    }
+}
+
+
+//==============================================================================
+// Font Mixins
+//==============================================================================
+
+@mixin text-56 { font-size: rem(56); }
+
+@mixin text-52 { font-size: rem(52); }
+
+@mixin text-45 { font-size: rem(45); }
+
+@mixin text-38 { font-size: rem(38); }
+
+@mixin text-35 { font-size: rem(35); }
+
+@mixin text-34 { font-size: rem(34); }
+
+@mixin text-30 { font-size: rem(30); }
+
+@mixin text-28 { font-size: rem(28); }
+
+@mixin text-26 { font-size: rem(26); }
+
+@mixin text-24 { font-size: rem(22); }
+
+@mixin text-22 { font-size: rem(22); }
+
+@mixin text-20 { font-size: rem(20); }
+
+@mixin text-18 { font-size: rem(18); }
+
+@mixin text-17 { font-size: rem(17); }
+
+@mixin text-16 { font-size: rem(16); }
+
+@mixin text-15 { font-size: rem(15); }
+
+@mixin text-14 { font-size: rem(14); }
+
+@mixin text-13 { font-size: rem(13); }
+
+@mixin text-12 { font-size: rem(12); }
+
+@mixin text-11 { font-size: rem(11); }
+
+@mixin text-10 { font-size: rem(10); }
+
+@mixin text-9 { font-size: rem(9); }
+
+@mixin text-8 { font-size: rem(8); }
+
+@mixin text-7 { font-size: rem(7); }
+
+@mixin text-6 { font-size: rem(6); }
+
+
+//==============================================================================
+// Fit Object img
+//==============================================================================
+
+@mixin img-fit {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
