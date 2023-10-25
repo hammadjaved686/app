@@ -21,7 +21,7 @@ const routes: Routes = [
       // Add more routes for other content components
     ],
   },
-  // { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'not-found', component: NotFoundComponent  },
   // { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
 
