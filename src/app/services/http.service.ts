@@ -11,6 +11,7 @@ export class HttpService {
 
   // Generic method to handle GET requests
   get<T>(url: string, params?: any): Observable<T> {
+    debugger
     return this.http.get<T>(url, { params: new HttpParams({ fromObject: params }) });
   }
 

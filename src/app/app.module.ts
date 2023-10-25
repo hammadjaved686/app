@@ -9,12 +9,18 @@ import { LoggerService } from './services/logger.service';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpService } from '../app/services/http.service';
-import { HeaderComponent } from './shared/header/header.component'; 
+import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { LayoutComponent } from './layout/layout.component'; 
 @NgModule({
   declarations: [
     AppComponent,
     NotFoundComponent,
-    HeaderComponent
+    HomeComponent,
+    HeaderComponent,
+    FooterComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,

@@ -22,7 +22,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   constructor(private router: Router, private logger: LoggerService, private authService: AuthenticationService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this.authService.getToken();
+    const token = localStorage.getItem('auth_token');
 
     const modifiedReq = req.clone({
       headers: req.headers.set('Authorization', `Bearer ${token}`)
@@ -55,3 +55,30 @@ export class ErrorInterceptor implements HttpInterceptor {
       );
   }
 }
+
+
+/*
+import { Injectable } from '@angular/core';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
+
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+  constructor(private authService: AuthService) {}
+
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (this.authService.isAuthenticatedUser()) {
+      // If the user is authenticated, add an authorization header to the outgoing request.
+      const token = 'your-auth-token'; // You would get the token from the authentication service.
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+    return next.handle(request);
+  }
+}
+
+*/

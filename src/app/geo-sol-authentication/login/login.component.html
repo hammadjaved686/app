@@ -18,22 +18,26 @@
 
       <div class="col-xl-6 login-area">
         <div class="login-form d-flex flex-column">
-          <h1>Login</h1>
+          <div class="logo-wrap">
+            <img src="assets/images/logo.svg" alt="">
+          </div>
+          <p class="login">Log in</p>
           <p>Land Administration System</p>
-          <div class="form-group input-container d-flex flex-column">
-              <label for="username">User Name</label>
-              <input type="text" class="input-with-icon username">
+          <div class="d-flex dividers">
+            <div class="divider"></div>
+            <div class="divider"></div>
           </div>
-          <div class="form-group input-container d-flex flex-column">
+          
+          <div class="form-group input-container d-flex flex-column email">
+              <label for="username">Email</label>
+              <input type="text">
+          </div>
+          <div class="form-group input-container d-flex flex-column password">
               <label for="password">Password</label>
-              <input type="password" class="input-with-icon password">
+              <input type="password">
+              <span class="icon icon-edit"></span>
           </div>
-
-          <div class="form-group remember-me">
-              <input class="form-check-input" type="checkbox">
-              <label class="form-check-label"> Remember me</label>
-          </div>
-            <button type="submit" class="btn btn-primary login-btn">Login</button>
+          <button (click)="login()" type="submit" class="btn btn-primary login-btn" >Log In</button>
       </div>
       </div>
   </div>
