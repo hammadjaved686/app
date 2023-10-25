@@ -1,0 +1,44 @@
+<div class="container-fluid login-page">
+  <div class="row login-section">
+      <div class="col-xl-6 col-12 left-column">
+        <div class="inner-area d-flex flex-column justify-content-center align-items-start">
+          <div class="logo-wrap">
+            <img src="assets/images/logo.svg" alt="">
+          </div>
+          <div class="heading">
+            <h1>Welcome to Land Administration System</h1>
+          </div>
+  
+          <div class="description">
+            <p>Land Acquisition, Goof Registration, Sale, Gift through a Land Administration Solution</p>
+          </div>
+        </div>
+       
+      </div>
+
+      <div class="col-xl-6 login-area">
+        <div class="login-form d-flex flex-column">
+          <div class="logo-wrap">
+            <img src="assets/images/logo.svg" alt="">
+          </div>
+          <p class="login">Log in</p>
+          <p>Land Administration System</p>
+          <div class="d-flex dividers">
+            <div class="divider"></div>
+            <div class="divider"></div>
+          </div>
+          
+          <div class="form-group input-container d-flex flex-column email">
+              <label for="username">Email</label>
+              <input type="text">
+          </div>
+          <div class="form-group input-container d-flex flex-column password">
+              <label for="password">Password</label>
+              <input type="password">
+              <span class="icon icon-edit"></span>
+          </div>
+          <button (click)="login()" type="submit" class="btn btn-primary login-btn" >Log In</button>
+      </div>
+      </div>
+  </div>
+</div>

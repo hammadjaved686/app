@@ -1,0 +1,26 @@
+/* footer.component.scss */
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    /* Add any additional footer-specific styles here */
+  }
+  
+  .social-links {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .social-link {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .social-link:hover {
+    color: #3498db;
+  }
+  
