@@ -30,13 +30,14 @@ export class AuthenticationService {
   login(username: string, password: string): boolean {
     // Replace this with your actual login logic, e.g., making an API request to authenticate the user.
     // For this example, we'll assume the user is successfully logged in.
-    
+    debugger
     this.httpService.get<any>('https://jsonplaceholder.typicode.com/posts').subscribe(
       (response) => {
         debugger
         console.log('GET Response:', response);
         // if (response.role === 'admin') {
           // this.router.navigate(['/authentication/home']);
+          debugger;
                     this.router.navigate(['/home']);
 
         // } else {

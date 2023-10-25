@@ -18,9 +18,9 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   constructor(private httpService: HttpService,private authService: AuthenticationService,private router: Router,private fb: FormBuilder) {    
     this.loginForm = this.fb.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required]
-  }); }
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
+    }); }
   ngOnInit(): void {
     this.httpService.get<any>('https://jsonplaceholder.typicode.com/posts').subscribe(
       (response) => {
@@ -41,12 +41,13 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
+    console.log('Form values:', this.loginForm.value);
+
     if (this.loginForm.valid) {
-      const username = this.loginForm.get('username')!.value;
+      const email = this.loginForm.get('email')!.value;
       const password = this.loginForm.get('password')!.value;
   
-      this.authService.login(username, password);
-
+      this.authService.login(email, password);
       // Implement your login logic here, e.g., make an API call
     }
   }
