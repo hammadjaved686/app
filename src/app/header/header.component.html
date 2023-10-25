@@ -10,13 +10,13 @@
       <div class="sidebar-body">
           <ul class="sidebar_menu p-0">
               <li class="active">
-                 <a href="#." aria-expanded="false">
+                 <a  aria-expanded="false" (click)="GoToDashborad()">
                       <i class="icon icon-document-outline"></i> 
                         Dashboard
                  </a>
               </li>
               <li class="has-child">
-                  <a href="#." aria-expanded="false">
+                  <a aria-expanded="false" (click)="GoToNotfound()">
                       <i class="icon icon-document-outline"></i> 
                       Land Acquisition Request
                   </a>
@@ -111,19 +111,7 @@
       </nav>
 
 
-      <div class="page-content">
-
-          
-
-
-      </div>
-
-
-
-
-
-
-
+      <router-outlet></router-outlet>
   </div>
 
 </div>
