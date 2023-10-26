@@ -78,9 +78,11 @@ $html-font-size: 16px;
 
 @mixin text-56 { font-size: rem(56); }
 
+@mixin text-65 { font-size: rem(65); }
+
 @mixin text-52 { font-size: rem(52); }
 
-@mixin text-45 { font-size: rem(45); }
+@mixin text-44 { font-size: rem(44); }
 
 @mixin text-38 { font-size: rem(38); }
 
@@ -138,3 +140,11 @@ $html-font-size: 16px;
     object-position: center;
   }
 
+
+//==============================================================================
+// Border Radius
+//==============================================================================
+
+  @mixin border-radius($pixel...) {
+    border-radius: $pixel;
+  }

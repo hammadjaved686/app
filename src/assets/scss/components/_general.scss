@@ -1,6 +1,6 @@
 @import 'basic-theming';
 @import 'mixins';
-@import 'typography';
+
 
 ol,
 ul {
@@ -11,6 +11,9 @@ ul {
 a {
     text-decoration: none;
     @include transitionProperty-300;
+}
+.txt-color{
+  color:$theme-clr;
 }
 
 h1,
@@ -32,30 +35,32 @@ h5,
 
 h1,
 .h1 {
-  @include text-20;
+  @include text-65;
 }
 
 h2,
+.head-title,
 .h2 {
-  @include text-18;
+  @include text-44;
 }
 
 h3,
+.secondary-title,
 .h3 {
-  @include text-12;
+  @include text-24;
 }
 
-h4,
+h4, .section-head,
 .h4 {
-  @include text-10;
+  @include text-20;
 }
 
-h5,
+h5, .mini-head ,
 .h5 {
-  @include text-10;
+  @include text-16;
 }
 
 h6,
 .h6 {
-  @include text-10;
+  @include text-15;
 }
