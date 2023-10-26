@@ -7,6 +7,8 @@ import { HomeComponent } from '../../src/app/home/home.component';
 import { LayoutComponent } from './layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardInitiateRequestTellerComponent } from './dashboard-initiate-request-teller/dashboard-initiate-request-teller.component';
+import { ForgetPasswordComponent } from './geo-sol-authentication/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './geo-sol-authentication/reset-password/reset-password.component';
 
 
 const routes: Routes = [
@@ -28,6 +30,8 @@ const routes: Routes = [
     ],
   },
   { path: 'login', component: LoginComponent },
+  { path: 'forgot-password', component: ForgetPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'not-found', component: NotFoundComponent  },
   // { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
 
