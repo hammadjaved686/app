@@ -77,6 +77,14 @@ body {
                 border: none;
             }
 
+            .forgot-password{
+                margin-top: 20px;
+
+                a {
+                    color: $natural-black;
+                }
+            }
+
             .login {
                 color: $natural-black;
                 font-weight: 500;
