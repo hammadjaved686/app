@@ -1,4 +1,4 @@
-@import '../../../assets/scss/components/basic-theming';
+@import '../../../basic-theming.scss';
 
 html {
     height: 100%;
@@ -77,8 +77,16 @@ body {
                 border: none;
             }
 
+            .forgot-password{
+                margin-top: 20px;
+
+                a {
+                    color: $natural-black;
+                }
+            }
+
             .login {
-                // color: $natural-black;
+                color: $natural-black;
                 font-weight: 500;
                 margin-top: 60px;
 
@@ -92,7 +100,7 @@ body {
                 gap: 40px;
                 .divider {
                     width: 50%;
-                    // border-bottom: 1px solid $gray04;
+                    border-bottom: 1px solid $gray04;
                 }
             }
 
@@ -113,8 +121,7 @@ body {
         @media (min-width: 1200px) {
             display: flex;
             padding: 0;
-            // background: url('../../assets/images/login-bg.svg') no-repeat;
-            background-repeat: no-repeat; 
+            background: url('../../../assets/images/login-bg.svg') no-repeat;
             background-size: cover; 
             box-shadow: 0px 12px 24px -2px rgba(0, 0, 0, 0.17);
         }
