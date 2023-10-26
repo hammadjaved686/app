@@ -5,6 +5,8 @@ import { LoginComponent } from './geo-sol-authentication/login/login.component';
 import { AuthGuard } from './services/auth.guard';
 import { HomeComponent } from '../../src/app/home/home.component';
 import { LayoutComponent } from './layout/layout.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardInitiateRequestTellerComponent } from './dashboard-initiate-request-teller/dashboard-initiate-request-teller.component';
 import { ForgetPasswordComponent } from './geo-sol-authentication/forget-password/forget-password.component';
 import { ResetPasswordComponent } from './geo-sol-authentication/reset-password/reset-password.component';
 
@@ -16,10 +18,14 @@ const routes: Routes = [
     loadChildren: () => import('./geo-sol-authentication/geo-sol-authentication.module').then(mod => mod.GeoSolAuthenticationModule)
   },
   {
-    path: 'home',
+    path: '',
     component: LayoutComponent, canActivate: [AuthGuard],
     children: [
-      { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+      { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+      { path: 'NotFound', component: NotFoundComponent, canActivate: [AuthGuard] },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'dashboardInitiateRequest', component: DashboardInitiateRequestTellerComponent },
+
       // Add more routes for other content components
     ],
   },
