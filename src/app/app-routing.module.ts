@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { LoginComponent } from './geo-sol-authentication/login/login.component';
-import { AuthGuard } from './services/auth.guard';
-import { HomeComponent } from '../../src/app/home/home.component';
-import { LayoutComponent } from './layout/layout.component';
-import { ForgetPasswordComponent } from './geo-sol-authentication/forget-password/forget-password.component';
-import { ResetPasswordComponent } from './geo-sol-authentication/reset-password/reset-password.component';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { LoginComponent } from './core/auth/login/login.component';
+import { AuthGuard } from './shared/services/auth.guard';
+import { LayoutComponent } from './core/layout/layout.component';
+import { ForgetPasswordComponent } from './core/auth/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './core/auth/reset-password/reset-password.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardInitiateRequestTellerComponent } from './dashboard-initiate-request-teller/dashboard-initiate-request-teller.component';
 
@@ -15,13 +14,12 @@ const routes: Routes = [
   // Other routes
   {
     path: 'authentication',
-    loadChildren: () => import('./geo-sol-authentication/geo-sol-authentication.module').then(mod => mod.GeoSolAuthenticationModule)
+    loadChildren: () => import('./core/auth/auth.module').then(mod => mod.AuthModule)
   },
   {
     path: '',
     component: LayoutComponent, canActivate: [AuthGuard],
     children: [
-      { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
       { path: 'NotFound', component: NotFoundComponent, canActivate: [AuthGuard] },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'dashboardInitiateRequest', component: DashboardInitiateRequestTellerComponent },

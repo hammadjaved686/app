@@ -5,14 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from './geo-sol-interceptors/error.interceptor';
-import { LoggerService } from './services/logger.service';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { LoggerService } from './shared/services/logger.service';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpService } from '../app/services/http.service';
-import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { LayoutComponent } from './layout/layout.component';
+import { HttpService } from './shared/services/http.service';
+import { HeaderComponent } from './core/header/header.component';
+import { FooterComponent } from './core/footer/footer.component';
+import { LayoutComponent } from './core/layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardSearchTellerComponent } from './dashboard-search-teller/dashboard-search-teller.component';
 import { DashboardMapTellerComponent } from './dashboard-map-teller/dashboard-map-teller.component';
@@ -26,7 +25,6 @@ import { DashboardInitiateRequestTellerComponent } from './dashboard-initiate-re
   declarations: [
     AppComponent,
     NotFoundComponent,
-    HomeComponent,
     HeaderComponent,
     FooterComponent,
     LayoutComponent,

@@ -1,11 +1,11 @@
 import { Component , OnInit } from '@angular/core';
-import { HttpService } from '../../services/http.service'
-import { AuthenticationService } from '../../services/auth-service.service'
+import { HttpService } from '../../../shared/services/http.service'
+import { AuthenticationService } from '../../../shared/services/auth-service.service'
 
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { environment } from '../../../enviroments/environment';
+import { environment } from '../../../../enviroments/environment';
 
 
 
@@ -15,13 +15,23 @@ import { environment } from '../../../enviroments/environment';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-  constructor(private httpService: HttpService,private authService: AuthenticationService,private router: Router,private fb: FormBuilder) {    
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
-    }); }
+  loginForm!: FormGroup;
+
+  constructor(private httpService: HttpService, 
+    private authService: AuthenticationService,
+    private router: Router,
+    private fb: FormBuilder) {}
+
+    createForms = () => {
+      this.loginForm = this.fb.group({
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required]]
+      });
+    }
+
   ngOnInit(): void {
+    this.createForms();
+    
     this.httpService.get<any>('https://jsonplaceholder.typicode.com/posts').subscribe(
       (response) => {
         console.log('GET Response:', response);
