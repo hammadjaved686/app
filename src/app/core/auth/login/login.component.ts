@@ -32,22 +32,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.createForms();
     
-    this.httpService.get<any>('https://jsonplaceholder.typicode.com/posts').subscribe(
-      (response) => {
-        console.log('GET Response:', response);
-        // if (response.role === 'admin') {
-        //   this.router.navigate(['/admin-dashboard']);
-        // } else {
-        //   this.router.navigate(['/user-dashboard']);
-        // }
-        // this.router.navigate(['/authentication/forget-password']);
-        console.log('env : ',environment.apiBaseUrl)
+    if(this.authService.isAuthenticated()) {
+      this.router.navigate(['/dashboard']);
 
-      },
-      (error) => {
-        console.error('GET Error:', error);
-      }
-    );
+    }
   }
 
   login(): void {

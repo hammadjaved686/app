@@ -20,9 +20,9 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent, canActivate: [AuthGuard],
     children: [
-      { path: 'NotFound', component: NotFoundComponent, canActivate: [AuthGuard] },
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'dashboardInitiateRequest', component: DashboardInitiateRequestTellerComponent },
+      { path: 'NotFound', component: NotFoundComponent},
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+      { path: 'dashboardInitiateRequest', component: DashboardInitiateRequestTellerComponent, canActivate: [AuthGuard]},
 
       // Add more routes for other content components
     ],

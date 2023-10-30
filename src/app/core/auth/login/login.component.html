@@ -31,14 +31,26 @@
             <div class="form-group input-container d-flex flex-column email">
               <label for="username">Email</label>
               <input type="text" formControlName="email">
-          </div>
-          <div class="form-group input-container d-flex flex-column password">
+              <!-- Display validation error message for email -->
+              <div *ngIf="loginForm.get('email')!.hasError('required') && loginForm.get('email')!.touched">
+                Email is required.
+              </div>
+              <div *ngIf="loginForm.get('email')!.hasError('email') && loginForm.get('email')!.touched">
+                Please enter a valid email address.
+              </div>
+            </div>
+            <div class="form-group input-container d-flex flex-column password">
               <label for="password">Password</label>
               <input type="password" formControlName="password">
-              <span class="icon icon-edit"></span>
-          </div>
+              <!-- Display validation error message for password -->
+              <div *ngIf="loginForm.get('password')!.hasError('required') && loginForm.get('password')!.touched">
+                Password is required.
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary login-btn">Log In</button>
+
           </form>
-          <button type="submit" class="btn btn-primary login-btn">Log In</button>
+          
           <div class="forgot-password d-flex justify-content-center">
             <a href="">Forgot Password ?</a>
           </div>
