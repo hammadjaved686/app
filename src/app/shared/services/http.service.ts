@@ -16,8 +16,18 @@ export class HttpService {
   }
 
   // Generic method to handle POST requests
-  post<T>(url: string, body: any): Observable<T> {
-    return this.http.post<T>(url, body);
+  post<T>(url: string, params: any, body: any): Observable<T> {
+    // Create an HttpParams object to store the request parameters
+    debugger
+    let httpParams = new HttpParams();
+    // Add each parameter to the HttpParams object
+    for (const key in params) {
+      if (params.hasOwnProperty(key)) {
+        httpParams = httpParams.append(key, params[key]);
+      }
+    }
+    // Make the HTTP request with the parameters included in the URL
+    return this.http.post<T>(url, body, { params: httpParams });
   }
 
   // Generic method to handle PUT requests

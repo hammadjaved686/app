@@ -27,7 +27,8 @@ export class AuthenticationService {
   }
 
   // Simulate a login operation (replace with your actual login logic)
-  login(username: string, password: string): void {
+  login(params: any): void {
+    console.log(params, 'param')
     // Replace this with your actual login logic, e.g., making an API request to authenticate the user.
     // For this example, we'll assume the user is successfully logged in.
     if(this.isAuthenticated() == true) {
@@ -37,21 +38,67 @@ export class AuthenticationService {
       "firstName": "hammad",
       "lastName": "javed",
       "email": "hammad.javed@systemsltd.com",
-      "userName": `${username}`,
-      "password": `${password}`
+      "userName": `${params.username}`,
+      "password": `${params.password}`
     }
+    // const params = {}
     debugger
-    this.httpService.post<any>('http://10.100.37.32/api/Account/authenticate',
+    this.httpService.post<any>('http://10.100.37.32/api/Account/authenticate', {},
     requestBody).subscribe(
       (response) => {
         debugger
         console.log('GET Response:', response);
         // if (response.role === 'admin') {
           // this.router.navigate(['/authentication/home']);
-          localStorage.setItem('auth_token', response.token);
-          debugger;
-          this.router.navigateByUrl('/dashboard')
+          if (response && response.token) {
+            // Token exists in the response
+            localStorage.setItem('auth_token', response.token);
+            const token = response.token;
+            debugger;
+            this.router.navigateByUrl('/dashboard')
+          }
 
+
+        // } else {
+        //   this.router.navigate(['/user-dashboard']);
+        // }
+        // this.router.navigate(['/authentication/forget-password']);
+        console.log('env : ',environment.apiBaseUrl)
+
+      },
+      (error) => {
+        console.error('GET Error:', error);
+      }
+    );
+    
+  }
+
+  forgetPassword(email: string): void {
+    // Replace this with your actual login logic, e.g., making an API request to authenticate the user.
+    // For this example, we'll assume the user is successfully logged in.
+    // if(this.isAuthenticated() == true) {
+    //   this.router.navigateByUrl('/dashboard')
+    // }
+    const params = {
+      "emailaddress": `${email}`,
+    }
+    const body = {}
+    debugger
+    this.httpService.post<any>('http://10.100.37.32/api/Account/forgetpassword',
+    params, body).subscribe(
+      (response) => {
+        debugger
+        console.log('GET Response:', response);
+        // if (response.role === 'admin') {
+          // this.router.navigate(['/authentication/home']);
+          if (response && response.token) {
+            // Token exists in the response
+            const token = response.token;
+            localStorage.setItem('auth_token', response.token);
+            debugger;
+            // jwt parse check the token 
+            this.router.navigateByUrl('/authentication/reset-password ')
+          }
         // } else {
         //   this.router.navigate(['/user-dashboard']);
         // }

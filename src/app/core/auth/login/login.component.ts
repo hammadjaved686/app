@@ -42,17 +42,17 @@ export class LoginComponent implements OnInit {
     console.log('Form values:', this.loginForm.value);
 
     if (this.loginForm.valid) {
-      const email = this.loginForm.get('email')!.value;
-      const password = this.loginForm.get('password')!.value;
+      const param = this.loginForm.getRawValue()
+      // const email = this.loginForm.get('email')!.value;
+      // const password = this.loginForm.get('password')!.value;
   
-      this.authService.login(email, password);
+      this.authService.login(param);
       // Implement your login logic here, e.g., make an API call
     }
   }
-  // onSubmit() {
-  //   this.router.navigate(['/authentication/forget-password']);
-  // }
-   submitForm() {
-        this.router.navigate(['/authentication/forget-password']);
-      }
+
+  forgotPassword(){
+    this.router.navigate(['/authentication/forget-password']);
+  }
+
 }
