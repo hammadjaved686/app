@@ -30,18 +30,15 @@
           <form [formGroup]="loginForm" (ngSubmit)="login()">
             <div class="form-group input-container d-flex flex-column email">
               <label for="username">Email</label>
-              <input type="text" formControlName="email">
+              <input type="text" formControlName="email" placeholder="Name@gmail.com">
           </div>
           <div class="form-group input-container d-flex flex-column password">
               <label for="password">Password</label>
-              <input type="password" formControlName="password">
-              <span class="icon icon-edit"></span>
+              <input type="password" formControlName="password" placeholder="******">
+              <span class="icon icon-view"></span>
           </div>
           </form>
           <button type="submit" class="btn btn-primary login-btn">Log In</button>
-          <div class="forgot-password d-flex justify-content-center">
-            <a href="">Forgot Password ?</a>
-          </div>
       </div>
       </div>
   </div>
