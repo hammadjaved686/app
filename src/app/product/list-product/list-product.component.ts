@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { AddProductComponent } from '../add-product/add-product.component';
+
 
 @Component({
   selector: 'app-list-product',
@@ -12,7 +15,7 @@ export class ListProductComponent implements OnInit {
   dataSource = new MatTableDataSource<any>(); // Change 'any' to your ProductModel type
   displayedColumns: string[] = ['id', 'title', 'price', 'description', 'category', 'images', 'actions'];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private dialog: MatDialog) {}
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -34,5 +37,17 @@ export class ListProductComponent implements OnInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator; // Set paginator for the MatTableDataSource
+  }
+  openAddProductDialog(): void {
+    const dialogRef = this.dialog.open(AddProductComponent, {
+      width: '400px', // Set width or other properties as needed
+      data: {} // You can pass data to the dialog if needed
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle the result here if needed
+      console.log('Dialog closed with result:', result);
+      // Update product list or perform other actions based on the result
+    });
   }
 }

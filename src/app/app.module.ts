@@ -20,6 +20,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { ProductModule } from './product/product.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +39,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     HttpClientModule,
     MatIconModule,
     FormsModule,
+    MatDialogModule,
     MatTableModule,
     MatPaginatorModule,
     BrowserAnimationsModule,

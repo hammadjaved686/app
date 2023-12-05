@@ -1,0 +1,10 @@
+<form [formGroup]="productForm" (ngSubmit)="submitProduct()">
+    <!-- Form fields for product details -->
+    <input formControlName="title" placeholder="Title">
+    <input formControlName="price" placeholder="Price">
+    <input formControlName="description" placeholder="Description">
+    <input formControlName="categoryId" placeholder="Category ID">
+    <input formControlName="images" placeholder="Images">
+    <button type="submit">Submit</button>
+  </form>
+  
