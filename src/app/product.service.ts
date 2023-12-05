@@ -38,4 +38,14 @@ export class ProductService {
         })
       );
   }
+  getProductById(productId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}${productId}`);
+  }
+  updateProduct(productId: number, updatedProductData: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}${productId}`, updatedProductData);
+  }
+
+  deleteProduct(productId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${productId}`);
+  }
 }
