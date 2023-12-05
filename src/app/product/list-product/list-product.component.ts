@@ -59,6 +59,7 @@ export class ListProductComponent implements OnInit {
   }
 
   openEditProductDialog(productId: number): void {
+    debugger
     const dialogRef = this.dialog.open(EditProductComponent, {
       data: { productId }, // Pass the productId to the dialog if needed
       width: '400px' // Adjust as per your UI requirement

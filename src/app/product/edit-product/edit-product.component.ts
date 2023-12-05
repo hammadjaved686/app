@@ -31,10 +31,11 @@ export class EditProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    debugger
     // Get the product ID from the route params
     this.route.paramMap.subscribe((params: ParamMap) => {
       debugger
-      this.productId = 316;
+      this.productId = this.data.productId;
     });    
     // Fetch the product details based on the ID
     this.productService.getProductById(this.productId).subscribe(product => {
