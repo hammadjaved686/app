@@ -20,6 +20,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { ProductModule } from './product/product.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DeleteConfirmationComponent } from './shared/delete-confirmation/delete-confirmation.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +31,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     FooterComponent,
     LayoutComponent,
     DashboardComponent,
-    MyCustomPipePipe
+    MyCustomPipePipe,
+    DeleteConfirmationComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +41,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     HttpClientModule,
     MatIconModule,
     FormsModule,
+    MatDialogModule,
     MatTableModule,
     MatPaginatorModule,
     BrowserAnimationsModule,
