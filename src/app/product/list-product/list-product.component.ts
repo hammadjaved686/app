@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddProductComponent } from '../add-product/add-product.component';
 import { ProductService } from 'src/app/product.service';
 import { EditProductComponent } from '../edit-product/edit-product.component';
-
+import { DeleteConfirmationComponent } from '../../../app/shared/delete-confirmation/delete-confirmation.component'
 
 
 
@@ -70,4 +70,19 @@ export class ListProductComponent implements OnInit {
       this.dataSource.data.unshift(result); 
     });
   }
+  
+  openDeleteConfirmation(productId: number): void {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      width: '300px',
+    });
+  
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (confirmed) {
+        this.productService.deleteProduct(productId).subscribe(() => {
+          // Handle successful deletion
+        });
+      }
+    });
+  }
+  
 }
