@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
+import { ProductService } from 'src/app/product.service';
 
 @Component({
   selector: 'app-add-product',
@@ -11,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 export class AddProductComponent {
   productForm: FormGroup;
 
-  constructor(
+  constructor(private productService: ProductService,
     private dialogRef: MatDialogRef<AddProductComponent>,
     private formBuilder: FormBuilder,
     private http: HttpClient,
@@ -31,9 +32,20 @@ export class AddProductComponent {
       const newProduct = this.productForm.value;
       console.log('product : ', newProduct)
       newProduct.images = ["https://placeimg.com/640/480/any"]
-      this.http.post('https://api.escuelajs.co/api/v1/products/', newProduct).subscribe((response) => {
-        this.dialogRef.close(response);
-      });
+      this.productService.addProduct(newProduct).subscribe(
+        (response: any) => {
+          // Handle success: Response received from API
+          console.log('Product added:', response);
+          this.dialogRef.close(response);
+
+          // Additional operations based on API response
+        },
+        (error: any) => {
+          // Handle error: Log or display an error message
+          console.error('Error adding product:', error);
+        }
+      );
+
     }
   }
 }
