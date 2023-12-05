@@ -7,7 +7,7 @@ import { LayoutComponent } from './core/layout/layout.component';
 import { ForgetPasswordComponent } from './core/auth/forget-password/forget-password.component';
 import { ResetPasswordComponent } from './core/auth/reset-password/reset-password.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { DashboardInitiateRequestTellerComponent } from './dashboard-initiate-request-teller/dashboard-initiate-request-teller.component';
+import { ListProductComponent } from './product/list-product/list-product.component';
 
 
 const routes: Routes = [
@@ -21,14 +21,13 @@ const routes: Routes = [
     component: LayoutComponent, canActivate: [AuthGuard],
     children: [
       { path: 'NotFound', component: NotFoundComponent},
-      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-      { path: 'dashboardInitiateRequest', component: DashboardInitiateRequestTellerComponent, canActivate: [AuthGuard]},
+      { path: 'dashboard', component: ListProductComponent, canActivate: [AuthGuard]},
 
       // Add more routes for other content components
     ],
   },
-  { path: 'login', component: LoginComponent },
-  { path: 'forgot-password', component: ForgetPasswordComponent },
+  { path: 'login', component: LoginComponent,canActivate: [AuthGuard] },
+  { path: 'forgot-password', component: ForgetPasswordComponent,canActivate: [AuthGuard] },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'not-found', component: NotFoundComponent  },
   // { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },

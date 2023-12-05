@@ -5,6 +5,7 @@
               <img src="assets/images/logo.svg" alt="" class="img-fluid">
           </a>
       </div>
+      {{isAuthenticated}}
       <div class="sidebar-body">
           <ul class="sidebar_menu p-0">
               <li class="active">
@@ -16,31 +17,31 @@
               <li class="has-child">
                   <a aria-expanded="false" (click)="GoToNotfound()">
                       <i class="icon icon-document-outline"></i> 
-                      Land Acquisition Request
+                      Initiate Request
                   </a>
                </li>
                <li class="has-child">
                   <a href="#." aria-expanded="false">
                       <i class="icon icon-document-outline"></i> 
-                      Goof registration requests
+                      See requests
                   </a>
                </li>
                <li class="has-child">
                   <a href="#." aria-expanded="false">
                       <i class="icon icon-document-outline"></i> 
-                      Notary Request
+                      delete Request
                   </a>
                </li>
                <li class="has-child">
                   <a href="#." aria-expanded="false">
                       <i class="icon icon-document-outline"></i> 
-                      DCI reqst for Un-regstd
+                      List All
                   </a>
                </li>
                <li class="has-child">
                   <a href="#." aria-expanded="false">
                       <i class="icon icon-document-outline"></i> 
-                      DCI Reqst - regstd land
+                      Cancel All
                   </a>
                </li>
                      
@@ -51,7 +52,7 @@
       <nav class="sb-topnav navbar navbar-expand">
           <div class="d-flex justify-content-between w-100 align-items-center">
               <div class="head">
-                    <h2 class="head-title txt-color">LAND ADMINISTRATION SYSTEM</h2>
+                    <h2 class="head-title txt-color">Home</h2>
               </div>
               <div class="right-side">
                   <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
@@ -60,7 +61,7 @@
                               <span class="icon icon-notification"></span>
                           </a>
                           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                              <li><a class="dropdown-item" href="#!">Settings</a></li>
+                              <li><a class="dropdown-item" (click)="login()">Settings</a></li>
                               <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                               <li><hr class="dropdown-divider" /></li>
                               <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
@@ -71,7 +72,7 @@
                               <span class="icon icon-language"></span>
                           </a>
                           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                              <li><a class="dropdown-item" href="#!">Settings</a></li>
+                              <li><a class="dropdown-item" (click)="login()">Settings</a></li>
                               <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                               <li><hr class="dropdown-divider" /></li>
                               <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
@@ -83,15 +84,15 @@
                               <span class="icon icon-logout"></span>
                           </a>
                           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                              <li><a class="dropdown-item" href="#!">Settings</a></li>
+                              <li><a class="dropdown-item" (click)="login()">Settings</a></li>
                               <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                               <li><hr class="dropdown-divider" /></li>
                               <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
                           </ul>
                       </li>
 
-                      <li class="nav-item dropdown user-profile">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <li class="nav-item dropdown">
+                        <!-- <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 
                             <div class="d-flex user-content">
                                 <div class="title">
@@ -103,10 +104,10 @@
                                 </div>
                             </div>
 
-                        </a>
+                        </a> -->
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li>
-                                <a class="dropdown-item" href="#!">Settings</a>
+                                <a class="dropdown-item" (click)="login()">Settings</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#!">Activity Log</a>

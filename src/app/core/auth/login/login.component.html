@@ -6,11 +6,11 @@
             <img src="assets/images/logo.svg" alt="">
           </div>
           <div class="heading">
-            <h1>Welcome to Land Administration System</h1>
+            <h1>Welcome to Home</h1>
           </div>
   
           <div class="description">
-            <p>Land Acquisition, Goof Registration, Sale, Gift through a Land Administration Solution</p>
+            <p>Administration </p>
           </div>
         </div>
        
@@ -22,7 +22,7 @@
             <img src="assets/images/logo.svg" alt="">
           </div>
           <p class="login">Log in</p>
-          <p>Land Administration System</p>
+          <p>Home</p>
           <div class="d-flex dividers">
             <div class="divider"></div>
             <div class="divider"></div>
@@ -30,7 +30,7 @@
           <form [formGroup]="loginForm" (ngSubmit)="login()">
             <div class="form-group input-container d-flex flex-column email">
               <label for="username">Email</label>
-              <input type="text" formControlName="email">
+              <input type="text" formControlName="email" [(ngModel)]="email">
               <!-- Display validation error message for email -->
               <div *ngIf="loginForm.get('email')!.hasError('required') && loginForm.get('email')!.touched">
                 Email is required.
@@ -41,7 +41,7 @@
             </div>
             <div class="form-group input-container d-flex flex-column password">
               <label for="password">Password</label>
-              <input type="password" formControlName="password">
+              <input type="password" formControlName="password" [(ngModel)]="password">
               <!-- Display validation error message for password -->
               <div *ngIf="loginForm.get('password')!.hasError('required') && loginForm.get('password')!.touched">
                 Password is required.

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FormsModule } from '@angular/forms';
+import { MatSliderModule } from '@angular/material/slider'; // Example module, import the ones you need
+import { MatTable, MatTableModule } from '@angular/material/table';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -13,14 +15,11 @@ import { HeaderComponent } from './core/layout/header/header.component';
 import { FooterComponent } from './core/layout/footer/footer.component';
 import { LayoutComponent } from './core/layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { DashboardSearchTellerComponent } from './dashboard-search-teller/dashboard-search-teller.component';
-import { DashboardMapTellerComponent } from './dashboard-map-teller/dashboard-map-teller.component';
-import { DashboardListProgressTellerComponent } from './dashboard-list-progress-teller/dashboard-list-progress-teller.component';
-import { DashboardFilesInprogressTellerComponent } from './dashboard-files-inprogress-teller/dashboard-files-inprogress-teller.component';
-import { DashboardLarInitiationTellerComponent } from './dashboard-lar-initiation-teller/dashboard-lar-initiation-teller.component';
-import { DashboardInitiateReqSearchTellerComponent } from './dashboard-initiate-req-search-teller/dashboard-initiate-req-search-teller.component';
-import { DashboardInitiateUploadFileTellerComponent } from './dashboard-initiate-upload-file-teller/dashboard-initiate-upload-file-teller.component';
-import { DashboardInitiateRequestTellerComponent } from './dashboard-initiate-request-teller/dashboard-initiate-request-teller.component'; 
+import { MyCustomPipePipe } from './my-custom-pipe.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { MatIconModule } from '@angular/material/icon';
+import { ProductModule } from './product/product.module';
+import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,19 +28,20 @@ import { DashboardInitiateRequestTellerComponent } from './dashboard-initiate-re
     FooterComponent,
     LayoutComponent,
     DashboardComponent,
-    DashboardSearchTellerComponent,
-    DashboardMapTellerComponent,
-    DashboardListProgressTellerComponent,
-    DashboardFilesInprogressTellerComponent,
-    DashboardLarInitiationTellerComponent,
-    DashboardInitiateReqSearchTellerComponent,
-    DashboardInitiateUploadFileTellerComponent,
-    DashboardInitiateRequestTellerComponent
+    MyCustomPipePipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    MatSliderModule,
+    HttpClientModule,
+    MatIconModule,
+    FormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    BrowserAnimationsModule,
+    ProductModule
+
   ],
   providers: [    {
     provide: HTTP_INTERCEPTORS,

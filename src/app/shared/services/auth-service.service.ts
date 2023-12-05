@@ -6,20 +6,42 @@ import { environment } from 'src/enviroments/environment';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthenticationService {
   private userToken: string | null = null;
   private userInfo: any | null = null;
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+
+  // Expose an observable to allow components to subscribe to changes
+  isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
+
   constructor(private httpService: HttpService,private router: Router) {    
  }
  
+   // Function to perform user login
+   doLogin() {
+    // Simulate a login process
+    // In a real application, this would involve authentication with a server
+    // For simplicity, we'll just set isAuthenticated to true
+    this.isAuthenticatedSubject.next(true);
+  }
+
+  // Function to perform user logout
+  doLogout() {
+    // Simulate a logout process
+    // In a real application, this would involve communicating with a server
+    // For simplicity, we'll just set isAuthenticated to false
+    debugger
+    console.log('called logout auth')
+    this.isAuthenticatedSubject.next(false);
+  }
+
   isAuthenticated(): boolean {
     // Check if the user is authenticated (e.g., by checking a token, session, or local storage)
     // Return true if authenticated, false if not
     // Example:
-    const token = localStorage.getItem('auth_token');
-    return !!token; // If a token exists, consider the user as authenticated
+    return true // If a token exists, consider the user as authenticated
 
     // For this example, we'll assume the user is always authenticated:
     // debugger
