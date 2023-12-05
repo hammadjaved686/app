@@ -5,6 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProductComponent } from '../add-product/add-product.component';
 import { ProductService } from 'src/app/product.service';
+import { EditProductComponent } from '../edit-product/edit-product.component';
+
 
 
 
@@ -53,6 +55,18 @@ export class ListProductComponent implements OnInit {
       this.dataSource.data.unshift(result); // Append newObj to
 
       // Update product list or perform other actions based on the result
+    });
+  }
+
+  openEditProductDialog(productId: number): void {
+    const dialogRef = this.dialog.open(EditProductComponent, {
+      data: { productId }, // Pass the productId to the dialog if needed
+      width: '400px' // Adjust as per your UI requirement
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle any actions after the dialog is closed
+      this.dataSource.data.unshift(result); 
     });
   }
 }
