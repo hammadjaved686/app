@@ -73,61 +73,16 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authService.doLogin();
-
-    // const source$ = of(1, 2, 3);
-    // // merge map
-    // const asyncOperation = (value: number) => {
-    //   return of(value * 2).pipe(delay(1000));
-    // };
-    // source$
-    //   .pipe(
-    //     mergeMap(value => asyncOperation(value))
-    //   )
-    //   .subscribe(result => {
-    //     console.log(result); // Output: 2, 4, 6...
-    //   });
-
-
-    // // take whike
-    // this.subscription = this.getNumbers()
-    //   .pipe(
-    //     takeWhile(() => this.alive) // Stops emitting once this.alive becomes false
-    //   )
-    //   .subscribe(
-    //     number => {
-    //       this.numbers.push(number);
-    //       if (number >= 5) {
-    //         this.alive = false; // Stops the emission after number >= 5
-    //         console.log('takeWhile : ', number)
-    //       }
-    //     },
-    //     error => {
-    //       // Handle error if any
-    //     },
-    //     () => {
-    //       // Handle completion if needed
-    //     }
-    //   );
-
-
-    // // takeUntill
-    // this.getNumbers()
-    //   .pipe(
-    //     takeUntil(this.unsubscribe$) // Completes when this.unsubscribe$ emits
-    //   )
-    //   .subscribe(
-    //     number => {
-    //       this.numbers.push(number);
-    //       console.log('takeUntill: ', number)
-    //     },
-    //     error => {
-    //       // Handle error if any
-    //     },
-    //     () => {
-    //       // Handle completion if needed
-    //     }
-    //   );
+    if (this.loginForm.valid) {
+      const email = this.loginForm.value.email;
+      const password = this.loginForm.value.password;
+  
+      this.authService.login({ email, password })
+    } else {
+      // Handle form validation errors
+      // For example, mark fields as touched to display error messages
+      this.loginForm.markAllAsTouched();
+    }
   }
 
 
@@ -139,7 +94,7 @@ export class LoginComponent implements OnInit {
 
   logout() {
 
-    this.authService.logout();
+    this.authService.doLogout();
   }
 
   forgotPassword() {
