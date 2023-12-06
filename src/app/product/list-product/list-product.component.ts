@@ -53,7 +53,7 @@ export class ListProductComponent implements OnInit {
       // Handle the result here if needed
       console.log('Dialog closed with result:', result);
       this.dataSource.data.unshift(result); // Append newObj to
-
+      this.dataSource._updateChangeSubscription(); // this.dataSource.data = updatedDataArray;
       // Update product list or perform other actions based on the result
     });
   }
@@ -65,22 +65,39 @@ export class ListProductComponent implements OnInit {
       width: '400px' // Adjust as per your UI requirement
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      // Handle any actions after the dialog is closed
-      this.dataSource.data.unshift(result); 
+    dialogRef.afterClosed().subscribe(updatedProduct => {
+      if (updatedProduct) {
+        // Update the product in the data source
+        const index = this.dataSource.data.findIndex(p => p.id === updatedProduct.id);
+        if (index > -1) {
+          this.dataSource.data[index] = updatedProduct;
+          this.dataSource._updateChangeSubscription();
+        }
+      }
     });
   }
   
-  openDeleteConfirmation(productId: number): void {
+ 
+    openDeleteConfirmation(productId: number): void {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
       width: '300px',
     });
   
     dialogRef.afterClosed().subscribe((confirmed) => {
       if (confirmed) {
-        this.productService.deleteProduct(productId).subscribe(() => {
-          // Handle successful deletion
-        });
+        this.productService.deleteProduct(productId).subscribe(
+          () => {
+            // Remove the deleted product from the data source
+            const index = this.dataSource.data.findIndex(product => product.id === productId);
+            if (index > -1) {
+              this.dataSource.data.splice(index, 1);
+              this.dataSource._updateChangeSubscription(); // Notify the data source about the change
+            }
+          },
+          error => {
+            // Handle error if deletion fails
+          }
+        );
       }
     });
   }
