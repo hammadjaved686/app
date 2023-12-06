@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ProductService } from 'src/app/product.service';
+import { ProductService } from 'src/app/shared/services/product.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 

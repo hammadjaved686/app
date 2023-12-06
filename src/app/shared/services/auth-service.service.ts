@@ -59,7 +59,7 @@ export class AuthenticationService {
     // Replace this with your actual login logic, e.g., making an API request to authenticate the user.
     // For this example, we'll assume the user is successfully logged in.
     if(this.isAuthenticated() == true) {
-      this.router.navigateByUrl('/dashboard')
+      this.router.navigateByUrl('/product')
     }
     const requestBody = {
       "email": `${params.email}`,
@@ -83,7 +83,7 @@ export class AuthenticationService {
             localStorage.setItem('refresh_token', response.refresh_token);
             this.isAuthenticatedSubject.next(true);
             // console.log('userJWT : ', this.jwtService.decodeToken(token))
-            this.router.navigateByUrl('/dashboard')
+            this.router.navigateByUrl('/product')
           }
 
 
@@ -132,7 +132,7 @@ export class AuthenticationService {
     // Replace this with your actual login logic, e.g., making an API request to authenticate the user.
     // For this example, we'll assume the user is successfully logged in.
     // if(this.isAuthenticated() == true) {
-    //   this.router.navigateByUrl('/dashboard')
+    //   this.router.navigateByUrl('/product')
     // }
     const params = {
       "emailaddress": `${email}`,

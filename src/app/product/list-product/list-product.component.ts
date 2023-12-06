@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProductComponent } from '../add-product/add-product.component';
-import { ProductService } from 'src/app/product.service';
+import { ProductService } from 'src/app/shared/services/product.service';
 import { EditProductComponent } from '../edit-product/edit-product.component';
 import { DeleteConfirmationComponent } from '../../../app/shared/delete-confirmation/delete-confirmation.component'
 

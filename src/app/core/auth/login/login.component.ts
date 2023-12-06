@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
     this.createForms();
 
     if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/product']);
 
     }
     this.authService.isAuthenticated$.subscribe((isAuthenticated) => {
@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
 
       this.isAuthenticated = isAuthenticated;
     });
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/product']);
 
   }
 
@@ -97,9 +97,9 @@ export class LoginComponent implements OnInit {
     this.authService.doLogout();
   }
 
-  forgotPassword() {
+  Register() {
 
-    this.router.navigate(['/authentication/forget-password']);
+    this.router.navigate(['/authentication/register']);
   }
 
 }
