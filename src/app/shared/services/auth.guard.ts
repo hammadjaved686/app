@@ -14,7 +14,9 @@ export class AuthGuard implements CanActivate {
         state: RouterStateSnapshot
     ): boolean {
         debugger
-        if (this.authService.isAuthenticated()) {
+        const currentRoute = state.url; // Get the current route
+
+        if (this.authService.isAuthenticated() || currentRoute.includes('register')) {
 
             return true;
         } else {
