@@ -10,6 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListProductComponent } from './product/list-product/list-product.component';
 import { ListUserComponent } from './user/list-user/list-user.component';
 import { AddUserComponent } from './user/add-user/add-user.component';
+import { RegisterComponent } from './core/auth/register/register.component';
 
 
 const routes: Routes = [
@@ -31,7 +32,7 @@ const routes: Routes = [
     ],
   },
   { path: 'login', component: LoginComponent,canActivate: [AuthGuard] },
-  { path: 'register', component: AddUserComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'not-found', component: NotFoundComponent  },
   // { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },

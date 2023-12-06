@@ -9,13 +9,14 @@ import { LoginComponent } from './login/login.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AddUserComponent } from 'src/app/user/add-user/add-user.component';
+import { RegisterComponent } from './register/register.component';
 // import { HomeComponent } from './home/home.component';
 
 
 
 const routes = [
   { path: 'login', component: LoginComponent, },
-  { path: 'register', component: AddUserComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   // { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
 ];
@@ -26,6 +27,7 @@ const routes = [
     LoginComponent,
     ForgetPasswordComponent,
     ResetPasswordComponent,
+    RegisterComponent,
     
     // HomeComponent
   ],

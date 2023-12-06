@@ -11,7 +11,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { EditProductComponent } from './edit-product/edit-product.component';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms'; // Import FormsModule
 
 
 
@@ -25,6 +26,8 @@ import { EditProductComponent } from './edit-product/edit-product.component';
     CommonModule,
     MatIconModule,
     HttpClientModule,
+    BrowserModule,
+    FormsModule ,
     ReactiveFormsModule,
     MatPaginatorModule,
     MatTableModule,

@@ -18,6 +18,7 @@ import { DeleteConfirmationComponent } from '../../../app/shared/delete-confirma
 export class ListProductComponent implements OnInit {
   dataSource = new MatTableDataSource<any>(); // Change 'any' to your ProductModel type
   displayedColumns: string[] = ['id', 'title', 'price', 'description', 'category', 'images', 'actions'];
+  filters: any = {}; // Define your filter model here
 
   constructor(private http: HttpClient,private dialog: MatDialog, private productService: ProductService,) {}
 
@@ -101,5 +102,10 @@ export class ListProductComponent implements OnInit {
       }
     });
   }
-  
+  applyFilters() {
+    this.productService.getFilteredProducts(this.filters)
+      .subscribe((data: any) => {
+        this.dataSource.data = data;
+        this.dataSource._updateChangeSubscription();      });
+  }
 }

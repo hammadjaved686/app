@@ -28,6 +28,12 @@ export class ProductService {
       catchError(this.handleError)
     );
   }
+  getFilteredProducts(filters: any): Observable<any> {
+    // Construct the query parameters based on filters passed
+    const queryParams = new URLSearchParams(filters).toString();
+    const url = `${this.apiUrl}?${queryParams}`;
+    return this.http.get(url);
+  }
   getProducts(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl)
       .pipe(

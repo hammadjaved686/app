@@ -1,17 +1,17 @@
-/* Styles for the login-page */
-.login-page {
+/* Adjustments for the register-page */
+.register-page {
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
-  .login-section {
+  .register-section {
     width: 100%;
   }
   
   .left-column {
-    background-color: #ffffff; /* Change as needed */
+    background-color: #f0f0f0; /* Adjust as needed */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,14 +21,14 @@
     padding: 20px;
   }
   
-  .login-area {
-    background-color: #f0f0f0; /* Change as needed */
+  .register-area {
+    background-color: #ffffff; /* Adjust as needed */
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
-  .login-area .login-form {
+  .register-area .register-form {
     padding: 20px;
   }
   
@@ -48,7 +48,7 @@
     color: #777777;
   }
   
-  .login-form {
+  .register-form {
     width: 100%;
     max-width: 300px;
   }
@@ -75,7 +75,7 @@
     color: #ff0000; /* Adjust error message color */
   }
   
-  .login-btn {
+  .register-btn {
     width: 100%;
     padding: 10px;
     background-color: #007bff; /* Adjust button color */
@@ -86,7 +86,7 @@
     transition: background-color 0.3s ease;
   }
   
-  .login-btn:hover {
+  .register-btn:hover {
     background-color: #0056b3; /* Adjust button hover color */
   }
   
