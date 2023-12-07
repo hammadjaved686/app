@@ -62,6 +62,7 @@ export class EditUserComponent implements OnInit {
       },
       (error: any) => {
         // Handle error: Log or display an error message
+        debugger
         console.error('Error adding user:', error);
       }
     );

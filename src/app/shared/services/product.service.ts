@@ -1,11 +1,8 @@
-// product.service.ts
-
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable, throwError, of } from 'rxjs';
+import { catchError, map, switchMap, mergeMap } from 'rxjs/operators';
 import { ProductModel } from 'src/app/product/product.model';
-
 
 @Injectable({
   providedIn: 'root'
@@ -15,46 +12,52 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  // Handle API errors
   private handleError(error: any) {
     console.error('API Error:', error);
     return throwError(error);
   }
 
-  // Add product API call
   addProduct(product: ProductModel): Observable<ProductModel> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<ProductModel>(this.apiUrl, product, { headers }).pipe(
       catchError(this.handleError)
     );
   }
+
   getFilteredProducts(filters: any): Observable<any> {
-    // Construct the query parameters based on filters passed
-    const queryParams = new URLSearchParams(filters).toString();
-    const url = `${this.apiUrl}?${queryParams}`;
-    return this.http.get(url);
+    return of(filters).pipe(
+      switchMap((filterParams) => {
+        const params = new HttpParams({ fromObject: filterParams });
+        return this.http.get<any[]>(this.apiUrl, { params });
+      }),
+      catchError(this.handleError)
+    );
   }
+
   getProducts(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl)
-      .pipe(
-        catchError((error) => {
-          // Custom error handling logic here if needed
-          console.error('Error fetching products:', error);
-          return throwError(error);
-        })
-      );
+    return this.http.get<any[]>(this.apiUrl).pipe(
+      catchError((error) => {
+        console.error('Error fetching products:', error);
+        return throwError(error);
+      })
+    );
   }
+
   getProductById(productId: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}${productId}`);
+    return this.http.get<any>(`${this.apiUrl}${productId}`).pipe(
+      catchError(this.handleError)
+    );
   }
+
   updateProduct(productId: number, updatedProductData: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}${productId}`, updatedProductData);
+    return this.http.put<any>(`${this.apiUrl}${productId}`, updatedProductData).pipe(
+      catchError(this.handleError)
+    );
   }
 
   deleteProduct(productId: number): Observable<any> {
-    debugger
-    console.log(productId, 'prodductId del')
-    return this.http.delete<any>(`${this.apiUrl}${productId}`);
+    return this.http.delete<any>(`${this.apiUrl}${productId}`).pipe(
+      catchError(this.handleError)
+    );
   }
-
 }

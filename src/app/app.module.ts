@@ -15,7 +15,6 @@ import { HeaderComponent } from './core/layout/header/header.component';
 import { FooterComponent } from './core/layout/footer/footer.component';
 import { LayoutComponent } from './core/layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { MyCustomPipePipe } from './my-custom-pipe.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { MatIconModule } from '@angular/material/icon';
 import { ProductModule } from './product/product.module';
@@ -33,7 +32,7 @@ import { DeleteConfirmationComponent } from './shared/delete-confirmation/delete
     FooterComponent,
     LayoutComponent,
     DashboardComponent,
-    MyCustomPipePipe,
+    
     DeleteConfirmationComponent
   ],
   imports: [

@@ -7,6 +7,7 @@ import { AddProductComponent } from '../add-product/add-product.component';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { EditProductComponent } from '../edit-product/edit-product.component';
 import { DeleteConfirmationComponent } from '../../../app/shared/delete-confirmation/delete-confirmation.component'
+import { MyCapitalizePipe } from 'src/app/my-capitalize-pipe.pipe'
 
 
 
@@ -14,12 +15,13 @@ import { DeleteConfirmationComponent } from '../../../app/shared/delete-confirma
   selector: 'app-list-product',
   templateUrl: './list-product.component.html',
   styleUrls: ['./list-product.component.css'],
+  providers: [MyCapitalizePipe]
 })
 export class ListProductComponent implements OnInit {
   dataSource = new MatTableDataSource<any>(); // Change 'any' to your ProductModel type
   displayedColumns: string[] = ['id', 'title', 'price', 'description', 'category', 'images', 'actions'];
   filters: any = {}; // Define your filter model here
-
+  isAppliedFilters = false;
   constructor(private http: HttpClient,private dialog: MatDialog, private productService: ProductService,) {}
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -27,7 +29,9 @@ export class ListProductComponent implements OnInit {
   ngOnInit(): void {
     this.fetchProductList();
   }
-
+  appliedFilters(){
+ return !!this.filters.length()
+}
   fetchProductList(): void {
     this.productService.getProducts().subscribe(
       (response: any[]) => {
@@ -103,6 +107,7 @@ export class ListProductComponent implements OnInit {
     });
   }
   applyFilters() {
+    this.isAppliedFilters = true
     this.productService.getFilteredProducts(this.filters)
       .subscribe((data: any) => {
         this.dataSource.data = data;

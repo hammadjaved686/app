@@ -13,6 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { MyCapitalizePipe } from '../my-capitalize-pipe.pipe';
+import { MyCustomDirective } from '../myCustomDirective.directive'; // Adjust the import path accordingly
 
 
 
@@ -20,7 +22,10 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule
   declarations: [
     ListProductComponent,
     AddProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    MyCapitalizePipe,
+    MyCustomDirective
+
   ],
   imports: [
     CommonModule,

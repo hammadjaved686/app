@@ -47,7 +47,9 @@ export class ErrorInterceptor implements HttpInterceptor {
           if (error.status === 401) {
             // Handle unauthorized access
             // Redirect to login page, display a message, etc.
-            this.router.navigateByUrl('/authentication/login');
+            alert('you are unauthorized to do this action')
+
+            // this.router.navigateByUrl('/authentication/login');
           } 
 
           return throwError(errorMessage);
