@@ -11,6 +11,7 @@ import { ListProductComponent } from './product/list-product/list-product.compon
 import { ListUserComponent } from './user/list-user/list-user.component';
 import { AddUserComponent } from './user/add-user/add-user.component';
 import { RegisterComponent } from './core/auth/register/register.component';
+import { ListCategoryComponent } from './category/list-category/list-category.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,8 @@ const routes: Routes = [
       { path: 'NotFound', component: NotFoundComponent},
       { path: 'product', component: ListProductComponent, canActivate: [AuthGuard]},
       { path: 'user', component: ListUserComponent, canActivate: [AuthGuard]},
+      { path: 'category', component: ListCategoryComponent, canActivate: [AuthGuard]},
+
 
 
       // Add more routes for other content components

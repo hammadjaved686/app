@@ -57,16 +57,12 @@ export class HeaderComponent {
     this.isUser = true
     this.isProduct = false
     this.isCategory = false
-
-
     this.router.navigateByUrl('/user')
   }
   goToCategories(){
     this.isUser = false
     this.isProduct = false
     this.isCategory = true
-
-
-    this.router.navigateByUrl('/user')
+    this.router.navigateByUrl('/category')
   }
 }
