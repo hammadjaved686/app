@@ -9,6 +9,15 @@ import { AuthenticationService } from 'src/app/shared/services/auth-service.serv
 })
 export class HeaderComponent {
   isAuthenticated: boolean =false; // Flag to track authentication status
+  sidnav: { [key: string]: boolean } = {
+    users: false,
+    category: false,
+    products: false,
+  };
+  isCategory: boolean =false; // Flag to track authentication status
+  isUser: boolean =false; // Flag to track authentication status
+  isProduct: boolean =false; // Flag to track authentication status
+  productCount: number =0; // Flag to track authentication status
 
   constructor(public router : Router,    
     private authService: AuthenticationService,
@@ -21,9 +30,20 @@ export class HeaderComponent {
         this.isAuthenticated = isAuthenticated;
         // You can perform actions based on the authentication status here...
       });
+
+
+      this.authService.entityCount$.subscribe((entityCount) => {
+        debugger
+        console.log('Entity header  component call ', entityCount)
+        this.productCount = entityCount.count
+        // this.entityCount = entityCount;
+      });
     }
-  GoToDashborad(){
-    this.router.navigateByUrl('/dashboard')
+  goToProducts(){
+    this.isProduct = true;
+    this.isUser = false;
+   this.isCategory = false
+    this.router.navigateByUrl('/product')
   }
   login() {
     debugger
@@ -33,7 +53,20 @@ export class HeaderComponent {
     debugger
     this.authService.doLogout()
   }
-  GoToNotfound(){
-    this.router.navigateByUrl('/dashboardInitiateRequest')
+  goToUsers(){
+    this.isUser = true
+    this.isProduct = false
+    this.isCategory = false
+
+
+    this.router.navigateByUrl('/user')
+  }
+  goToCategories(){
+    this.isUser = false
+    this.isProduct = false
+    this.isCategory = true
+
+
+    this.router.navigateByUrl('/user')
   }
 }

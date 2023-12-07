@@ -1,0 +1,25 @@
+<!-- edit-product.component.html -->
+
+<div class="edit-product-container">
+    <h2>Edit Product</h2>
+    
+    <!-- Reactive form for editing product details -->
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input matInput placeholder="Title" formControlName="title">
+      </mat-form-field>
+    
+      <mat-form-field>
+        <input matInput placeholder="Price" formControlName="price">
+      </mat-form-field>
+    
+      <!-- <mat-form-field>
+        <textarea matInput placeholder="Description" formControlName="description"></textarea>
+      </mat-form-field> -->
+    
+      <!-- Other input fields as needed -->
+    
+      <button mat-raised-button color="primary" type="submit">Save Changes</button>
+    </form>
+  </div>
+  
