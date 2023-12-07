@@ -22,8 +22,8 @@ export class HeaderComponent {
         // You can perform actions based on the authentication status here...
       });
     }
-  GoToDashborad(){
-    this.router.navigateByUrl('/dashboard')
+  GoToProducts(){
+    this.router.navigateByUrl('/product')
   }
   login() {
     debugger
@@ -33,7 +33,7 @@ export class HeaderComponent {
     debugger
     this.authService.doLogout()
   }
-  GoToNotfound(){
-    this.router.navigateByUrl('/dashboardInitiateRequest')
+  GoToUsers(){
+    this.router.navigateByUrl('/user')
   }
 }

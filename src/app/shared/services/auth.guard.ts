@@ -14,10 +14,11 @@ export class AuthGuard implements CanActivate {
         state: RouterStateSnapshot
     ): boolean {
         debugger
-        return true
-        if (this.authService.isAuthenticated()) {
+        const currentRoute = state.url; // Get the current route
 
-            return false;
+        if (this.authService.isAuthenticated() || currentRoute.includes('register')) {
+
+            return true;
         } else {
             //   return this.router.createUrlTree(['/login']); // Redirect to the login page if not authenticated
             this.router.navigate(['authentication/login']);
