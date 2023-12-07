@@ -17,6 +17,7 @@ export class HeaderComponent {
   isCategory: boolean =false; // Flag to track authentication status
   isUser: boolean =false; // Flag to track authentication status
   isProduct: boolean =false; // Flag to track authentication status
+  productCount: number =0; // Flag to track authentication status
 
   constructor(public router : Router,    
     private authService: AuthenticationService,
@@ -28,6 +29,14 @@ export class HeaderComponent {
         console.log('header component call ',isAuthenticated)
         this.isAuthenticated = isAuthenticated;
         // You can perform actions based on the authentication status here...
+      });
+
+
+      this.authService.entityCount$.subscribe((entityCount) => {
+        debugger
+        console.log('Entity header  component call ', entityCount)
+        this.productCount = entityCount.count
+        // this.entityCount = entityCount;
       });
     }
   goToProducts(){

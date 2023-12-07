@@ -8,6 +8,7 @@ import { ProductService } from 'src/app/shared/services/product.service';
 import { EditProductComponent } from '../edit-product/edit-product.component';
 import { DeleteConfirmationComponent } from '../../../app/shared/delete-confirmation/delete-confirmation.component'
 import { MyCapitalizePipe } from 'src/app/my-capitalize-pipe.pipe'
+import { AuthenticationService } from '../../shared/services/auth-service.service'
 
 
 
@@ -22,12 +23,21 @@ export class ListProductComponent implements OnInit {
   displayedColumns: string[] = ['id', 'title', 'price', 'description', 'category', 'images', 'actions'];
   filters: any = {}; // Define your filter model here
   isAppliedFilters = false;
-  constructor(private http: HttpClient,private dialog: MatDialog, private productService: ProductService,) {}
+  constructor(private http: HttpClient,private dialog: MatDialog, private productService: ProductService,
+    private authService: AuthenticationService,
+    ) {}
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit(): void {
     this.fetchProductList();
+
+    this.authService.entityCount$.subscribe((entityCount) => {
+      debugger
+      console.log('Entity Count list Product component call ', entityCount)
+
+      // this.entityCount = entityCount;
+    });
   }
   appliedFilters(){
  return !!this.filters.length()
@@ -37,6 +47,9 @@ export class ListProductComponent implements OnInit {
       (response: any[]) => {
         this.dataSource.data = response; // Assign the fetched data to dataSource
         console.log(this.dataSource.data)
+        debugger
+        this.authService.dothat({ name: 'products', count: this.dataSource.data.length })
+
       },
       (error) => {
         console.error('Error fetching products:', error);
@@ -58,6 +71,7 @@ export class ListProductComponent implements OnInit {
       // Handle the result here if needed
       console.log('Dialog closed with result:', result);
       this.dataSource.data.unshift(result); // Append newObj to
+      this.authService.dothat({ name: 'products', count: this.dataSource.data.length })
       this.dataSource._updateChangeSubscription(); // this.dataSource.data = updatedDataArray;
       // Update product list or perform other actions based on the result
     });
@@ -96,6 +110,7 @@ export class ListProductComponent implements OnInit {
             const index = this.dataSource.data.findIndex(product => product.id === productId);
             if (index > -1) {
               this.dataSource.data.splice(index, 1);
+              this.authService.dothat({ name: 'products', count: this.dataSource.data.length })
               this.dataSource._updateChangeSubscription(); // Notify the data source about the change
             }
           },

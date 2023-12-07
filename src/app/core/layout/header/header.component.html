@@ -11,7 +11,7 @@
               <li   [ngClass]="{'active': isProduct}" >
                  <a  aria-expanded="false" (click)="goToProducts()">
                       <i class="icon icon-document-outline"></i> 
-                        Products
+                        Products {{productCount}}
                  </a>
               </li>
               <li  [ngClass]="{'active': isUser}" class="has-child">

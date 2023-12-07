@@ -5,7 +5,11 @@ import { Router } from '@angular/router';
 import { environment } from 'src/enviroments/environment';
 // import {JwtService} from './jwt.service'
 
-
+interface Entity {
+  count: number;
+  name: string;
+  // Other properties
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -13,9 +17,12 @@ export class AuthenticationService {
   private userToken: string | null = null;
   private userInfo: any | null = null;
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  private entityCountSubject = new BehaviorSubject<Entity>({ count: 0, name: 'Default' });
+
 
   // Expose an observable to allow components to subscribe to changes
   isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
+  entityCount$: Observable<Entity> = this.entityCountSubject.asObservable();
 
   constructor(private httpService: HttpService,private router: Router
     ) {    
@@ -28,7 +35,10 @@ export class AuthenticationService {
     // For simplicity, we'll just set isAuthenticated to true
     this.isAuthenticatedSubject.next(true);
   }
+  dothat(obj:any) {
+    this.entityCountSubject.next(obj);
 
+  }
   // Function to perform user logout
   doLogout() {
     // Simulate a logout process
