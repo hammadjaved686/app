@@ -61,7 +61,18 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForms();
+    this.authService.isAuthenticated$.subscribe((isAuthenticated) => {
+      debugger
 
+      this.isAuthenticated = isAuthenticated;
+      console.log('register : isAuthenticated : ',this.isAuthenticated )
+      // if(!isAuthenticated){
+      //         this.router.navigate(['/product']);
+      // }
+      // else{
+      //   alert('UserNot LoggedIn')
+      // }
+    });
     // if (this.authService.isAuthenticated()) {
     //   this.router.navigate(['/product']);
 
