@@ -41,16 +41,16 @@
                 background: $theme-clr;
             }
         }
-        > li.has-child {
-            a {
-                &:after {
-                    content: "\e90a";
-                    font-family: 'icomoon';
-                    position: absolute;
-                    right: 10px;
-                }
-            }
-        }
+        // > li.has-child {
+        //     a {
+        //         &:after {
+        //             content: "\e90a";
+        //             font-family: 'icomoon';
+        //             position: absolute;
+        //             right: 10px;
+        //         }
+        //     }
+        // }
     }
 }
 .sb-topnav {
@@ -68,9 +68,9 @@
         align-items: center;
         justify-content: center;
         text-decoration: none;
-        &:after {
-            display: none;
-        }
+        // &:after {
+        //     display: none;
+        // }
     }
     li {
         margin-left: 15px;

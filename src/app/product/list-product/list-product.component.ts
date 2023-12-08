@@ -70,7 +70,10 @@ export class ListProductComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // Handle the result here if needed
       console.log('Dialog closed with result:', result);
-      this.dataSource.data.unshift(result); // Append newObj to
+
+      if(result){      
+        this.dataSource.data.unshift(result); // Append newObj to
+      }
       this.authService.dothat({ name: 'products', count: this.dataSource.data.length })
       this.dataSource._updateChangeSubscription(); // this.dataSource.data = updatedDataArray;
       // Update product list or perform other actions based on the result

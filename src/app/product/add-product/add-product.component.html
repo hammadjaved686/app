@@ -1,10 +1,53 @@
 <form [formGroup]="productForm" (ngSubmit)="submitProduct()">
-    <!-- Form fields for product details -->
-    <input formControlName="title" placeholder="Title">
-    <input formControlName="price" placeholder="Price">
-    <input formControlName="description" placeholder="Description">
-    <input formControlName="categoryId" placeholder="Category ID">
-    <input formControlName="images" placeholder="Images">
-    <button type="submit">Submit</button>
-  </form>
-  
+ 
+  <div class="form-group input-container d-flex flex-column title">
+    <label for="title">Title</label>
+    <input type="text" formControlName="title" [(ngModel)]="title">
+    <!-- Display validation error message for email -->
+    <div *ngIf="productForm.get('title')!.hasError('required') && productForm.get('title')!.touched" class="error-message">
+      Title is required.
+    </div>
+    <div *ngIf="productForm.get('title')!.hasError('title') && productForm.get('title')!.touched" class="error-message">
+      Please enter a valid title
+    </div>
+  </div>
+
+  <div class="form-group input-container d-flex flex-column price">
+    <label for="username">Price</label>
+    <input type="text" formControlName="price" [(ngModel)]="price">
+    <!-- Display validation error message for email -->
+    <div *ngIf="productForm.get('price')!.hasError('required') && productForm.get('price')!.touched" class="error-message">
+      price is required.
+    </div>
+    <div *ngIf="productForm.get('price')!.hasError('price') && productForm.get('price')!.touched" class="error-message">
+      Please enter a valid price .
+    </div>
+  </div>
+
+  <div class="form-group input-container d-flex flex-column description">
+    <label for="username">Description</label>
+    <input type="text" formControlName="description" [(ngModel)]="description">
+    <!-- Display validation error message for email -->
+    <div *ngIf="productForm.get('description')!.hasError('required') && productForm.get('description')!.touched" class="error-message">
+      Description is required.
+    </div>
+    <div *ngIf="productForm.get('description')!.hasError('description') && productForm.get('description')!.touched" class="error-message">
+      Please enter a valid Description.
+    </div>
+  </div>
+
+  <div class="form-group input-container d-flex flex-column categoryId">
+    <label for="username">CategoryId</label>
+    <input type="text" formControlName="categoryId" [(ngModel)]="categoryId">
+    <!-- Display validation error message for email -->
+    <div *ngIf="productForm.get('categoryId')!.hasError('required') && productForm.get('categoryId')!.touched" class="error-message">
+      categoryId is required.
+    </div>
+    <div *ngIf="productForm.get('categoryId')!.hasError('categoryId') && productForm.get('categoryId')!.touched" class="error-message">
+      Please enter a valid categoryId.
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary login-btn">Save</button>
+
+</form>

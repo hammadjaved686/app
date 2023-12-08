@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { ProductService } from 'src/app/shared/services/product.service';
+import { DEFAULT_PRODUCT_IMAGE_URL } from 'src/app/constants'; // Import the constant here
 
 @Component({
   selector: 'app-add-product',
@@ -12,7 +13,12 @@ import { ProductService } from 'src/app/shared/services/product.service';
 export class AddProductComponent {
   productForm: FormGroup;
 
-  constructor(private productService: ProductService,
+  title: string = '';
+  description: string = '';
+  price: string = '';
+  categoryId: string = '';
+  constructor(
+    private productService: ProductService,
     private dialogRef: MatDialogRef<AddProductComponent>,
     private formBuilder: FormBuilder,
     private http: HttpClient,
@@ -30,8 +36,7 @@ export class AddProductComponent {
   submitProduct(): void {
     if (this.productForm.valid) {
       const newProduct = this.productForm.value;
-      console.log('product : ', newProduct)
-      newProduct.images = ["https://placeimg.com/640/480/any"]
+      newProduct.images = [DEFAULT_PRODUCT_IMAGE_URL]; // Set the image URL from the constant
       this.productService.addProduct(newProduct).subscribe(
         (response: any) => {
           // Handle success: Response received from API
@@ -45,7 +50,6 @@ export class AddProductComponent {
           console.error('Error adding product:', error);
         }
       );
-
     }
   }
 }
