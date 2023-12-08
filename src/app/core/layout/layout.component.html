@@ -7,10 +7,15 @@
 <!-- layout.component.html -->
 
 <div class="layout-container">
-    <app-header ></app-header>
+  <!-- <div (click)="changeParentData()">
+      
+          click me I am parent {{dataFromParent}}
+      
+  </div> -->
+    <app-header [parentData]="dataFromParent" (childEvent)="receiveDataFromChild($event)" ></app-header>
     <div class="content">
       <!-- <router-outlet></router-outlet> -->
     </div>
     <!-- <app-footer></app-footer> -->
-  </div>
+</div>
   
