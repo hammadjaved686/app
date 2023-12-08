@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProductComponent } from '../add-product/add-product.component';
 import { ProductService } from 'src/app/shared/services/product.service';
@@ -22,6 +22,10 @@ export class ListProductComponent implements OnInit {
   dataSource = new MatTableDataSource<any>(); // Change 'any' to your ProductModel type
   displayedColumns: string[] = ['id', 'title', 'price', 'description', 'category', 'images', 'actions'];
   filters: any = {}; // Define your filter model here
+  pageSizeOptions = [5, 10, 25, 50]; // Define your page size options
+  pagedProducts: any[] = [];
+  page = 1;
+  pageSize = 6;
   isAppliedFilters = false;
   constructor(private http: HttpClient,private dialog: MatDialog, private productService: ProductService,
     private authService: AuthenticationService,
@@ -35,6 +39,7 @@ export class ListProductComponent implements OnInit {
     this.authService.entityCount$.subscribe((entityCount) => {
       debugger
       console.log('Entity Count list Product component call ', entityCount)
+      this.paginateProducts();
 
       // this.entityCount = entityCount;
     });
@@ -42,6 +47,7 @@ export class ListProductComponent implements OnInit {
   appliedFilters(){
  return !!this.filters.length()
 }
+
   fetchProductList(): void {
     this.productService.getProducts().subscribe(
       (response: any[]) => {
@@ -131,4 +137,22 @@ export class ListProductComponent implements OnInit {
         this.dataSource.data = data;
         this.dataSource._updateChangeSubscription();      });
   }
+
+  paginateProducts() {
+    const startIndex = (this.page - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.pagedProducts = this.dataSource.data.slice(startIndex, endIndex);
+  }
+
+  goToPage(newPage: number) {
+    if (newPage >= 1 && newPage <= this.totalPages) {
+      this.page = newPage;
+      this.paginateProducts();
+    }
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.dataSource.data.length / this.pageSize);
+  }
+
 }

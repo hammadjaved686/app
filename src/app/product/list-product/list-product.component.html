@@ -75,6 +75,32 @@
 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
 
+
+
+
+<div class="product-cards">
+  <div class="product-card" *ngFor="let product of pagedProducts">
+    <!-- Product card content -->
+    <img [src]="product?.images[0]" alt="Product Image" class="product-image">
+    <h3>{{ product?.title }}</h3>
+    <p>Price: {{ product?.price }}</p>
+    <div class="actions">
+      <button mat-icon-button color="primary" (click)="openEditProductDialog(product?.id)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="openDeleteConfirmation(product?.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="pagination">
+  <button mat-button color="primary" (click)="goToPage(page - 1)" [disabled]="page === 1">Previous</button>
+  <span>{{ page }}</span>
+  <button mat-button color="primary" (click)="goToPage(page + 1)" [disabled]="page === totalPages">Next</button>
+</div>
+
 <!-- product-list.component.html -->
 
 

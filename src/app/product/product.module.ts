@@ -15,6 +15,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { MyCapitalizePipe } from '../my-capitalize-pipe.pipe';
 import { MyCustomDirective } from '../myCustomDirective.directive'; // Adjust the import path accordingly
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -39,6 +40,7 @@ import { MyCustomDirective } from '../myCustomDirective.directive'; // Adjust th
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
+    MatCardModule
   ]
 })
 export class ProductModule { }
