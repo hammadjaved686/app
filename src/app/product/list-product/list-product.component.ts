@@ -24,9 +24,12 @@ export class ListProductComponent implements OnInit {
   filters: any = {}; // Define your filter model here
   pageSizeOptions = [5, 10, 25, 50]; // Define your page size options
   pagedProducts: any[] = [];
+  openProductDetailsModal = false;
+  selectedProduct: any; // Store selected product details here
   page = 1;
   pageSize = 6;
   isAppliedFilters = false;
+  userRole= ''
   constructor(private http: HttpClient,private dialog: MatDialog, private productService: ProductService,
     private authService: AuthenticationService,
     ) {}
@@ -34,6 +37,12 @@ export class ListProductComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit(): void {
+    const storedUserRole = localStorage.getItem('userRole');
+    if (storedUserRole !== null) {
+      this.userRole = storedUserRole;
+    }
+    debugger
+
     this.fetchProductList();
 
     this.authService.entityCount$.subscribe((entityCount) => {
@@ -153,6 +162,12 @@ export class ListProductComponent implements OnInit {
 
   get totalPages(): number {
     return Math.ceil(this.dataSource.data.length / this.pageSize);
+  }
+
+  // Method to set selected product and open modal
+  openModalWithProduct(product: any): void {
+    this.selectedProduct = product;
+    this.openProductDetailsModal = true;
   }
 
 }

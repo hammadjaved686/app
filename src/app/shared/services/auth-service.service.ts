@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpService } from './http.service'
 import { Router } from '@angular/router';
 import { environment } from 'src/enviroments/environment';
-// import {JwtService} from './jwt.service'
+import {JwtService} from './jwt.service'
 
 interface Entity {
   count: number;
@@ -24,7 +24,8 @@ export class AuthenticationService {
   isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
   entityCount$: Observable<Entity> = this.entityCountSubject.asObservable();
 
-  constructor(private httpService: HttpService,private router: Router
+  constructor(private httpService: HttpService,private router: Router, 
+    // private jwtService: JwtService
     ) {    
  }
  
@@ -87,6 +88,12 @@ export class AuthenticationService {
           if (response && response.access_token) {
             // Token exists in the response
             localStorage.setItem('auth_token', response.access_token);
+            if(params.email === 'admin@mail.com') {
+              localStorage.setItem('userRole', 'admin');
+            }
+            else {
+              localStorage.setItem('userRole', 'customer');
+            }
             const token = response.access_token;
             debugger;
             localStorage.setItem('access_token', response.access_token);

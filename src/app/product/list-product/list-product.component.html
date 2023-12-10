@@ -1,5 +1,5 @@
-
-<div class="filters" >
+<div *ngIf="userRole === 'admin'">
+  <div class="filters" >
   <input type="text" placeholder="Filter by Title" [(ngModel)]="filters.title">
   <input type="number" placeholder="Filter by Price" [(ngModel)]="filters.price">
   <!-- Include other filter inputs here -->
@@ -74,12 +74,17 @@
 
 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
+</div>
 
 
 
+
+<div *ngIf="userRole === 'customer'">
+
+<app-cart></app-cart>
 
 <div class="product-cards">
-  <div class="product-card" *ngFor="let product of pagedProducts">
+  <div class="product-card" (click)="openModalWithProduct(product)" *ngFor="let product of pagedProducts">
     <!-- Product card content -->
     <img [src]="product?.images[0]" alt="Product Image" class="product-image">
     <h3>{{ product?.title }}</h3>
@@ -93,6 +98,13 @@
       </button>
     </div>
   </div>
+  <div>
+    <app-product-details-modal
+  *ngIf="openProductDetailsModal"
+  [product]="selectedProduct"
+  (closeModal)="openProductDetailsModal = false"
+></app-product-details-modal>
+  </div>
 </div>
 
 <div class="pagination">
@@ -101,6 +113,7 @@
   <button mat-button color="primary" (click)="goToPage(page + 1)" [disabled]="page === totalPages">Next</button>
 </div>
 
+</div>
 <!-- product-list.component.html -->
 
 

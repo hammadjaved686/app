@@ -16,6 +16,8 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { MyCapitalizePipe } from '../my-capitalize-pipe.pipe';
 import { MyCustomDirective } from '../myCustomDirective.directive'; // Adjust the import path accordingly
 import { MatCardModule } from '@angular/material/card';
+import { ProductDetailsModalComponent } from './product-details-modal/product-details-modal.component';
+import { CartComponent } from '../../app/shared/cart/cart.component'; // Import the app-cart component
 
 
 
@@ -25,7 +27,9 @@ import { MatCardModule } from '@angular/material/card';
     AddProductComponent,
     EditProductComponent,
     MyCapitalizePipe,
-    MyCustomDirective
+    MyCustomDirective,
+    ProductDetailsModalComponent,
+    CartComponent
 
   ],
   imports: [
