@@ -7,11 +7,11 @@
 <!-- layout.component.html -->
 
 <div class="layout-container">
-  <div (click)="changeParentData()">
+  <!-- <div (click)="changeParentData()">
       
           click me I am parent {{dataFromParent}}
       
-  </div>
+  </div> -->
     <app-header [parentData]="dataFromParent" (childEvent)="receiveDataFromChild($event)" ></app-header>
     <div class="content">
       <!-- <router-outlet></router-outlet> -->

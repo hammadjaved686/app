@@ -14,6 +14,8 @@ export class HeaderComponent {
   sendDataToParent() {
     this.childEvent.emit('Data from Child');
   }
+  userRole= ''
+
   isAuthenticated: boolean =false; // Flag to track authentication status
   sidnav: { [key: string]: boolean } = {
     users: false,
@@ -29,6 +31,10 @@ showParent =false;
     private authService: AuthenticationService,
     ){}
     ngOnInit() {
+      const storedUserRole = localStorage.getItem('userRole');
+      if (storedUserRole !== null) {
+        this.userRole = storedUserRole;
+      }
       // Subscribe to isAuthenticated$ to react to changes in authentication status
       this.parentDataa = this.parentData;
       this.authService.isAuthenticated$.subscribe((isAuthenticated) => {

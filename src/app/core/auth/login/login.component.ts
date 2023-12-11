@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
 
       this.isAuthenticated = isAuthenticated;
     });
-          this.router.navigate(['/product']);
+          // this.router.navigate(['/product']);
 
   }
 

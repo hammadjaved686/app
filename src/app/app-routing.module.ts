@@ -22,10 +22,10 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: LayoutComponent, canActivate: [AuthGuard],
+    component: LayoutComponent,
     children: [
       { path: 'NotFound', component: NotFoundComponent},
-      { path: 'product', component: ListProductComponent, canActivate: [AuthGuard]},
+      { path: 'product', component: ListProductComponent},
       { path: 'user', component: ListUserComponent, canActivate: [AuthGuard]},
       { path: 'category', component: ListCategoryComponent, canActivate: [AuthGuard]},
 
@@ -34,7 +34,7 @@ const routes: Routes = [
       // Add more routes for other content components
     ],
   },
-  { path: 'login', component: LoginComponent,canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'not-found', component: NotFoundComponent  },

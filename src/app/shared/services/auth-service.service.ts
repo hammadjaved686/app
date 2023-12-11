@@ -89,10 +89,10 @@ export class AuthenticationService {
             // Token exists in the response
             localStorage.setItem('auth_token', response.access_token);
             if(params.email === 'admin@mail.com') {
-              localStorage.setItem('userRole', 'admin');
+              localStorage.setItem('userRole', 'customer');
             }
             else {
-              localStorage.setItem('userRole', 'customer');
+              localStorage.setItem('userRole', 'admin');
             }
             const token = response.access_token;
             debugger;

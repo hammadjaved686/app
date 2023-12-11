@@ -46,6 +46,9 @@ export class ListProductComponent implements OnInit {
     if (storedUserRole !== null) {
       this.userRole = storedUserRole;
     }
+    else {
+      this.userRole = 'customer';
+    }
     debugger
 
     this.fetchProductList();
