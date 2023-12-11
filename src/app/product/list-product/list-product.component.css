@@ -107,3 +107,14 @@
   z-index: 9999;
   backdrop-filter: blur(5px); /* Apply backdrop filter for blurring */
 }
+
+.categories button {
+  /* Your button styles */
+}
+
+.categories button.selected {
+  /* Your selected button styles */
+  background-color: #3498db;
+  color: white;
+  /* Add any other styles to indicate selection */
+}

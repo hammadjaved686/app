@@ -14,6 +14,7 @@ export class ProductDetailsModalComponent {
   addToCart(product: any): void {
     debugger
     this.cartService.setToCart(product);
+    this.closeModal.emit()
   }
 
 }

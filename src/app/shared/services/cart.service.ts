@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class CartService {
   cartItems: any[] = [];
-  private cartCountSubject = new BehaviorSubject<any>({ count: 0, name: 'Default' });
+  private cartCountSubject = new BehaviorSubject<any>({ count: 0, name: '' });
 
 
   // Expose an observable to allow components to subscribe to changes

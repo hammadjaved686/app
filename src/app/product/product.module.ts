@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { EditProductComponent } from './edit-product/edit-product.component';
+// import { EditProductComponent } from './edit-product/edit-product.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { MyCapitalizePipe } from '../my-capitalize-pipe.pipe';
@@ -25,7 +25,7 @@ import { CartComponent } from '../../app/shared/cart/cart.component'; // Import 
   declarations: [
     ListProductComponent,
     AddProductComponent,
-    EditProductComponent,
+    // EditProductComponent,
     MyCapitalizePipe,
     MyCustomDirective,
     ProductDetailsModalComponent,

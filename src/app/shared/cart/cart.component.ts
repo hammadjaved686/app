@@ -17,8 +17,12 @@ ngOnInit(): void {
   //Add 'implements OnInit' to the class.
   this.cartService.cartCount$.subscribe((cartItem) => {
     debugger
-    console.log('Entity Cart  component call ', cartItem)
+    console.log('Entity Cart ------ component call ', cartItem)
+    if(cartItem.name !=='')
     this.cartItems.push(cartItem)
+    // this.cartItems = this.cartItems.filter(item => item.count !== 0 || item.name.trim() !== '');
+
+    console.log('Entity Cart Items------ component call ', this.cartItems)
     
     // this.productCount = entityCount.count
     // this.childEvent.emit(`Data from Child Products Count ${entityCount.count}` );

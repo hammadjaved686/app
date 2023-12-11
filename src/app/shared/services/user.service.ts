@@ -4,16 +4,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { UserModel } from 'src/app/user/user.model';
+import { UserModel } from '../../../app/user/user.model';
+import { environment } from '../../../enviroments/environment';
+
+// private apiUrl = 'https://api.escuelajs.co/api/v1/Users/';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'https://api.escuelajs.co/api/v1/Users/';
+  private apiUrl: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.apiUrl = `${environment.apiBaseUrl}Users/`
+  }
 
   // Handle API errors
   private handleError(error: any) {
@@ -23,6 +28,7 @@ export class UserService {
 
   // Add User API call
   addUser(User: UserModel): Observable<UserModel> {
+    debugger
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<UserModel>(this.apiUrl, User, { headers }).pipe(
       catchError(this.handleError)

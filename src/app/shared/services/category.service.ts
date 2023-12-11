@@ -43,6 +43,15 @@ export class CategoryService {
     );
   }
 
+  getProductsByCategory(categoryId: number | string): Observable<any[]> {
+    return this.http.get<any[]>(`https://api.escuelajs.co/api/v1/categories/${categoryId}/products`).pipe(
+      catchError((error) => {
+        console.error('Error fetching Categorys:', error);
+        return throwError(error);
+      })
+    );;
+  }
+
   getCategoryById(CategoryId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}${CategoryId}`).pipe(
       catchError(this.handleError)

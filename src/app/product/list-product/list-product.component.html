@@ -76,12 +76,29 @@
 
 </div>
 
+<!-- product-list.component.html -->
 
 
 
-<div *ngIf="userRole === 'customer'">
+<app-cart *ngIf="userRole === 'customer'" ></app-cart>
 
-<app-cart></app-cart>
+<div *ngIf="userRole === 'customer' &&  openProductDetailsModal == false
+">
+  <div class="categories">
+    <button
+    (click)="selectCategory({ id: 'All', name: 'All' })"
+    [class.selected]="selectedCategory?.id === 'All'"
+  >
+    All
+  </button>
+    <button
+      *ngFor="let category of categories"
+      [class.selected]="category === selectedCategory"
+      (click)="selectCategory(category)"
+    >
+      {{ category.name }}
+    </button>
+  </div>
 
 <div class="product-cards">
   <div class="product-card" (click)="openModalWithProduct(product)" *ngFor="let product of pagedProducts">
@@ -89,22 +106,16 @@
     <img [src]="product?.images[0]" alt="Product Image" class="product-image">
     <h3>{{ product?.title }}</h3>
     <p>Price: {{ product?.price }}</p>
-    <div class="actions">
+    <!-- <div class="actions">
       <button mat-icon-button color="primary" (click)="openEditProductDialog(product?.id)">
         <mat-icon>edit</mat-icon>
       </button>
       <button mat-icon-button color="warn" (click)="openDeleteConfirmation(product?.id)">
         <mat-icon>delete</mat-icon>
       </button>
-    </div>
+    </div> -->
   </div>
-  <div>
-    <app-product-details-modal
-  *ngIf="openProductDetailsModal"
-  [product]="selectedProduct"
-  (closeModal)="openProductDetailsModal = false"
-></app-product-details-modal>
-  </div>
+
 </div>
 
 <div class="pagination">
@@ -114,6 +125,14 @@
 </div>
 
 </div>
-<!-- product-list.component.html -->
+
+<div>
+  <app-product-details-modal
+*ngIf="openProductDetailsModal"
+[product]="selectedProduct"
+(closeModal)="openProductDetailsModal = false"
+></app-product-details-modal>
+</div>
+<!-- product-cards.component.html -->
 
 

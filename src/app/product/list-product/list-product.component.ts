@@ -5,10 +5,12 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProductComponent } from '../add-product/add-product.component';
 import { ProductService } from 'src/app/shared/services/product.service';
-import { EditProductComponent } from '../edit-product/edit-product.component';
+// import { EditProductComponent } from '../edit-product/edit-product.component';
 import { DeleteConfirmationComponent } from '../../../app/shared/delete-confirmation/delete-confirmation.component'
 import { MyCapitalizePipe } from 'src/app/my-capitalize-pipe.pipe'
 import { AuthenticationService } from '../../shared/services/auth-service.service'
+import { CategoryService } from '../../shared/services/category.service'
+
 
 
 
@@ -30,8 +32,11 @@ export class ListProductComponent implements OnInit {
   pageSize = 6;
   isAppliedFilters = false;
   userRole= ''
+  categories: any[] = [];
+  selectedCategory: any;
+
   constructor(private http: HttpClient,private dialog: MatDialog, private productService: ProductService,
-    private authService: AuthenticationService,
+    private authService: AuthenticationService, private CategoryService: CategoryService
     ) {}
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -44,6 +49,7 @@ export class ListProductComponent implements OnInit {
     debugger
 
     this.fetchProductList();
+    this.fetchCategories();
 
     this.authService.entityCount$.subscribe((entityCount) => {
       debugger
@@ -97,7 +103,7 @@ export class ListProductComponent implements OnInit {
 
   openEditProductDialog(productId: number): void {
     debugger
-    const dialogRef = this.dialog.open(EditProductComponent, {
+    const dialogRef = this.dialog.open(AddProductComponent, {
       data: { productId }, // Pass the productId to the dialog if needed
       width: '400px' // Adjust as per your UI requirement
     });
@@ -170,4 +176,45 @@ export class ListProductComponent implements OnInit {
     this.openProductDetailsModal = true;
   }
 
+  fetchCategories(): void {
+    // Make an API call to fetch categories
+    debugger
+    this.CategoryService.getCategorys().subscribe(
+      (response: any) => {
+        this.categories = response;
+        debugger
+      },
+      (error) => {
+        console.error('Error fetching categories:', error);
+      }
+    );
+  }
+
+  fetchProductsByCategory(categoryId: number | string): void {
+    // Make an API call to fetch products based on the selected category
+    this.CategoryService.getProductsByCategory(categoryId).subscribe(
+      (response: any) => {
+        debugger
+        // Update the products data based on the selected category
+        this.pagedProducts= response;
+        this.dataSource._updateChangeSubscription();
+
+        debugger
+      },
+      (error) => {
+        console.error(`Error fetching products for category ${categoryId}:`, error);
+      }
+    );
+  }
+
+  selectCategory(category: any): void {
+    this.selectedCategory = category;
+    if (category.id === 'All') {
+      // Fetch all products
+      this.fetchProductList();
+    } else {
+      // Fetch products based on the selected category
+      this.fetchProductsByCategory(category.id);
+    }
+  }
 }
