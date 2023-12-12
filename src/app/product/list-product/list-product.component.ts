@@ -10,6 +10,8 @@ import { DeleteConfirmationComponent } from '../../../app/shared/delete-confirma
 import { MyCapitalizePipe } from 'src/app/my-capitalize-pipe.pipe'
 import { AuthenticationService } from '../../shared/services/auth-service.service'
 import { CategoryService } from '../../shared/services/category.service'
+import { CartService } from '../../shared/services/cart.service'
+
 
 
 
@@ -34,23 +36,18 @@ export class ListProductComponent implements OnInit {
   userRole= ''
   categories: any[] = [];
   selectedCategory: any;
+  isLogedIn: boolean = false;
+  isCloseModal: boolean = false
 
   constructor(private http: HttpClient,private dialog: MatDialog, private productService: ProductService,
-    private authService: AuthenticationService, private CategoryService: CategoryService
+    private authService: AuthenticationService, private CategoryService: CategoryService, private cartService:CartService
     ) {}
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit(): void {
-    const storedUserRole = localStorage.getItem('userRole');
-    if (storedUserRole !== null) {
-      this.userRole = storedUserRole;
-    }
-    else {
-      this.userRole = 'customer';
-    }
-    debugger
 
+    this.checkUserRole()
     this.fetchProductList();
     this.fetchCategories();
 
@@ -150,6 +147,24 @@ export class ListProductComponent implements OnInit {
   }
   applyFilters() {
     this.isAppliedFilters = true
+    debugger
+    
+    if ('category' in this.filters) {
+      // Find the category object in this.categories that matches categoryName in filters
+      const categoryMatch = this.categories.find((category) => category.name === this.filters.category);
+    
+      if (categoryMatch) {
+        debugger
+        // Remove categoryName from this.filters
+        const { category, ...restFilters } = this.filters;
+        this.filters = { ...restFilters };
+    
+        // Add categoryId to this.filters
+        this.filters.categoryId = categoryMatch.id;
+      }
+      debugger
+    }
+
     this.productService.getFilteredProducts(this.filters)
       .subscribe((data: any) => {
         this.dataSource.data = data;
@@ -178,7 +193,12 @@ export class ListProductComponent implements OnInit {
     this.selectedProduct = product;
     this.openProductDetailsModal = true;
   }
+  addToCart(product: any): void {
+    this.cartService.setToCart({product:product, source:'list-products'});
+    this.openProductDetailsModal =false
+    this.isCloseModal = true
 
+  }
   fetchCategories(): void {
     // Make an API call to fetch categories
     debugger
@@ -219,5 +239,17 @@ export class ListProductComponent implements OnInit {
       // Fetch products based on the selected category
       this.fetchProductsByCategory(category.id);
     }
+  }
+  checkUserRole(){
+    const storedUserRole = localStorage.getItem('userRole');
+    if (storedUserRole !== null) {
+      this.userRole = storedUserRole;
+      this.isLogedIn = true
+    }
+    else {
+      this.isLogedIn = false
+      this.userRole = 'customer';
+    }
+    debugger
   }
 }

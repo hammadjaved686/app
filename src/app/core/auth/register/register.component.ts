@@ -40,19 +40,21 @@ export class RegisterComponent implements OnInit {
   password: string = '';
   name: string = ''; // Added field for name
   avatar: string = '';
-
+  role: string = 'admin';
   constructor(private httpService: HttpService,private UserService: UserService,
     private authService: AuthenticationService,
     private router: Router,
     private fb: FormBuilder) { }
 
-  createForms = () => {
-    this.registerForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-      name: ['', [Validators.required]], 
-    });
-  }
+    createForms = () => {
+      this.registerForm = this.fb.group({
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required]],
+        name: ['', [Validators.required]],
+        role: ['', [Validators.required]] // Add the 'role' field with required validation
+      });
+    }
+    
 
   getNumbers(): Observable<number> {
     // Emits numbers at intervals (for demonstration)
@@ -66,36 +68,15 @@ export class RegisterComponent implements OnInit {
 
       this.isAuthenticated = isAuthenticated;
       console.log('register : isAuthenticated : ',this.isAuthenticated )
-      // if(!isAuthenticated){
-      //         this.router.navigate(['/product']);
-      // }
-      // else{
-      //   alert('UserNot LoggedIn')
-      // }
     });
-    // if (this.authService.isAuthenticated()) {
-    //   this.router.navigate(['/product']);
 
-    // }
-    // this.authService.isAuthenticated$.subscribe((isAuthenticated) => {
-    //   debugger
-    //   console.log('register component call ', isAuthenticated)
-
-    //   this.isAuthenticated = isAuthenticated;
-    // });
-    //       this.router.navigate(['/product']);
 
   }
 
 
   register() {
     if (this.registerForm.valid) {
-      const { email, password, name } = this.registerForm.value;
-      console.log('Email:', email);
-      console.log('Password:', password);
-      console.log('Name:', name);
-
-      const newUser = this.registerForm.value;;
+      const newUser = this.registerForm.value;
       console.log('user : ', newUser)
       newUser.avatar = "https://placeimg.com/640/480/any"
       this.UserService.addUser(newUser).subscribe(

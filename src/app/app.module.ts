@@ -37,6 +37,7 @@ import { CartComponent } from './shared/cart/cart.component';
     LayoutComponent,
     DashboardComponent,
     DeleteConfirmationComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -51,7 +52,7 @@ import { CartComponent } from './shared/cart/cart.component';
     BrowserAnimationsModule,
     ProductModule,
     UserModule,
-    CategoryModule
+    CategoryModule,
 
   ],
   providers: [    {

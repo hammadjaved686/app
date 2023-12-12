@@ -1,16 +1,4 @@
 
-<div class="filters" >
-  <input type="text" placeholder="Filter by Name" [(ngModel)]="filters.name">
-  <input type="number" placeholder="Filter by Image" [(ngModel)]="filters.images">
-  <!-- Include other filter inputs here -->
-
-  <button  (click)="applyFilters()">Apply Filters
-    <button  *ngIf="isAppliedFilters" ></button>
-</button>
-</div>
-
-
-
 <button mat-raised-button color="primary" (click)="openAddCategoryDialog()">Add Category</button>
 
 <mat-table [dataSource]="dataSource">

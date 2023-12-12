@@ -3,15 +3,17 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, map, switchMap, mergeMap } from 'rxjs/operators';
 import { CategoryModel } from '../../category/category.model';
+import { environment } from '../../../enviroments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
-  private apiUrl = 'https://api.escuelajs.co/api/v1/Categories/';
+  private apiUrl: string = '';
 
-  constructor(private http: HttpClient) {}
-
+  constructor(private http: HttpClient) {
+    this.apiUrl = `${environment.apiBaseUrl}Categories/`
+  }
   private handleError(error: any) {
     console.error('API Error:', error);
     return throwError(error);

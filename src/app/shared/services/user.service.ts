@@ -2,8 +2,8 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 import { UserModel } from '../../../app/user/user.model';
 import { environment } from '../../../enviroments/environment';
 
@@ -27,10 +27,22 @@ export class UserService {
   }
 
   // Add User API call
-  addUser(User: UserModel): Observable<UserModel> {
+  addUser(user: any): Observable<any> {
     debugger
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<UserModel>(this.apiUrl, User, { headers }).pipe(
+    return this.isUserAvailable(    {email: user.email}
+      ).pipe(
+      switchMap((response: any) => {
+        debugger
+        if (response.isAvailable === false) {
+          debugger
+          const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+          return this.http.post<any>(this.apiUrl, user, { headers });
+        } else {
+          debugger
+          // Return an observable with some default or error value
+          return of(null); // You can modify this to return an appropriate value/error
+        }
+      }),
       catchError(this.handleError)
     );
   }
@@ -49,6 +61,14 @@ export class UserService {
   }
   updateUser(UserId: number, updatedUserData: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}${UserId}`, updatedUserData);
+  }
+  // [POST] https://api.escuelajs.co/api/v1/users/is-available
+  isUserAvailable(User:any): Observable<UserModel> {
+    debugger
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<UserModel>(`${this.apiUrl}is-available`, User, { headers }).pipe(
+      catchError(this.handleError)
+    );
   }
 
   deleteUser(UserId: number): Observable<any> {

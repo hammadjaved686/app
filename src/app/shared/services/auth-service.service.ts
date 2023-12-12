@@ -4,6 +4,9 @@ import { HttpService } from './http.service'
 import { Router } from '@angular/router';
 import { environment } from 'src/enviroments/environment';
 import {JwtService} from './jwt.service'
+import { UserService } from './user.service';
+import { of } from 'rxjs';
+import { switchMap, tap, map} from 'rxjs/operators';
 
 interface Entity {
   count: number;
@@ -24,7 +27,7 @@ export class AuthenticationService {
   isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
   entityCount$: Observable<Entity> = this.entityCountSubject.asObservable();
 
-  constructor(private httpService: HttpService,private router: Router, 
+  constructor(private httpService: HttpService,private router: Router, private userService: UserService
     // private jwtService: JwtService
     ) {    
  }
@@ -66,85 +69,85 @@ export class AuthenticationService {
 
   // Simulate a login operation (replace with your actual login logic)
   login(params: any): void {
-    console.log(params, 'param')
-    // Replace this with your actual login logic, e.g., making an API request to authenticate the user.
-    // For this example, we'll assume the user is successfully logged in.
-    if(this.isAuthenticated() == true) {
-      this.router.navigateByUrl('/product')
-    }
+    // Existing login code...
+  
     const requestBody = {
       "email": `${params.email}`,
       "password": `${params.password}`
-    }
-    // const params = {}
-    debugger
-    this.httpService.post<any>('https://api.escuelajs.co/api/v1/auth/login', {},
-    requestBody).subscribe(
-      (response) => {
-        debugger
-        console.log('GET Response:', response);
-        // if (response.role === 'admin') {
-          // this.router.navigate(['/authentication/home']);
+    };
+  
+    this.httpService.post<any>('https://api.escuelajs.co/api/v1/auth/login', {}, requestBody)
+      .pipe(
+        switchMap((response) => {
           if (response && response.access_token) {
-            // Token exists in the response
             localStorage.setItem('auth_token', response.access_token);
-            if(params.email === 'admin@mail.com') {
-              localStorage.setItem('userRole', 'customer');
-            }
-            else {
-              localStorage.setItem('userRole', 'admin');
-            }
-            const token = response.access_token;
-            debugger;
-            localStorage.setItem('access_token', response.access_token);
-            localStorage.setItem('refresh_token', response.refresh_token);
             this.isAuthenticatedSubject.next(true);
-            // console.log('userJWT : ', this.jwtService.decodeToken(token))
-            this.router.navigateByUrl('/product')
+            return this.setUserRole(requestBody.email);
           }
-
-
-        // } else {
-        //   this.router.navigate(['/user-dashboard']);
-        // }
-        // this.router.navigate(['/authentication/forget-password']);
-        console.log('env : ',environment.apiBaseUrl)
-
-      },
-      (error) => {
-        console.error('GET Error:', error);
-      }
-    );
-    
+          return of(null); // Returning an observable if condition is false
+        }),
+        tap((userRole: string | null) => {
+          if (userRole) {
+            this.router.navigateByUrl('/product');
+          }
+        })
+      )
+      .subscribe(
+        (userRole) => {
+          if (!userRole) {
+            console.log('User role not found');
+            // Handle accordingly if the user role is not found
+          }
+        },
+        (error) => {
+          console.error('Error:', error);
+        }
+      );
   }
   getAccessToken(): string | null {
     return localStorage.getItem('access_token');
   }
 
-  // Method to handle token expiration, refresh token, etc.
-  refreshToken()  {
-    const refreshToken = localStorage.getItem('refresh_token');
-    // Make an API call to refresh token and get new access and refresh tokens
-         this.httpService.post<any>('https://api.escuelajs.co/api/v1/auth/login', { refresh_token: refreshToken },
-         { refresh_token: refreshToken }).subscribe(
-      (response) => {
-        debugger
-        console.log('GET Response: on Refrehs', response);
-        // if (response.role === 'admin') {
-          // this.router.navigate(['/authentication/home'])
-
-        // } else {
-        //   this.router.navigate(['/user-dashboard']);
-        // }
-        // this.router.navigate(['/authentication/forget-password']);
-        console.log('env : ',environment.apiBaseUrl)
-
-      },
-      (error) => {
-        console.error('GET Error:', error);
-      }
+  setUserRole(email: string): Observable<string | null> {
+    return this.userService.getUsers().pipe(
+      map((users: any[]) => {
+        const currentUser = users.find(user => user.email === email);
+        if (currentUser) {
+          const currentUserRole = currentUser.role;
+          console.log('Current user role:', currentUserRole);
+          localStorage.setItem('userRole', currentUserRole);
+          return currentUserRole;
+        }
+        return null; // If user not found, return null
+      })
     );
   }
+  
+
+  // Method to handle token expiration, refresh token, etc.
+  // refreshToken()  {
+  //   const refreshToken = localStorage.getItem('refresh_token');
+  //   // Make an API call to refresh token and get new access and refresh tokens
+  //        this.httpService.post<any>('https://api.escuelajs.co/api/v1/auth/login', { refresh_token: refreshToken },
+  //        { refresh_token: refreshToken }).subscribe(
+  //     (response) => {
+  //       debugger
+  //       console.log('GET Response: on Refrehs', response);
+  //       // if (response.role === 'admin') {
+  //         // this.router.navigate(['/authentication/home'])
+
+  //       // } else {
+  //       //   this.router.navigate(['/user-dashboard']);
+  //       // }
+  //       // this.router.navigate(['/authentication/forget-password']);
+  //       console.log('env : ',environment.apiBaseUrl)
+
+  //     },
+  //     (error) => {
+  //       console.error('GET Error:', error);
+  //     }
+  //   );
+  // }
   forgetPassword(email: string): void {
     // Replace this with your actual login logic, e.g., making an API request to authenticate the user.
     // For this example, we'll assume the user is successfully logged in.

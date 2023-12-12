@@ -57,6 +57,16 @@
                   Password is required.
                 </div>
               </div>
+              <div class="form-group input-container d-flex flex-column role">
+                <label for="role">Role</label>
+                <select formControlName="role" [(ngModel)]="role">
+                    <option value="admin">Admin</option>
+                    <option value="customer">Customer</option>
+                </select>
+                <!-- Display validation error message for role if needed -->
+                <!-- Add validations if necessary -->
+            </div>
+            
               <button type="submit" class="btn btn-primary register-btn">Sign Up</button>
   
             </form>

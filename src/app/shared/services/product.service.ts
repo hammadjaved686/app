@@ -2,15 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, map, switchMap, mergeMap } from 'rxjs/operators';
-import { ProductModel } from 'src/app/product/product.model';
+import { ProductModel } from '../../../../src/app/product/product.model';
+import { environment } from '../../../enviroments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = 'https://api.escuelajs.co/api/v1/products/';
+  private apiUrl: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.apiUrl = `${environment.apiBaseUrl}Products/`
+  }
 
   private handleError(error: any) {
     console.error('API Error:', error);
