@@ -1,0 +1,25 @@
+<!-- edit-user.component.html -->
+
+<div class="edit-user-container">
+    <h2>Edit User</h2>
+    
+    <!-- Reactive form for editing user details -->
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input matInput placeholder="email" formControlName="email">
+      </mat-form-field>
+    
+      <mat-form-field>
+        <input matInput placeholder="name" formControlName="name">
+      </mat-form-field>
+    
+      <!-- <mat-form-field>
+        <textarea matInput placeholder="Description" formControlName="description"></textarea>
+      </mat-form-field> -->
+    
+      <!-- Other input fields as needed -->
+    
+      <button mat-raised-button color="primary" type="submit">Save Changes</button>
+    </form>
+  </div>
+  

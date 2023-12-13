@@ -10,7 +10,7 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { LoggerService } from '../shared/services/logger.service';
 import { AuthenticationService } from '../shared/services/auth-service.service';
@@ -47,7 +47,9 @@ export class ErrorInterceptor implements HttpInterceptor {
           if (error.status === 401) {
             // Handle unauthorized access
             // Redirect to login page, display a message, etc.
-            this.router.navigateByUrl('/authentication/login');
+            alert('you are unauthorized to do this action')
+
+            // this.router.navigateByUrl('/authentication/login');
           } 
 
           return throwError(errorMessage);
