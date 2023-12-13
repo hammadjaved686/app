@@ -12,6 +12,7 @@ import { ListUserComponent } from './user/list-user/list-user.component';
 import { AddUserComponent } from './user/add-user/add-user.component';
 import { RegisterComponent } from './core/auth/register/register.component';
 import { ListCategoryComponent } from './category/list-category/list-category.component';
+import { CustomerLayoutComponent } from './core/customer-layout/customer-layout.component';
 
 
 const routes: Routes = [
@@ -28,11 +29,19 @@ const routes: Routes = [
       { path: 'product', component: ListProductComponent},
       { path: 'user', component: ListUserComponent, canActivate: [AuthGuard]},
       { path: 'category', component: ListCategoryComponent, canActivate: [AuthGuard]},
-
-
-
       // Add more routes for other content components
     ],
+  },
+  {
+    path: '',
+    component: CustomerLayoutComponent, // Use customerLayout as the layout component
+    children: [
+      {
+        path: 'home',
+        component: ListProductComponent // Component to be loaded inside customerLayout
+      },
+      // Other routes with the same layout
+    ]
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },

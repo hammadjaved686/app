@@ -33,6 +33,14 @@ export class ListCategoryComponent implements OnInit {
     this.authService.entityCount$.subscribe((entityCount) => {
       debugger
       console.log('Entity Count list Category component call ', entityCount)
+      // this.authService.dothat( { message:'cat-count-list', data:categoryCounts})
+
+      if(entityCount.message==='cat-count-list'){
+        console.log(entityCount.data)  
+      }
+      if(entityCount.message==='selected-category'){
+        console.log(entityCount.data)  
+      }
 
       // this.entityCount = entityCount;
     });

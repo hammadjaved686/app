@@ -27,6 +27,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteConfirmationComponent } from './shared/delete-confirmation/delete-confirmation.component';
 import { CartComponent } from './shared/cart/cart.component';
+import { CustomerLayoutComponent } from './core/customer-layout/customer-layout.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { CartComponent } from './shared/cart/cart.component';
     LayoutComponent,
     DashboardComponent,
     DeleteConfirmationComponent,
+    CustomerLayoutComponent,
     
   ],
   imports: [

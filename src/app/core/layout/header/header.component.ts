@@ -48,8 +48,11 @@ showParent =false;
       this.authService.entityCount$.subscribe((entityCount) => {
         debugger
         console.log('Entity header  component call ', entityCount)
-        this.productCount = entityCount.count
-        this.childEvent.emit(`Data from Child Products Count ${entityCount.count}` );
+        // this.productCount = entityCount.count
+        if(entityCount.message==='cat-count-list'){
+          console.log(entityCount.data)  
+        }
+        // this.childEvent.emit(`Data from Child Products Count ${entityCount.count}` );
 
         // this.entityCount = entityCount;
       });
