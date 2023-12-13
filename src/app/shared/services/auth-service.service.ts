@@ -9,6 +9,8 @@ import { of } from 'rxjs';
 import { switchMap, tap, map} from 'rxjs/operators';
 
 interface Entity {
+  data: any;
+  message: string;
   count: number;
   name: string;
   // Other properties
@@ -20,14 +22,14 @@ export class AuthenticationService {
   private userToken: string | null = null;
   private userInfo: any | null = null;
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
-  private entityCountSubject = new BehaviorSubject<Entity>({ count: 0, name: 'Default' });
+  private entityCountSubject = new BehaviorSubject<any>({message: '', data:{ count: 0, name: 'Default' }});
 
 
   // Expose an observable to allow components to subscribe to changes
   isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
-  entityCount$: Observable<Entity> = this.entityCountSubject.asObservable();
+  entityCount$: Observable<any> = this.entityCountSubject.asObservable();
 
-  constructor(private httpService: HttpService,private router: Router, private userService: UserService
+  constructor(private httpService: HttpService,private router: Router, private userService: UserService,
     // private jwtService: JwtService
     ) {    
  }

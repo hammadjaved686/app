@@ -11,6 +11,7 @@ import { MyCapitalizePipe } from 'src/app/my-capitalize-pipe.pipe'
 import { AuthenticationService } from '../../shared/services/auth-service.service'
 import { CategoryService } from '../../shared/services/category.service'
 import { CartService } from '../../shared/services/cart.service'
+import { count } from 'console';
 
 
 
@@ -33,43 +34,65 @@ export class ListProductComponent implements OnInit {
   page = 1;
   pageSize = 6;
   isAppliedFilters = false;
-  userRole= ''
+  userRole = ''
   categories: any[] = [];
   selectedCategory: any;
   isLogedIn: boolean = false;
   isCloseModal: boolean = false
-
-  constructor(private http: HttpClient,private dialog: MatDialog, private productService: ProductService,
-    private authService: AuthenticationService, private CategoryService: CategoryService, private cartService:CartService
-    ) {}
+  price:any = 1000;
+  allProducts: any[]= [];
+  constructor(private http: HttpClient, private dialog: MatDialog, private productService: ProductService,
+    private authService: AuthenticationService, private CategoryService: CategoryService, private cartService: CartService
+  ) { }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit(): void {
 
-    this.checkUserRole()
+    this.checkUserRole();
     this.fetchProductList();
-    this.fetchCategories();
+
 
     this.authService.entityCount$.subscribe((entityCount) => {
       debugger
       console.log('Entity Count list Product component call ', entityCount)
       this.paginateProducts();
+      if (entityCount.message === 'selected-category') {
+        debugger
+        console.log(entityCount.data)
+        this.categories.forEach(cat => {
+          if (cat.name === entityCount.data) {
+            this.selectCategory(cat)
+          }
+        });
 
+      }
+      if (entityCount.message === 'selected-price') {
+        debugger
+        console.log(entityCount.data)
+        this.price = entityCount.data 
+        this.dataSource.data = this.allProducts.filter(item => item.price < this.price);
+        debugger
+        this.dataSource._updateChangeSubscription(); // this.dataSource.data = updatedDataArray;
+
+
+      }
       // this.entityCount = entityCount;
     });
   }
-  appliedFilters(){
- return !!this.filters.length()
-}
+  appliedFilters() {
+    return !!this.filters.length()
+  }
 
   fetchProductList(): void {
     this.productService.getProducts().subscribe(
       (response: any[]) => {
         this.dataSource.data = response; // Assign the fetched data to dataSource
         console.log(this.dataSource.data)
+        this.allProducts = this.dataSource.data
         debugger
-        this.authService.dothat({ name: 'products', count: this.dataSource.data.length })
+        // this.authService.dothat({ name: 'products', count: this.dataSource.data.length })
+        this.fetchCategories();
 
       },
       (error) => {
@@ -92,10 +115,10 @@ export class ListProductComponent implements OnInit {
       // Handle the result here if needed
       console.log('Dialog closed with result:', result);
 
-      if(result){      
+      if (result) {
         this.dataSource.data.unshift(result); // Append newObj to
       }
-      this.authService.dothat({ name: 'products', count: this.dataSource.data.length })
+      // this.authService.dothat({ name: 'products', count: this.dataSource.data.length })
       this.dataSource._updateChangeSubscription(); // this.dataSource.data = updatedDataArray;
       // Update product list or perform other actions based on the result
     });
@@ -119,13 +142,13 @@ export class ListProductComponent implements OnInit {
       }
     });
   }
-  
- 
-    openDeleteConfirmation(productId: number): void {
+
+
+  openDeleteConfirmation(productId: number): void {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
       width: '300px',
     });
-  
+
     dialogRef.afterClosed().subscribe((confirmed) => {
       if (confirmed) {
         this.productService.deleteProduct(productId).subscribe(
@@ -134,7 +157,7 @@ export class ListProductComponent implements OnInit {
             const index = this.dataSource.data.findIndex(product => product.id === productId);
             if (index > -1) {
               this.dataSource.data.splice(index, 1);
-              this.authService.dothat({ name: 'products', count: this.dataSource.data.length })
+              // this.authService.dothat({ name: 'products', count: this.dataSource.data.length })
               this.dataSource._updateChangeSubscription(); // Notify the data source about the change
             }
           },
@@ -148,17 +171,17 @@ export class ListProductComponent implements OnInit {
   applyFilters() {
     this.isAppliedFilters = true
     debugger
-    
+
     if ('category' in this.filters) {
       // Find the category object in this.categories that matches categoryName in filters
       const categoryMatch = this.categories.find((category) => category.name === this.filters.category);
-    
+
       if (categoryMatch) {
         debugger
         // Remove categoryName from this.filters
         const { category, ...restFilters } = this.filters;
         this.filters = { ...restFilters };
-    
+
         // Add categoryId to this.filters
         this.filters.categoryId = categoryMatch.id;
       }
@@ -168,7 +191,8 @@ export class ListProductComponent implements OnInit {
     this.productService.getFilteredProducts(this.filters)
       .subscribe((data: any) => {
         this.dataSource.data = data;
-        this.dataSource._updateChangeSubscription();      });
+        this.dataSource._updateChangeSubscription();
+      });
   }
 
   paginateProducts() {
@@ -194,8 +218,8 @@ export class ListProductComponent implements OnInit {
     this.openProductDetailsModal = true;
   }
   addToCart(product: any): void {
-    this.cartService.setToCart({product:product, source:'list-products'});
-    this.openProductDetailsModal =false
+    this.cartService.setToCart({ product: product, source: 'list-products' });
+    this.openProductDetailsModal = false
     this.isCloseModal = true
 
   }
@@ -206,6 +230,15 @@ export class ListProductComponent implements OnInit {
       (response: any) => {
         this.categories = response;
         debugger
+        const categoryCounts = this.countCategories(this.dataSource.data);
+        console.log('categoryCounts : ', categoryCounts);
+        console.log('products data', this.dataSource.data.length)
+        console.log('products all data', this.allProducts.length)
+
+
+        this.authService.dothat({ message: 'cat-count-list', data: categoryCounts })
+
+        debugger
       },
       (error) => {
         console.error('Error fetching categories:', error);
@@ -213,13 +246,37 @@ export class ListProductComponent implements OnInit {
     );
   }
 
+  countCategories(data: any) {
+    const categoryCount: any = [];
+    // Assuming there's a nested property 'nestedList' containing an array of objects
+   let count = 0
+
+    this.categories.forEach((category) => {
+       count = 0
+      data.forEach((item: any) => {
+        const categoryName = item.category.name;
+        if (category.name.toLowerCase() === categoryName.toLowerCase()) {
+          count++
+        }
+      });
+      // categoryCount.push({cat: {name: category.name,count:count }})
+      categoryCount.push({ name: category.name, count: count })
+
+    });
+    debugger
+
+    return Object.keys(categoryCount).map((key) => ({ [key]: categoryCount[key] }));
+  }
+
+
+
   fetchProductsByCategory(categoryId: number | string): void {
     // Make an API call to fetch products based on the selected category
     this.CategoryService.getProductsByCategory(categoryId).subscribe(
       (response: any) => {
         debugger
         // Update the products data based on the selected category
-        this.pagedProducts= response;
+        this.pagedProducts = response;
         this.dataSource._updateChangeSubscription();
 
         debugger
@@ -240,7 +297,7 @@ export class ListProductComponent implements OnInit {
       this.fetchProductsByCategory(category.id);
     }
   }
-  checkUserRole(){
+  checkUserRole() {
     const storedUserRole = localStorage.getItem('userRole');
     if (storedUserRole !== null) {
       this.userRole = storedUserRole;
