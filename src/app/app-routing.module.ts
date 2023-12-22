@@ -13,6 +13,7 @@ import { AddUserComponent } from './user/add-user/add-user.component';
 import { RegisterComponent } from './core/auth/register/register.component';
 import { ListCategoryComponent } from './category/list-category/list-category.component';
 import { CustomerLayoutComponent } from './core/customer-layout/customer-layout.component';
+import { CartComponent } from './shared/cart/cart.component';
 
 
 const routes: Routes = [
@@ -47,6 +48,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'not-found', component: NotFoundComponent  },
+  { path: 'cart', component: CartComponent  },
+
   // { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
 
   { path: '**', redirectTo: 'not-found' }, // Catch-all route for unknown URLs

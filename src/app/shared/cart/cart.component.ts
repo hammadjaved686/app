@@ -9,6 +9,10 @@ import { CartService } from '../services//cart.service';
 export class CartComponent {
   constructor(private cartService: CartService) {
     // this.cartItems = this.cartService.getCartItems();
+    // this.cartService.setItems(this.cartItems)
+    const a =1;
+   this.cartItems = this.cartService.getItems()
+
     debugger
   }
   cartItems: any[] = [];
@@ -20,12 +24,14 @@ export class CartComponent {
       console.log('Entity Cart ------ component call ', cartItemRec)
       // product-details
       const cartItem = cartItemRec.product
-      if (cartItem.name !== '')
+      if (cartItem?.name !== '')
+      debugger
         this.cartItems.push(cartItem)
       // this.cartItems = this.cartItems.filter(item => item.count !== 0 || item.name.trim() !== '');
 
       console.log('Entity Cart Items------ component call ', this.cartItems)
 
+      // this.cartService.setItems(this.cartItems)
       // this.productCount = entityCount.count
       // this.childEvent.emit(`Data from Child Products Count ${entityCount.count}` );
 
@@ -34,7 +40,7 @@ export class CartComponent {
 
   }
   getTotalPrice(): number {
-    return this.cartItems.reduce((total, item) => total + item.price, 0);
+    return this.cartItems.reduce((total, item) => total + item?.price, 0);
   }
 
 }
