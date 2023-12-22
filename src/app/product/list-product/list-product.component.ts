@@ -30,6 +30,7 @@ export class ListProductComponent implements OnInit {
   pageSizeOptions = [5, 10, 25, 50]; // Define your page size options
   pagedProducts: any[] = [];
   openProductDetailsModal = false;
+  selectedOrder = 'asc'
   selectedProduct: any; // Store selected product details here
   page = 1;
   pageSize = 6;
@@ -41,6 +42,7 @@ export class ListProductComponent implements OnInit {
   isCloseModal: boolean = false
   price:any = 1000;
   allProducts: any[]= [];
+  showCart =false;
   constructor(private http: HttpClient, private dialog: MatDialog, private productService: ProductService,
     private authService: AuthenticationService, private CategoryService: CategoryService, private cartService: CartService
   ) { }
@@ -77,8 +79,40 @@ export class ListProductComponent implements OnInit {
 
 
       }
+
+      if (entityCount.message === 'search-item') {
+        debugger
+        console.log(entityCount.data)
+        const searchItem =  entityCount.data
+        this.dataSource.data = this.allProducts.filter(item=>item.title.toLowerCase().includes(searchItem.toLowerCase())
+        );
+        debugger
+        this.dataSource._updateChangeSubscription(); // this.dataSource.data = updatedDataArray;
+      }
+
+      // if (entityCount.message === 'open-cart') {
+      //   debugger
+      //   this.showCart = entityCount.data
+      // }
       // this.entityCount = entityCount;
     });
+  }
+  sortItems(): void {
+    // Clone the original array to prevent mutation
+    debugger
+    this.allProducts = [...this.allProducts];
+
+    // Sort by price based on the selectedOrder
+    if (this.selectedOrder === 'asc') {
+      this.dataSource.data = this.allProducts.sort((a, b) => a.price - b.price);
+    } else {
+      this.dataSource.data = this.allProducts.sort((a, b) => b.price - a.price);
+    }
+    // this.dataSource._updateChangeSubscription(); // this.dataSource.data = updatedDataArray;
+    // if (this.dataSource.data.length > 0) {
+      // this.dataSource.data.pop(); // Removes the last element
+      this.dataSource._updateChangeSubscription(); // Notifies the table of the change
+    // }
   }
   appliedFilters() {
     return !!this.filters.length()

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,12 @@ import { Observable } from 'rxjs';
 export class HttpService {
 
   constructor(private http: HttpClient) { }
+  private cartItemstSubject = new BehaviorSubject<any>({message: '', data:{ count: 0, name: 'Default' }});
+  cartItems$: Observable<any> = this.cartItemstSubject.asObservable();
+  dothat(obj:any) {
+    this.cartItemstSubject.next(obj);
 
+  }
   // Generic method to handle GET requests
   get<T>(url: string, params?: any): Observable<T> {
     debugger

@@ -40,7 +40,7 @@
 .sidebar {
     max-width: 305px;
     width: 100%;
-    padding: 20px 15px 37px 20px;
+    padding: 55px 15px 37px 20px;
     transition: 0.5s all;
     min-height: 100vh;
     .sidebar_menu {
@@ -112,7 +112,11 @@
     &.navbar-expand {
         padding-top: 20px;
         margin-bottom: 20px;
+
     }
+}
+.shadow-sm {
+    width: 100%;
 }
 .page-content {
     min-height: calc(100vh - 80px);
@@ -188,3 +192,31 @@
     color:blue;
     font-weight:bold;
   }
+
+  /* Basic styling for the search container */
+.search-container {
+    position: relative;
+    width: 300px;
+  }
+  
+  /* Style for the search input */
+  .search-input {
+    width: 70%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  .search-input:focus {
+    outline: none;
+    border-color: dodgerblue;
+  }
+  
+
+  
+  .search-results li:hover {
+    background-color: #e0e0e0;
+  }
+  

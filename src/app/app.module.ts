@@ -28,6 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteConfirmationComponent } from './shared/delete-confirmation/delete-confirmation.component';
 import { CartComponent } from './shared/cart/cart.component';
 import { CustomerLayoutComponent } from './core/customer-layout/customer-layout.component';
+import { CartService } from './shared/services/cart.service';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { CustomerLayoutComponent } from './core/customer-layout/customer-layout.
     useClass: ErrorInterceptor,
     multi: true
   },HttpService,
+  CartService,
   LoggerService],
   bootstrap: [AppComponent]
 })

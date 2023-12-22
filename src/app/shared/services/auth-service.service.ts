@@ -24,7 +24,6 @@ export class AuthenticationService {
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   private entityCountSubject = new BehaviorSubject<any>({message: '', data:{ count: 0, name: 'Default' }});
 
-
   // Expose an observable to allow components to subscribe to changes
   isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
   entityCount$: Observable<any> = this.entityCountSubject.asObservable();
@@ -32,7 +31,7 @@ export class AuthenticationService {
   constructor(private httpService: HttpService,private router: Router, private userService: UserService,
     // private jwtService: JwtService
     ) {    
- }
+  }
  
    // Function to perform user login
    doLogin() {
@@ -90,6 +89,10 @@ export class AuthenticationService {
         }),
         tap((userRole: string | null) => {
           if (userRole) {
+            if(userRole==='customer') {
+              this.router.navigateByUrl('/home');
+            }
+            else
             this.router.navigateByUrl('/product');
           }
         })
