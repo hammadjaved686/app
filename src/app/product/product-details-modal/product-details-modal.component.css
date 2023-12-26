@@ -1,0 +1,17 @@
+/* Styles for the modal container */
+.product-details-modal {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 90%;
+  backdrop-filter: none;
+}
+
+/* Styles for the modal content */
+.modal-content {
+  /* Adjust styles for image, text, buttons, etc. */
+}
+
+/* Adjust the styles as needed for the modal backdrop and content */

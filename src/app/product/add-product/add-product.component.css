@@ -1,0 +1,52 @@
+/* Style for form inputs */
+input {
+  width: calc(100% - 16px); /* Adjust width considering padding */
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc; /* Add a border */
+  border-radius: 4px; /* Add rounded corners */
+}
+
+/* Error message style */
+span {
+  color: red;
+  font-size: 12px;
+  display: block;
+  margin-top: 5px;
+}
+
+/* Hide error messages by default */
+span[hidden] {
+  display: none;
+}
+
+/* Button style */
+button {
+  padding: 8px 16px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px; /* Add rounded corners */
+}
+
+/* Hover effect for button */
+button:hover {
+  background-color: #2980b9;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 5px;
+}
+
+/* Style for the input container */
+.input-container {
+  margin-bottom: 15px;
+}
+
+/* Style for the form labels */
+.form-group label {
+  font-weight: bold;
+}

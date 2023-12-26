@@ -1,0 +1,92 @@
+/* Adjustments for the register-page */
+.register-page {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .register-section {
+    width: 100%;
+  }
+  
+  .left-column {
+    background-color: #f0f0f0; /* Adjust as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .left-column .inner-area {
+    padding: 20px;
+  }
+  
+  .register-area {
+    background-color: #ffffff; /* Adjust as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .register-area .register-form {
+    padding: 20px;
+  }
+  
+  .logo-wrap img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .heading h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .description p {
+    margin: 0;
+    color: #777777;
+  }
+  
+  .register-form {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+  }
+  
+  .form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .form-group div {
+    font-size: 0.9rem;
+    color: #ff0000; /* Adjust error message color */
+  }
+  
+  .register-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff; /* Adjust button color */
+    color: #fff; /* Button text color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .register-btn:hover {
+    background-color: #0056b3; /* Adjust button hover color */
+  }
+  

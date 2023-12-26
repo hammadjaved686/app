@@ -1,0 +1,9 @@
+<form [formGroup]="userForm" (ngSubmit)="submitUser()">
+    <!-- Form fields for user details -->
+    <input formControlName="email" placeholder="email">
+    <input formControlName="password" placeholder="password">
+    <input formControlName="name" placeholder="name">
+    <input formControlName="avatar" placeholder="avatar">
+    <button type="submit">Submit</button>
+  </form>
+  

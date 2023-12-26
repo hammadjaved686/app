@@ -29,5 +29,9 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+    "include": [
+    "src/**/*.ts", // Include your project files
+    "src/app/constants.ts" // Add the constants file here
+  ]
 }

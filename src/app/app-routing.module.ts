@@ -8,6 +8,12 @@ import { ForgetPasswordComponent } from './core/auth/forget-password/forget-pass
 import { ResetPasswordComponent } from './core/auth/reset-password/reset-password.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListProductComponent } from './product/list-product/list-product.component';
+import { ListUserComponent } from './user/list-user/list-user.component';
+import { AddUserComponent } from './user/add-user/add-user.component';
+import { RegisterComponent } from './core/auth/register/register.component';
+import { ListCategoryComponent } from './category/list-category/list-category.component';
+import { CustomerLayoutComponent } from './core/customer-layout/customer-layout.component';
+import { CartComponent } from './shared/cart/cart.component';
 
 
 const routes: Routes = [
@@ -18,18 +24,32 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: LayoutComponent, canActivate: [AuthGuard],
+    component: LayoutComponent,
     children: [
       { path: 'NotFound', component: NotFoundComponent},
-      { path: 'dashboard', component: ListProductComponent, canActivate: [AuthGuard]},
-
+      { path: 'product', component: ListProductComponent},
+      { path: 'user', component: ListUserComponent, canActivate: [AuthGuard]},
+      { path: 'category', component: ListCategoryComponent, canActivate: [AuthGuard]},
       // Add more routes for other content components
     ],
   },
-  { path: 'login', component: LoginComponent,canActivate: [AuthGuard] },
-  { path: 'forgot-password', component: ForgetPasswordComponent,canActivate: [AuthGuard] },
+  {
+    path: '',
+    component: CustomerLayoutComponent, // Use customerLayout as the layout component
+    children: [
+      {
+        path: 'home',
+        component: ListProductComponent // Component to be loaded inside customerLayout
+      },
+      // Other routes with the same layout
+    ]
+  },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'not-found', component: NotFoundComponent  },
+  { path: 'cart', component: CartComponent  },
+
   // { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
 
   { path: '**', redirectTo: 'not-found' }, // Catch-all route for unknown URLs

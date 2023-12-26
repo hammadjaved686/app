@@ -15,11 +15,21 @@ import { HeaderComponent } from './core/layout/header/header.component';
 import { FooterComponent } from './core/layout/footer/footer.component';
 import { LayoutComponent } from './core/layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { MyCustomPipePipe } from './my-custom-pipe.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { MatIconModule } from '@angular/material/icon';
 import { ProductModule } from './product/product.module';
+import { UserModule } from './user/user.module';
+import { CategoryModule } from './category/category.module';
+
+
+
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DeleteConfirmationComponent } from './shared/delete-confirmation/delete-confirmation.component';
+import { CartComponent } from './shared/cart/cart.component';
+import { CustomerLayoutComponent } from './core/customer-layout/customer-layout.component';
+import { CartService } from './shared/services/cart.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +38,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     FooterComponent,
     LayoutComponent,
     DashboardComponent,
-    MyCustomPipePipe
+    DeleteConfirmationComponent,
+    CustomerLayoutComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -37,10 +49,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     HttpClientModule,
     MatIconModule,
     FormsModule,
+    MatDialogModule,
     MatTableModule,
     MatPaginatorModule,
     BrowserAnimationsModule,
-    ProductModule
+    ProductModule,
+    UserModule,
+    CategoryModule,
 
   ],
   providers: [    {
@@ -48,6 +63,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     useClass: ErrorInterceptor,
     multi: true
   },HttpService,
+  CartService,
   LoggerService],
   bootstrap: [AppComponent]
 })

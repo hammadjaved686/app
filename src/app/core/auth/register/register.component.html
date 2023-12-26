@@ -1,0 +1,80 @@
+<div class="container-fluid register-page">
+    <div class="row register-section">
+        <div class="col-xl-6 col-12 left-column">
+          <div class="inner-area d-flex flex-column justify-content-center align-items-start">
+            <div class="logo-wrap">
+              <img src="assets/images/logo.svg" alt="">
+            </div>
+            <div class="heading">
+              <h1>Welcome to Registration Page</h1>
+            </div>
+    
+            <div class="description">
+              <p> </p>
+            </div>
+          </div>
+         
+        </div>
+  
+        <div class="col-xl-6 register-area">
+          <div class="register-form d-flex flex-column">
+            <div class="logo-wrap">
+              <img src="assets/images/logo.svg" alt="">
+            </div>
+            <p class="register">Register</p>
+            <p></p>
+            <div class="d-flex dividers">
+              <div class="divider"></div>
+              <div class="divider"></div>
+            </div>
+            <form [formGroup]="registerForm" (ngSubmit)="register()">
+              <div class="form-group input-container d-flex flex-column email">
+                <label for="username">Email</label>
+                <input type="text" formControlName="email" [(ngModel)]="email">
+                <!-- Display validation error message for email -->
+                <div *ngIf="registerForm.get('email')!.hasError('required') && registerForm.get('email')!.touched">
+                  Email is required.
+                </div>
+                <div *ngIf="registerForm.get('email')!.hasError('email') && registerForm.get('email')!.touched">
+                  Please enter a valid email address.
+                </div>
+              </div>
+              <div class="form-group input-container d-flex flex-column name">
+                <label for="name">Name</label>
+                <input type="text" formControlName="name" [(ngModel)]="name">
+                <!-- Display validation error message for name -->
+                <div *ngIf="registerForm.get('name')!.hasError('required') && registerForm.get('name')!.touched">
+                  Name is required.
+                </div>
+              </div>
+
+              
+              <div class="form-group input-container d-flex flex-column password">
+                <label for="password">Password</label>
+                <input type="password" formControlName="password" [(ngModel)]="password">
+                <!-- Display validation error message for password -->
+                <div *ngIf="registerForm.get('password')!.hasError('required') && registerForm.get('password')!.touched">
+                  Password is required.
+                </div>
+              </div>
+              <div class="form-group input-container d-flex flex-column role">
+                <label for="role">Role</label>
+                <select formControlName="role" [(ngModel)]="role">
+                    <option value="admin">Admin</option>
+                    <option value="customer">Customer</option>
+                </select>
+                <!-- Display validation error message for role if needed -->
+                <!-- Add validations if necessary -->
+            </div>
+            
+              <button type="submit" class="btn btn-primary register-btn">Sign Up</button>
+  
+            </form>
+            
+            <div class="forgot-password d-flex justify-content-center">
+              <!-- <a (click)="Register()" >Register ?</a> -->
+            </div>
+        </div>
+        </div>
+    </div>
+  </div>
