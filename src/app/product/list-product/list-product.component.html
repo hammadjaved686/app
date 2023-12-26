@@ -102,6 +102,10 @@
     </button>
   </div>
 
+  <select class="form-select" [(ngModel)]="selectedOrder" (change)="sortItems()">
+    <option value="asc">Price - Low to High</option>
+    <option value="desc">Price - High to Low</option>
+  </select>
 <div class="product-cards">
   <div class="product-card" (click)="openModalWithProduct(product)" *ngFor="let product of pagedProducts">
     <!-- Product card content -->

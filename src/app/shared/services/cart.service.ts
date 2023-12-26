@@ -9,7 +9,14 @@ export class CartService {
   cartItems: any[] = [];
   private cartCountSubject = new BehaviorSubject<any>({ count: 0, name: '' });
 
+  items: any[] = [];
 
+  setItems(items:any) {
+    this.items = items
+  }
+  getItems(){
+    return this.items
+  }
   // Expose an observable to allow components to subscribe to changes
   cartCount$: Observable<any> = this.cartCountSubject.asObservable();
 

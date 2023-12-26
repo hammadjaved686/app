@@ -4,8 +4,8 @@
 
 </div> -->
 
-<div class="page-flex">
-    <aside class="sidebar">
+<div class="page-flex" >
+    <aside class="sidebar" *ngIf="isShopSelected">
         <div class="media text-center mt-2 mb-5">
             <a href="#">
                 <img src="assets/images/logo.svg" alt="" class="img-fluid">
@@ -19,7 +19,12 @@
                         <i class="icon icon-document-outline"></i>
                         Products {{productCount}}
                     </a> -->
+                    <div class="search-container">
+                        <input type="text" [(ngModel)]="searchTerm" (input)="performSearch()" placeholder="Search..." class="search-input" />
+
+                      </div>
                     <div class="accordion">
+
                         <div class="accordion-item" *ngFor="let item of items; let i = index">
                             <div class="accordion-header" (click)="toggleAccordion(i, 'category')">
                                 {{ item.header }}
@@ -57,7 +62,7 @@
 
 
                 </li>
-                <li [ngClass]="{'active': isUser}" class="has-child">
+                <!-- <li [ngClass]="{'active': isUser}" class="has-child">
                     <a aria-expanded="false" (click)="goToUsers()">
                         <i class="icon icon-document-outline"></i>
                         Users
@@ -68,45 +73,79 @@
                         <i class="icon icon-document-outline"></i>
                         Categories
                     </a>
-                </li>
+                </li> -->
                 <!-- <div *ngIf="showParent">{{parentDataa}}</div>                   -->
             </ul>
         </div>
     </aside>
     <div class="main-wrapper">
         <nav class="sb-topnav navbar navbar-expand">
-            <div class="d-flex justify-content-between w-100 align-items-center">
-                <div class="head">
-                                       <h4 class="txt-color">Home</h4>
-                </div>
-                <div class="head">
-                                       <h3 class="txt-color">Shop</h3>
-                </div>
-                <div class="head">
-                                       <h4 class="txt-color">Contacts</h4>
-                </div>
-                <div *ngIf="userRole" class="right-side">
-                    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="icon icon-logout"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item dropdown">
-
-                        </li>
 
 
-                    </ul>
-                </div>
-            </div>
-        </nav>
+
+<nav _ngcontent-dfr-c43="" id="navbar"
+    class="navbar navbar-expand-lg navbar-light shadow-sm animated fadeInDown ng-tns-c43-0">
+    <div _ngcontent-dfr-c43="" class="container ng-tns-c43-0"><a _ngcontent-dfr-c43="" routerlink="/"
+            class="navbar-brand ng-tns-c43-0" href="/"><img _ngcontent-dfr-c43="" src="../../assets/images/logo-dark.png"
+                alt="" width="100" height="24" class="d-inline-block align-text-top ng-tns-c43-0"></a><button
+            _ngcontent-dfr-c43="" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+            class="navbar-toggler ng-tns-c43-0"><span _ngcontent-dfr-c43=""
+                class="navbar-toggler-icon ng-tns-c43-0"></span></button>
+        <div _ngcontent-dfr-c43="" id="navbarSupportedContent" class="collapse navbar-collapse ng-tns-c43-0">
+            <ul _ngcontent-dfr-c43="" class="navbar-nav me-auto mb-2 mb-lg-0 ng-tns-c43-0">
+                <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43="" 
+                        routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0 active" (click)="clickHome()">home</a>
+                </li>
+                <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43="" 
+                        routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0"  (click)="clickShop()">shop</a>
+                </li>
+                <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43="" routerlink="/blog"
+                        routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0" href="/blog">blog</a>
+                </li>
+                <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43="" routerlink="/vendor"
+                        routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0"
+                        href="/vendor">vendor</a></li>
+                <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43="" routerlink="/contact"
+                        routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0"
+                        href="/contact">contact</a></li>
+            </ul>
+            <!-- <ul _ngcontent-dfr-c43="" class="mb-0 ng-tns-c43-0"><span _ngcontent-dfr-c43=""
+                    class="cart-count btn-color ng-tns-c43-0"><i _ngcontent-dfr-c43="" routerlink="/cart"
+                        class="bi bi-cart ng-tns-c43-0" tabindex="0"></i><em _ngcontent-dfr-c43=""
+                        class="ng-tns-c43-0">0</em></span></ul> -->
+                        <ul >
+                            <a _ngcontent-dfr-c43="" routerlink="/cart"
+            class="navbar-brand ng-tns-c43-0" ><img _ngcontent-dfr-c43="" src="../../assets/images/cart-image.png"
+                alt="" width="100" height="60" class="d-inline-block align-text-top ng-tns-c43-0"> {{cartItems.length}}</a>
+                        </ul>
+        </div>
+    </div>
+    <div *ngIf="userRole" class="right-side">
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="icon icon-logout"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+
+            </li>
+
+
+        </ul>
+    </div>
+</nav>
+        
+
+</nav>
+
         <router-outlet></router-outlet>
     </div>
 </div>

@@ -3,6 +3,10 @@
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../shared/services/auth-service.service';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CartService } from '../../shared/services//cart.service';
+import { HttpService } from '../../shared/services//http.service';
+
+
 
 @Component({
   selector: 'app-customer-layout',
@@ -20,6 +24,7 @@ export class CustomerLayoutComponent {
   showPriceFilter = false
   showCategoryFilter = false
   boolArray: boolean[]= [];
+  isShopSelected= false;
 
 
   sendDataToParent() {
@@ -40,7 +45,11 @@ export class CustomerLayoutComponent {
   showParent = false;
   constructor(public router: Router,
     private authService: AuthenticationService,
+    private cartService: CartService,
+    private httpServive: HttpService,
   ) { }
+  cartItems: any[] = [];
+
   ngOnInit() {
     const storedUserRole = localStorage.getItem('userRole');
     if (storedUserRole !== null) {
@@ -56,6 +65,23 @@ export class CustomerLayoutComponent {
     });
 
 
+        this.cartService.cartCount$.subscribe((cartItemRec) => {
+      debugger
+      console.log('Entity Cart ------ component call ', cartItemRec)
+      // product-details
+      const cartItem = cartItemRec.product
+      if (cartItem?.name !== '')
+        this.cartItems.push(cartItem)
+      // this.cartItems = this.cartItems.filter(item => item.count !== 0 || item.name.trim() !== '');
+      this.cartService.setItems(this.cartItems)
+
+      console.log('Entity Cart Items------ component call ', this.cartItems)
+
+      // this.productCount = entityCount.count
+      // this.childEvent.emit(`Data from Child Products Count ${entityCount.count}` );
+
+      // this.entityCount = entityCount;
+    });
     this.authService.entityCount$.subscribe((entityCount) => {
       debugger
       console.log('------------------- :', entityCount)
@@ -82,7 +108,27 @@ export class CustomerLayoutComponent {
       // this.entityCount = entityCount;
     });
   }
+  searchTerm: string = '';
 
+  performSearch(): void {
+    this.authService.dothat({ message: 'search-item', data: this.searchTerm.toLowerCase() })
+  }
+
+  isOpenCart = false;
+  openCart(){
+    debugger
+    this.router.navigateByUrl('/cart')
+    debugger
+    this.isOpenCart = !this.isOpenCart
+    this.authService.dothat({ message: 'open-cart', data: this.isOpenCart})
+
+  }
+  clickShop() {
+    this.isShopSelected = true
+  }
+  clickHome() {
+    this.isShopSelected = false
+  }
   clickCategory(data: any, index: number) {
     this.authService.dothat({ message: 'selected-category', data: data })
     this.updateIndexTrue(index)
