@@ -90,6 +90,11 @@ export class AuthenticationService {
         }),
         tap((userRole: string | null) => {
           if (userRole) {
+            if(userRole==='customer'){
+              this.router.navigateByUrl('/home');
+
+            }
+            else
             this.router.navigateByUrl('/product');
           }
         })

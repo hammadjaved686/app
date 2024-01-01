@@ -14,6 +14,7 @@ import { RegisterComponent } from './core/auth/register/register.component';
 import { ListCategoryComponent } from './category/list-category/list-category.component';
 import { CustomerLayoutComponent } from './core/customer-layout/customer-layout.component';
 import { CartComponent } from './shared/cart/cart.component';
+import { CheckoutComponentComponent } from './shared/checkout-component/checkout-component.component';
 
 
 const routes: Routes = [
@@ -44,11 +45,24 @@ const routes: Routes = [
       // Other routes with the same layout
     ]
   },
+  {
+    path: '',
+    component: CustomerLayoutComponent, // Use customerLayout as the layout component
+    children: [
+      {
+        path: 'checkout',
+        component: CheckoutComponentComponent // Component to be loaded inside customerLayout
+      },
+      // Other routes with the same layout
+    ]
+  },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'not-found', component: NotFoundComponent  },
   { path: 'cart', component: CartComponent  },
+  // { path: 'checkout', component: CheckoutComponentComponent  },
+
 
   // { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
 

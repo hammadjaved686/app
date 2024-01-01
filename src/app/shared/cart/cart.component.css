@@ -29,4 +29,60 @@
     color: #666;
     /* Additional styles for item bullets or markers if needed */
   }
-  
+  .cart-list {
+    max-width: 75%;
+    border: 1px solid #ccc;
+  }
+  /* Add your CSS styles for the cart summary here */
+.cart-summary {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  display: flex;
+}
+
+.order-totals {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  margin-left: 7%;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+}
+
+.order-totals h3 {
+  margin-top: 0;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.order-totals table {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.order-totals table tr td {
+  padding: 8px 0;
+  font-size: 1.2em;
+  color: #555;
+}
+
+.order-totals table tr td:first-child {
+  font-weight: bold;
+  color: #000;
+}
+
+.order-totals button {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.order-totals button:hover {
+  background-color: #45a049;
+}

@@ -41,6 +41,7 @@ export class ListProductComponent implements OnInit {
   isCloseModal: boolean = false
   price:any = 1000;
   allProducts: any[]= [];
+  isCartOpen: boolean = false;
   constructor(private http: HttpClient, private dialog: MatDialog, private productService: ProductService,
     private authService: AuthenticationService, private CategoryService: CategoryService, private cartService: CartService
   ) { }
@@ -65,6 +66,12 @@ export class ListProductComponent implements OnInit {
             this.selectCategory(cat)
           }
         });
+
+      }
+      if (entityCount.message === 'selected-cart') {
+        debugger
+        console.log(entityCount.data)
+        this.isCartOpen = entityCount.data
 
       }
       if (entityCount.message === 'selected-price') {
@@ -308,5 +315,10 @@ export class ListProductComponent implements OnInit {
       this.userRole = 'customer';
     }
     debugger
+    const doubledNumbers = [].map((number) => {
+      return number * 2;
+    });
+    [].filter(num => num % 2 === 0);
   }
 }
+

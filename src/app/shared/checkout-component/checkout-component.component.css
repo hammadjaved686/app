@@ -1,0 +1,112 @@
+.checkout-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+  }
+  
+  .billing-details {
+    margin-left: 2%;
+    max-width: 26%;
+    padding-left: 1%;
+    padding-right: 2%;
+    border: solid #a59379;
+    border-radius: 5px;
+  }
+
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  .form-group {
+    flex: 0 0 48%; /* Adjust as needed to control the width of each field */
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+  
+  .submit-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .your-order {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-right: 10px;
+  }
+  
+  .your-order table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .your-order table td,
+  .your-order table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .payment-type {
+    width: 30%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-left: 34%;
+  }
+  
+  .payment-type label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .payment-type button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .payment-type button:hover {
+    background-color: #45a049;
+  }
+  
+  .checkout {
+    display: flex;
+  }
+
+  /* CSS */
+  .success-snackbar {
+    background-color: #4caf50; /* Green background */
+    width: 1000px; /* Adjust the width as needed */
+    min-height: 80px; /* Adjust the height as needed */
+    padding: 16px; /* Adjust the padding as needed */
+    font-size: 16px; /* Adjust the font size as needed */
+    border-radius: 8px; /* Adjust the border radius as needed */
+  }
+  
+  

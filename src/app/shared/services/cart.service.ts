@@ -12,9 +12,15 @@ export class CartService {
   items: any[] = [];
 
   setItems(items:any) {
+    debugger
     this.items = items
   }
   getItems(){
+    const uniqueItemsSet = new Set(this.items);
+
+  // Convert the Set back to an array
+    this.items = Array.from(uniqueItemsSet).filter(item => item !== undefined);;
+
     return this.items
   }
   // Expose an observable to allow components to subscribe to changes
@@ -30,7 +36,7 @@ export class CartService {
 
   }
 
-  getCartItems(): any[] {
-    return this.cartItems;
-  }
+  // getCartItems(): any[] {
+  //   return this.cartItems;
+  // }
 }

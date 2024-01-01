@@ -35,7 +35,10 @@
   .arrow-down {
     transform: translateY(-50%) rotate(180deg);
   }
-  
+  .right-side{
+    
+    margin-left: 8%
+  }
 
 .sidebar {
     max-width: 305px;
@@ -96,7 +99,7 @@
         color: #fff;
         display: flex;
         min-height: 46px;
-        min-width: 46px;
+        min-width: 102px;
         text-align: center;
         line-height: 1;
         align-items: center;
@@ -188,3 +191,12 @@
     color:blue;
     font-weight:bold;
   }
+  .navbar-brand {
+    display: flex;
+    margin-right: 8%;
+  }
+  .shadow-sm{
+      box-shadow: var(--bs-box-shadow-sm)!important;
+    width: 98%;
+    margin-left: 1%;
+    }

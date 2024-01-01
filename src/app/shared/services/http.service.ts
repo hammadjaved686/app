@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HttpService {
+  items: any[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -38,5 +39,13 @@ export class HttpService {
   // Generic method to handle DELETE requests
   delete<T>(url: string): Observable<T> {
     return this.http.delete<T>(url);
+  }
+  setItems(items:any){
+   this.items = items.filter((item: any) => item !== undefined);
+
+    this.items = items
+  }
+  getItems (){
+    return this.items.filter((item: any) => item !== undefined);
   }
 }

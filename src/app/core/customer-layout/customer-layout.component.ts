@@ -1,6 +1,6 @@
 
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../shared/services/auth-service.service';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CartService } from '../../shared/services//cart.service';
@@ -23,6 +23,7 @@ export class CustomerLayoutComponent {
   showCategoryFilter = false
   boolArray: boolean[]= [];
   isShopSelected= false;
+  isCartOpen: boolean = false;
 
 
   sendDataToParent() {
@@ -44,6 +45,7 @@ export class CustomerLayoutComponent {
   constructor(public router: Router,
     private authService: AuthenticationService,
     private cartService: CartService,
+    private route: ActivatedRoute
   ) { }
   cartItems: any[] = [];
 
@@ -67,8 +69,13 @@ export class CustomerLayoutComponent {
       console.log('Entity Cart ------ component call ', cartItemRec)
       // product-details
       const cartItem = cartItemRec.product
-      if (cartItem.name !== '')
-        this.cartItems.push(cartItem)
+      if (cartItem?.name !== '')
+      debugger
+      this.cartItems = this.cartService.getItems()
+          if(cartItem){
+            this.cartItems.push(cartItem)
+
+          }
       // this.cartItems = this.cartItems.filter(item => item.count !== 0 || item.name.trim() !== '');
       this.cartService.setItems(this.cartItems)
 
@@ -110,11 +117,22 @@ export class CustomerLayoutComponent {
     this.isShopSelected = true
   }
   clickHome() {
+    const currentRoute =  this.router.url;
+    debugger
+    if (currentRoute !== '/home') {
+      this.router.navigate(['/home'])
+    }
     this.isShopSelected = false
+
   }
   clickCategory(data: any, index: number) {
     this.authService.dothat({ message: 'selected-category', data: data })
     this.updateIndexTrue(index)
+  }
+
+  clickCart() {
+    this.isCartOpen = !this.isCartOpen
+    this.authService.dothat({ message: 'selected-cart', data: this.isCartOpen })
   }
   goToProducts() {
     this.showParent = false

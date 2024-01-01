@@ -1,0 +1,79 @@
+<div class="checkout">
+<!-- Billing Details -->
+<div class="billing-details">
+    <h2>User Profile</h2>
+    <form>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" [(ngModel)]="name">
+          <!-- Add 'name="name"' attribute -->
+        </div>
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <input type="text" id="address" name="address" [(ngModel)]="address">
+          <!-- Add 'name="address"' attribute -->
+        </div>
+      </div>
+      <!-- Add 'name' attributes to other input fields -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="postalCode">Postal Code:</label>
+          <input type="text" id="postalCode" name="postalCode" [(ngModel)]="postalCode">
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone:</label>
+          <input type="text" id="phone" name="phone" [(ngModel)]="phone">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" [(ngModel)]="email">
+      </div>
+      <button class="submit-btn" (click)="submitBillingDetails()">Submit</button>
+    </form>
+  </div>
+  
+  
+
+  
+  <!-- Your Order -->
+
+  <div class="your-order">
+    <h2>Your Order</h2>
+    <table class="order-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartItems">
+          <td>{{ item?.title }}</td>
+          <td>{{ item?.price }}</td>
+          <td>{{ item?.price }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  
+</div>
+  
+  <!-- Payment Type and Place Order -->
+  <div class="payment-type">
+    <h2>Payment Type</h2>
+    <label>
+      <input type="radio" name="paymentType" value="online"> Online
+    </label>
+    <label>
+      <input type="radio" name="paymentType" value="cash"> Cash
+    </label>
+    <!-- Add more payment options as needed -->
+  
+    <button (click)="placeOrder()">Place Order</button>
+
+  </div>
+  

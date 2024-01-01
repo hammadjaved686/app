@@ -20,8 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
 import { CategoryModule } from './category/category.module';
-
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -29,6 +28,7 @@ import { DeleteConfirmationComponent } from './shared/delete-confirmation/delete
 import { CartComponent } from './shared/cart/cart.component';
 import { CustomerLayoutComponent } from './core/customer-layout/customer-layout.component';
 import { CartService } from './shared/services/cart.service';
+import { CheckoutComponentComponent } from './shared/checkout-component/checkout-component.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +40,7 @@ import { CartService } from './shared/services/cart.service';
     DashboardComponent,
     DeleteConfirmationComponent,
     CustomerLayoutComponent,
+    CheckoutComponentComponent,
     
   ],
   imports: [
@@ -56,14 +57,14 @@ import { CartService } from './shared/services/cart.service';
     ProductModule,
     UserModule,
     CategoryModule,
-
+    MatSnackBarModule
   ],
   providers: [    {
     provide: HTTP_INTERCEPTORS,
     useClass: ErrorInterceptor,
     multi: true
   },HttpService,
-  CartService,
+ 
   LoggerService],
   bootstrap: [AppComponent]
 })
