@@ -11,7 +11,7 @@
                 <img src="assets/images/logo.svg" alt="" class="img-fluid">
             </a>
         </div>
-        {{sidnav['category']}}
+        <!-- {{sidnav['category']}} -->
         <div class="sidebar-body">
             <ul class="sidebar_menu p-0">
                 <li [ngClass]="{'active': isProduct}">
@@ -45,7 +45,7 @@
                             </div>
                             <div class="accordion-content" [ngClass]="{'show':showPriceFilter}">
                                 <div class="price-slider">
-                                    <input type="range" min="0" max="10000" value="5000" class="slider" id="priceRange"
+                                    <input type="range" min="0" max="10000" value="100" class="slider" id="priceRange"
                                         (input)="onPriceChange($event)" />
                                     <output for="priceRange" class="slider-value">$50</output>
                                 </div>
@@ -90,30 +90,52 @@
         <div _ngcontent-dfr-c43="" id="navbarSupportedContent" class="collapse navbar-collapse ng-tns-c43-0">
             <ul _ngcontent-dfr-c43="" class="navbar-nav me-auto mb-2 mb-lg-0 ng-tns-c43-0">
                 <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43="" 
-                        routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0 active" [ngStyle]="{ 'color': !isShopSelected ? 'white' : 'inherrit', 'font-size': !isShopSelected ? '24px' : 'initial' }" (click)="clickHome()">home</a>
+                        routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0 active" [ngStyle]="{ 'color': isHomeSelected ? 'white' : 'inherrit', 'font-size': isHomeSelected ? '24px' : 'initial' }" (click)="clickHome()">home</a>
                 </li>
                 <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43="" 
                         routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0" [ngStyle]="{ 'color': isShopSelected ? 'white' : 'inherrit', 'font-size': isShopSelected ? '24px' : 'initial' }" (click)="clickShop()">shop</a>
                 </li>
-                <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43="" routerlink="/blog"
-                        routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0" href="/blog">blog</a>
+                <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43="" 
+                        routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0" [ngStyle]="{ 'color': isBlogSelected ? 'white' : 'inherrit', 'font-size': isBlogSelected ? '24px' : 'initial' }" (click)="clickBlog()" >blog</a>
                 </li>
-                <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43="" routerlink="/vendor"
-                        routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0"
-                        href="/vendor">vendor</a></li>
-                <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43="" routerlink="/contact"
-                        routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0"
-                        href="/contact">contact</a></li>
+                <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43="" 
+                        routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0" [ngStyle]="{ 'color': isVendorSelected ? 'white' : 'inherrit', 'font-size': isVendorSelected ? '24px' : 'initial' }" (click)="clickVendor()"
+                        >vendor</a></li>
+                <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43="" 
+                        routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0" [ngStyle]="{ 'color': isContactsSelected ? 'white' : 'inherrit', 'font-size': isShopSelected ? '24px' : 'initial' }" (click)="clickContacts()"
+                        >contact</a></li>
             </ul>
             <!-- <ul _ngcontent-dfr-c43="" class="mb-0 ng-tns-c43-0"><span _ngcontent-dfr-c43=""
                     class="cart-count btn-color ng-tns-c43-0"><i _ngcontent-dfr-c43="" routerlink="/cart"
                         class="bi bi-cart ng-tns-c43-0" tabindex="0"></i><em _ngcontent-dfr-c43=""
                         class="ng-tns-c43-0">0</em></span></ul> -->
                         <ul>
-                            <a _ngcontent-dfr-c43="" (click)="clickCart()"
-            class="navbar-brand ng-tns-c43-0" ><img _ngcontent-dfr-c43="" src="../../assets/images/cart-image.png"
-                alt="" width="100" height="60" class="d-inline-block align-text-top ng-tns-c43-0"> <div [ngStyle]="{ 'color': cartItems.length ? 'red' : 'initial', 'font-weight': cartItems.length ? 'bold' : 'normal' }">{{cartItems.length}}</div></a>
-                        </ul>
+                            <a 
+                              (click)="clickCart()"
+                              class="navbar-brand ng-tns-c43-0"
+                              (mouseenter)="showCartDropdown = true"
+                              (mouseleave)="showCartDropdown = false"
+                            >
+                              <img src="../../assets/images/cart-image.png" alt="" width="100" height="60" class="d-inline-block align-text-top ng-tns-c43-0">
+                              <div [ngStyle]="{ 'color': cartItems.length ? 'red' : 'initial', 'font-weight': cartItems.length ? 'bold' : 'normal' }">
+                                {{cartItems.length}}
+                              </div>
+                              <!-- Cart dropdown content -->
+                              <div 
+                                class="cart-dropdown" 
+                                [ngClass]="{'active': showCartDropdown}" 
+                                (mouseenter)="showCartDropdown = true"
+                                (mouseleave)="showCartDropdown = false"
+                              >
+                                <ul>
+                                  <li *ngFor="let item of cartItems">{{ item.title }} - {{ item.price }}</li>
+                                  <!-- Replace with your actual cart item structure -->
+                                </ul>
+                              </div>
+                            </a>
+                          </ul>
+                          
+                          
         </div>
     </div>
     <div *ngIf="userRole" class="right-side">

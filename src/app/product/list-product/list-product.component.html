@@ -79,14 +79,10 @@
 </div>
 
 <!-- product-list.component.html -->
+<!-- <app-cart *ngIf="userRole === 'customer' && isLogedIn && isCartOpen"></app-cart> -->
 
-
-
-<app-cart *ngIf="userRole === 'customer' && isLogedIn && isCartOpen"></app-cart>
-
-<div *ngIf="userRole === 'customer' &&  openProductDetailsModal == false && !isCartOpen
-">
-  <div class="categories">
+<div *ngIf="userRole === 'customer' &&  openProductDetailsModal == false && !isCartOpen">
+  <!-- <div class="categories">
     <button
     (click)="selectCategory({ id: 'All', name: 'All' })"
     [class.selected]="selectedCategory?.id === 'All'"
@@ -100,16 +96,20 @@
     >
       {{ category.name }}
     </button>
-  </div>
-
+  </div> -->
+  <div class="title">  <h1>Product Listing - Your E-commerce Site</h1> <!-- Set your desired title here -->
+    <!-- Other meta tags, stylesheets, or scripts --></div>
+    <div class="loader" *ngIf="isLoading">
+      <div class="spinner"></div>
+      <div>Loading...</div>
+    </div>
 <div class="product-cards">
-  <div class="product-card" (click)="openModalWithProduct(product)" *ngFor="let product of pagedProducts">
+  <div class="product-card" (click)="openProductById(product.id)" *ngFor="let product of pagedProducts">
     <!-- Product card content -->
     <img [src]="product?.images[0]" alt="Product Image" class="product-image">
     <h3>{{ product?.title }}</h3>
     <p>Price: {{ product?.price }}</p>
     <div class="add-to-cart" (click)="addToCart(product)">Add to Cart</div>
-
       <!-- <div class="actions">/d
       <button mat-icon-button color="primary" (click)="openEditProductDialog(product?.id)">
         <mat-icon>edit</mat-icon>
@@ -119,24 +119,21 @@
       </button>
     </div> -->
   </div>
-
 </div>
-
-<div class="pagination">
+<div class="pagination"  [ngStyle]="{ 'margin-top': isLoading ? '5%' : '1%'}" >
   <button mat-button color="primary" (click)="goToPage(page - 1)" [disabled]="page === 1">Previous</button>
   <span>{{ page }}</span>
   <button mat-button color="primary" (click)="goToPage(page + 1)" [disabled]="page === totalPages">Next</button>
 </div>
-
 </div>
 
-<div>
+<!-- <div>
   <app-product-details-modal
 *ngIf="openProductDetailsModal"
 [product]="selectedProduct"
 (closeModal)="openProductDetailsModal = false"
 ></app-product-details-modal>
-</div>
+</div> -->
 <!-- product-cards.component.html -->
 
 

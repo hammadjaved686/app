@@ -12,19 +12,16 @@ import { AuthenticationService } from '../../shared/services/auth-service.servic
 import { CategoryService } from '../../shared/services/category.service'
 import { CartService } from '../../shared/services/cart.service'
 import { count } from 'console';
-import { Router } from '@angular/router';
-
-
-
 
 
 @Component({
-  selector: 'app-list-product',
-  templateUrl: './list-product.component.html',
-  styleUrls: ['./list-product.component.css'],
-  providers: [MyCapitalizePipe]
+  selector: 'app-shop',
+  templateUrl: './shop.component.html',
+  styleUrls: ['./shop.component.css'],
+  providers: [MyCapitalizePipe],
 })
-export class ListProductComponent implements OnInit {
+export class ShopComponent {
+  
   dataSource = new MatTableDataSource<any>(); // Change 'any' to your ProductModel type
   displayedColumns: string[] = ['id', 'title', 'price', 'description', 'category', 'images', 'actions'];
   filters: any = {}; // Define your filter model here
@@ -43,11 +40,9 @@ export class ListProductComponent implements OnInit {
   price:any = 1000;
   allProducts: any[]= [];
   isCartOpen: boolean = false;
-  isLoading: boolean = true; // Set it initially to true when fetching data
-
   constructor(private http: HttpClient, private dialog: MatDialog, private productService: ProductService,
     private authService: AuthenticationService, private CategoryService: CategoryService, private cartService: CartService
-  , private router: Router) { }
+  ) { }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -95,23 +90,17 @@ export class ListProductComponent implements OnInit {
   }
 
   fetchProductList(): void {
-    this.isLoading = true; // Set isLoading to true before data fetching starts
-
     this.productService.getProducts().subscribe(
       (response: any[]) => {
         this.dataSource.data = response; // Assign the fetched data to dataSource
         console.log(this.dataSource.data)
         this.allProducts = this.dataSource.data
-        this.isLoading = false; // Set isLoading to false when data is fetched
-
         debugger
         // this.authService.dothat({ name: 'products', count: this.dataSource.data.length })
         this.fetchCategories();
 
       },
       (error) => {
-        this.isLoading = false; // Set isLoading to false when data is fetched
-
         console.error('Error fetching products:', error);
       }
     );
@@ -328,9 +317,6 @@ export class ListProductComponent implements OnInit {
       return number * 2;
     });
     [].filter(num => num % 2 === 0);
-  }
-  openProductById(id:any){
-    this.router.navigate([`product/${id}`])
   }
 }
 

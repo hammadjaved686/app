@@ -64,7 +64,7 @@ showParent =false;
     this.isUser = false;
     this.isCategory = false
   
-    this.router.navigateByUrl('/product')
+    this.router.navigateByUrl('/admin/product')
   }
   login() {
     debugger
@@ -78,7 +78,7 @@ showParent =false;
     this.isUser = true
     this.isProduct = false
     this.isCategory = false
-    this.router.navigateByUrl('/user')
+    this.router.navigateByUrl('/admin/user')
     this.showParent =true
   }
   goToCategories(){
@@ -87,6 +87,6 @@ showParent =false;
     this.isUser = false
     this.isProduct = false
     this.isCategory = true
-    this.router.navigateByUrl('/category')
+    this.router.navigateByUrl('/admin/category')
   }
 }

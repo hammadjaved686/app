@@ -18,11 +18,16 @@ export class CustomerLayoutComponent {
   parentDataa = '';
   do: any;
   list: any = [];
+  showCartDropdown: boolean = false;
 
   showPriceFilter = false
   showCategoryFilter = false
   boolArray: boolean[]= [];
   isShopSelected= false;
+  isVendorSelected= false;
+  isBlogSelected= false;
+  isContactsSelected= false;
+  isHomeSelected= false;
   isCartOpen: boolean = false;
 
 
@@ -114,7 +119,53 @@ export class CustomerLayoutComponent {
   }
 
   clickShop() {
+    const currentRoute =  this.router.url;
+    if (currentRoute !== '/shop') {
+      this.router.navigate(['/shop'])
+    }
     this.isShopSelected = true
+    this.isVendorSelected= false;
+    this.isBlogSelected= false;
+    this.isContactsSelected= false;
+    this.isHomeSelected= false;
+
+  }
+
+  clickBlog() {
+    const currentRoute =  this.router.url;
+    if (currentRoute !== '/blog') {
+      this.router.navigate(['/blog'])
+    }
+    this.isShopSelected = false
+    this.isVendorSelected= false;
+    this.isBlogSelected= true;
+    this.isContactsSelected= false;
+    this.isHomeSelected= false;
+
+  }
+
+
+  clickContacts() {
+    const currentRoute =  this.router.url;
+    if (currentRoute !== '/contacts') {
+      this.router.navigate(['/contacts'])
+    }
+    this.isShopSelected = false
+    this.isVendorSelected= false;
+    this.isBlogSelected= false;
+    this.isContactsSelected= true;
+    this.isHomeSelected= false;
+  }
+  clickVendor() {
+    const currentRoute =  this.router.url;
+    if (currentRoute !== '/Vendor') {
+      this.router.navigate(['/Vendor'])
+    }
+    this.isShopSelected = false
+    this.isVendorSelected= true;
+    this.isBlogSelected= false;
+    this.isContactsSelected= false;
+    this.isHomeSelected= false;
   }
   clickHome() {
     const currentRoute =  this.router.url;
@@ -123,7 +174,10 @@ export class CustomerLayoutComponent {
       this.router.navigate(['/home'])
     }
     this.isShopSelected = false
-
+    this.isVendorSelected= false;
+    this.isBlogSelected= false;
+    this.isContactsSelected= false;
+    this.isHomeSelected= true;
   }
   clickCategory(data: any, index: number) {
     this.authService.dothat({ message: 'selected-category', data: data })
@@ -131,8 +185,12 @@ export class CustomerLayoutComponent {
   }
 
   clickCart() {
-    this.isCartOpen = !this.isCartOpen
+    // this.isCartOpen = !this.isCartOpen
     this.authService.dothat({ message: 'selected-cart', data: this.isCartOpen })
+    if(this.cartService.getItems().length >0){
+      debugger
+      this.router.navigate(['/cart'])
+    }
   }
   goToProducts() {
     this.showParent = false

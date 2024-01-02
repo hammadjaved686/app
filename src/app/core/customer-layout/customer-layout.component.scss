@@ -200,3 +200,23 @@
     width: 98%;
     margin-left: 1%;
     }
+
+    /* Style for the cart dropdown */
+.cart-dropdown {
+    display: none;
+    position: absolute;
+    top: 70px; /* Adjust the positioning as needed */
+    right: 200px;
+    z-index: 1;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Show cart dropdown when .active is applied */
+  .cart-dropdown.active {
+    display: block;
+  }
+
+  

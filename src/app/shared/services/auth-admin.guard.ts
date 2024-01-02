@@ -6,7 +6,7 @@ import { AuthenticationService } from './auth-service.service';
 @Injectable({
     providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthAdminGuard implements CanActivate {
     constructor(private authService: AuthenticationService, private router: Router) { }
 
     canActivate(
@@ -19,14 +19,14 @@ export class AuthGuard implements CanActivate {
         if (this.authService.isAuthenticated() || currentRoute.includes('register')) {
             const role = localStorage.getItem('userRole');
             debugger
-            if (role === 'customer')
+            if (role === 'admin')
                 return true;
             else
                 return false
         } else {
             //   return this.router.createUrlTree(['/login']); // Redirect to the login page if not authenticated
             this.router.navigate(['authentication/login']);
-            return  false
+            return false
         }
     }
 }

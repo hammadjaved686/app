@@ -29,6 +29,9 @@ import { CartComponent } from './shared/cart/cart.component';
 import { CustomerLayoutComponent } from './core/customer-layout/customer-layout.component';
 import { CartService } from './shared/services/cart.service';
 import { CheckoutComponentComponent } from './shared/checkout-component/checkout-component.component';
+import { BlogComponent } from './shared/blog/blog.component';
+import { ContactsComponent } from './shared/contacts/contacts.component';
+import { VendorComponent } from './shared/vendor/vendor.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +44,10 @@ import { CheckoutComponentComponent } from './shared/checkout-component/checkout
     DeleteConfirmationComponent,
     CustomerLayoutComponent,
     CheckoutComponentComponent,
+    BlogComponent,
+    ContactsComponent,
+    VendorComponent,
+
     
   ],
   imports: [

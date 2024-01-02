@@ -17,7 +17,8 @@ import { MyCapitalizePipe } from '../my-capitalize-pipe.pipe';
 import { MyCustomDirective } from '../myCustomDirective.directive'; // Adjust the import path accordingly
 import { MatCardModule } from '@angular/material/card';
 import { ProductDetailsModalComponent } from './product-details-modal/product-details-modal.component';
-import { CartComponent } from '../../app/shared/cart/cart.component'; // Import the app-cart component
+import { CartComponent } from '../../app/shared/cart/cart.component';
+import { ShopComponent } from './shop/shop.component'; // Import the app-cart component
 
 
 
@@ -29,7 +30,8 @@ import { CartComponent } from '../../app/shared/cart/cart.component'; // Import 
     MyCapitalizePipe,
     MyCustomDirective,
     ProductDetailsModalComponent,
-    CartComponent
+    CartComponent,
+    ShopComponent
 
   ],
   imports: [

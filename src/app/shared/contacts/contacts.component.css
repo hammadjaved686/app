@@ -1,0 +1,26 @@
+/* Sample CSS for contacts component */
+
+.contacts {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contacts h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+  
+  .contact-info {
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+  }
+  
+  .contact-info p {
+    margin: 8px 0;
+  }
+  
+  /* You can add more styles for a contact form or other elements here */
+  
