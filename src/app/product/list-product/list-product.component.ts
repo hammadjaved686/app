@@ -237,7 +237,6 @@ export class ListProductComponent implements OnInit {
     this.cartService.setToCart({ product: product, source: 'list-products' });
     this.openProductDetailsModal = false
     this.isCloseModal = true
-
   }
   fetchCategories(): void {
     // Make an API call to fetch categories
@@ -284,7 +283,23 @@ export class ListProductComponent implements OnInit {
     return Object.keys(categoryCount).map((key) => ({ [key]: categoryCount[key] }));
   }
 
-
+  getPageSeries(): number[] {
+    const pageSeries = [];
+    const maxPageLinksToShow = 5; // Change as needed
+    const middleIndex = Math.floor(maxPageLinksToShow / 2);
+    let start = Math.max(1, this.page - middleIndex);
+    const end = Math.min(this.totalPages, start + maxPageLinksToShow - 1);
+  
+    if (end - start < maxPageLinksToShow - 1) {
+      start = Math.max(1, end - maxPageLinksToShow + 1);
+    }
+  
+    for (let i = start; i <= end; i++) {
+      pageSeries.push(i);
+    }
+  
+    return pageSeries;
+  }
 
   fetchProductsByCategory(categoryId: number | string): void {
     // Make an API call to fetch products based on the selected category

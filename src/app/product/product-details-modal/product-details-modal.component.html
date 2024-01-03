@@ -1,11 +1,64 @@
 <div class="product-details-modal">
-    <div class="modal-content">
-      <img [src]="product.images" [alt]="product.name">
-      <h2>{{ product.name }}</h2>
-      <p>{{ product.description }}</p>
-      <p>Price: {{ product.price }}</p>
-      <button (click)="addToCart(product)">Add to Cart</button>
-      <button (click)="closeModel()">Close</button>
+  <div class="modal-content">
+    <div class="image-detail">
+      <div class="large-image">
+        <img [src]="product.images[selectedImageIndex]" [alt]="product.title + ' Large Image'"
+          *ngIf="product.images && product.images.length > 0">
+        <div class="arrow left" (click)="changeImage('prev')">&lt;</div>
+        <div class="arrow right" (click)="changeImage('next')">&gt;</div>
+      </div>
+      <div class="small-images">
+        <div class="image" *ngFor="let image of product.images; let i = index" (click)="selectImage(i)">
+          <img [src]="image" [alt]="product.title + ' Image ' + (i + 1)" [class.active]="selectedImageIndex === i">
+        </div>
+      </div>
+    </div>
+    <div class="product-detail">
+
+      <div>
+        <div class="sale">Sale Off</div>
+        <div class="title-text">
+          <h1 [ngStyle]="{'font-size': '220%', 'font-weight':'bold'}">{{ product.title }}</h1>
+        </div>
+        <div class="start-text">
+          <div class="star-rating">
+            <input type="radio" id="star3" name="rating" value="3">
+            <label for="star3" title="3 stars">&#9733;</label>
+            <input type="radio" id="star2" name="rating" value="2" checked>
+            <label for="star2" title="2 stars">&#9733;</label>
+            <input type="radio" id="star1" name="rating" value="1">
+            <label for="star1" title="1 star">&#9733;</label>
+
+          </div>
+          review (32)
+        </div>
+
+        <div class="price">
+          <p>${{ product.price }}</p>
+        </div>
+        <div class="description">
+          <p>{{ product.description }}</p>
+        </div>
+      </div>
+      <div > <button class="add-to-cart-btn" (click)="addToCart(product)">Add to Cart</button>
+
+        <div class="added-time">
+          <span class="info-label">Added:</span>
+          <span class="info-value">{{ product.creationAt | date:'medium' }}</span>
+        </div>
+        
+        <div class="updated-time">
+          <span class="info-label">Last Updated:</span>
+          <span class="info-value">{{ product.updatedAt | date:'medium' }}</span>
+        </div>
+
+        <div class="tags"> Tags
+          <p  class="tag">{{ product.category.name }}</p>
+          <span class="tag">Fashion</span>
+          <span class="tag">Travel</span>
+        </div> 
+        
+      </div>
     </div>
   </div>
-  
+</div>

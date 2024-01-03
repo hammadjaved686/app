@@ -9,7 +9,10 @@
  <div><h1 [ngStyle]="{'margin-left': '2%', 'font-weight':'bold'}">{{"Cart Summary"}}</h1></div>
 
  <div class="cart-summary">
-  
+  <div class="loader" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <div>Loading...</div>
+  </div>
   <div  class="cart-list">
   <table  mat-table [dataSource]="cartItems">
     <!-- Display columns -->

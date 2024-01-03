@@ -128,8 +128,23 @@
   color: dodgerblue;
 }
 
-.pagination{
-  margin-left: 45%
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1%;
+  cursor: pointer;
+}
+
+.pagination button,
+.pagination span {
+  margin: 0 5px;
+}
+
+.current {
+  font-weight: bold;
+  color: blue; /* Change color as needed */
+  cursor: pointer;
 }
 .loader {
   display: flex;
@@ -162,4 +177,24 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.add-to-cart-btn {
+  font-family: "Quicksand", sans-serif;
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50; 
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bolder;
+  transition-duration: 0.4s;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #45a049; 
 }

@@ -10,14 +10,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent {
+  isLoading: boolean = true; // Set it initially to true when fetching data
+
   dataSource = new MatTableDataSource<any>(); // Change 'any' to your ProductModel type
   constructor(private cartService: CartService, private router: Router,) {
     // this.cartItems = this.cartService.getCartItems();
     // this.cartService.setItems(this.cartItems)
    debugger
     console.log('cart Before---------Items: ', this.cartItems)
+    this.isLoading = true; // Set isLoading to true before data fetching starts
 
     this.cartItems = this.cartService.getItems()
+    this.isLoading = false; // Set isLoading to false when data is fetched
+
     console.log('cart---------Items: ', this.cartItems)
 
     debugger

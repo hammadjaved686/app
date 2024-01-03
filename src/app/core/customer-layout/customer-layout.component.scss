@@ -4,9 +4,19 @@
 /* accordion.component.css */
 .accordion-item {
     border: 1px solid #ccc;
+    cursor: pointer;
     margin-bottom: 10px;
   }
-  
+  .nav-item{
+    cursor: pointer;
+  }
+  .nav-link{
+    cursor: pointer;
+  }
+
+  .nav-link:hover {
+    background:yellow
+    }
   .accordion-header {
     background-color: #f5f5f5;
     padding: 10px;
@@ -180,9 +190,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    
   
     .mat-slider {
       width: 80%;
+      cursor: pointer;
       max-width: 500px;
     }
   }
@@ -192,6 +204,7 @@
     font-weight:bold;
   }
   .navbar-brand {
+    cursor: pointer;
     display: flex;
     margin-right: 8%;
   }

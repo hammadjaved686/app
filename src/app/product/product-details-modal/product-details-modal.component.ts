@@ -12,12 +12,20 @@ import { Subscription } from 'rxjs';
 })
 export class ProductDetailsModalComponent {
   private cartSubscription: Subscription | undefined;
+  selectedImage: string = '';
+  currentIndex = 0;
+  showLeftArrow = false;
+  showRightArrow = true;
+  slideAmount = 0;
 
   @Input() product: any; // Input property to receive product details
   @Input() close: any; // Input property to receive product details
   isClosed: boolean = true
   @Output() closeModal = new EventEmitter<void>();
-  constructor(private cartService: CartService, private router: Router, private route: ActivatedRoute, private productService: ProductService) { }
+  constructor(private cartService: CartService, private router: Router, private route: ActivatedRoute, private productService: ProductService) {
+    this.showLeftArrow = false;
+    this.showRightArrow = true;
+   }
   userRole = ''
   productId: any;
 
@@ -52,13 +60,25 @@ export class ProductDetailsModalComponent {
     // chcekout userrole privacy to cart if not loggedIn
     this.checkUserRole()
     this.cartService.setToCart({product:product, source:'product-details'});
-    this.router.navigate(['/shop'])
     this.closeModal.emit()
   }
   closeModel(){
     this.router.navigate(['/shop'])
   }
 
+  selectedImageIndex: number = 0; // Variable to store the index of the selected image
+
+  selectImage(index: number): void {
+    this.selectedImageIndex = index;
+  }
+
+  changeImage(direction: string): void {
+    if (direction === 'next') {
+      this.selectedImageIndex = (this.selectedImageIndex + 1) % this.product.images.length;
+    } else if (direction === 'prev') {
+      this.selectedImageIndex = (this.selectedImageIndex - 1 + this.product.images.length) % this.product.images.length;
+    }
+  }
   checkUserRole() {
     const storedUserRole = localStorage.getItem('userRole');
     if (storedUserRole) {
@@ -81,6 +101,8 @@ export class ProductDetailsModalComponent {
     this.productService.getProductById(id).subscribe(
       (response: any[]) => {
         this.product = response; // Assign the fetched data to dataSource
+        this.selectedImage = this.product.images[0];
+
       },
       (error) => {
         console.error('Error fetching products:', error);

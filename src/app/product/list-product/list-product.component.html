@@ -104,12 +104,16 @@
       <div>Loading...</div>
     </div>
 <div class="product-cards">
-  <div class="product-card" (click)="openProductById(product.id)" *ngFor="let product of pagedProducts">
+  <div class="product-card"  *ngFor="let product of pagedProducts">
     <!-- Product card content -->
-    <img [src]="product?.images[0]" alt="Product Image" class="product-image">
-    <h3>{{ product?.title }}</h3>
-    <p>Price: {{ product?.price }}</p>
-    <div class="add-to-cart" (click)="addToCart(product)">Add to Cart</div>
+    <div (click)="openProductById(product.id)">    
+      <img [src]="product?.images[0]" alt="Product Image" class="product-image">
+      <h3>{{ product?.title }}</h3>
+      <p>Price: {{ product?.price }}</p>
+    </div>
+
+    <div><button class="add-to-cart-btn" (click)="addToCart(product)">Add to Cart</button>
+    </div>
       <!-- <div class="actions">/d
       <button mat-icon-button color="primary" (click)="openEditProductDialog(product?.id)">
         <mat-icon>edit</mat-icon>
@@ -120,11 +124,12 @@
     </div> -->
   </div>
 </div>
-<div class="pagination"  [ngStyle]="{ 'margin-top': isLoading ? '5%' : '1%'}" >
+<div class="pagination" [ngStyle]="{ 'margin-top': isLoading ? '5%' : '1%'}">
   <button mat-button color="primary" (click)="goToPage(page - 1)" [disabled]="page === 1">Previous</button>
-  <span>{{ page }}</span>
+  <span *ngFor="let pageNumber of getPageSeries()" [class.current]="pageNumber === page" (click)="goToPage(pageNumber)">{{ pageNumber }}</span>
   <button mat-button color="primary" (click)="goToPage(page + 1)" [disabled]="page === totalPages">Next</button>
 </div>
+
 </div>
 
 <!-- <div>
