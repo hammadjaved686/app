@@ -223,6 +223,8 @@ export class ShopComponent {
     this.openProductDetailsModal = true;
   }
   addToCart(product: any): void {
+    debugger
+    this.cartService.setCartItems(product)
     this.cartService.setToCart({ product: product, source: 'list-products' });
     this.openProductDetailsModal = false
     this.isCloseModal = true

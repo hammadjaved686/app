@@ -4,10 +4,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProductComponent } from '../add-product/add-product.component';
-import { ProductService } from 'src/app/shared/services/product.service';
+import { ProductService } from '../../shared/services/product.service';
 // import { EditProductComponent } from '../edit-product/edit-product.component';
 import { DeleteConfirmationComponent } from '../../../app/shared/delete-confirmation/delete-confirmation.component'
-import { MyCapitalizePipe } from 'src/app/my-capitalize-pipe.pipe'
+import { MyCapitalizePipe } from '../../my-capitalize-pipe.pipe'
 import { AuthenticationService } from '../../shared/services/auth-service.service'
 import { CategoryService } from '../../shared/services/category.service'
 import { CartService } from '../../shared/services/cart.service'
@@ -55,7 +55,6 @@ export class ListProductComponent implements OnInit {
 
     this.checkUserRole();
     this.fetchProductList();
-
 
     this.authService.entityCount$.subscribe((entityCount) => {
       debugger
@@ -121,6 +120,7 @@ export class ListProductComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator; // Set paginator for the MatTableDataSource
   }
+
   openAddProductDialog(): void {
     const dialogRef = this.dialog.open(AddProductComponent, {
       width: '400px', // Set width or other properties as needed
@@ -159,7 +159,6 @@ export class ListProductComponent implements OnInit {
     });
   }
 
-
   openDeleteConfirmation(productId: number): void {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
       width: '300px',
@@ -184,6 +183,7 @@ export class ListProductComponent implements OnInit {
       }
     });
   }
+
   applyFilters() {
     this.isAppliedFilters = true
     debugger
@@ -228,16 +228,18 @@ export class ListProductComponent implements OnInit {
     return Math.ceil(this.dataSource.data.length / this.pageSize);
   }
 
-  // Method to set selected product and open modal
   openModalWithProduct(product: any): void {
     this.selectedProduct = product;
     this.openProductDetailsModal = true;
   }
+
   addToCart(product: any): void {
+    this.cartService.setCartItems(product)
     this.cartService.setToCart({ product: product, source: 'list-products' });
     this.openProductDetailsModal = false
     this.isCloseModal = true
   }
+
   fetchCategories(): void {
     // Make an API call to fetch categories
     debugger
@@ -284,11 +286,11 @@ export class ListProductComponent implements OnInit {
   }
 
   getPageSeries(): number[] {
-    const pageSeries = [];
+    const pageSeries: number[] = [];
     const maxPageLinksToShow = 5; // Change as needed
     const middleIndex = Math.floor(maxPageLinksToShow / 2);
-    let start = Math.max(1, this.page - middleIndex);
-    const end = Math.min(this.totalPages, start + maxPageLinksToShow - 1);
+    let start: number = Math.max(1, this.page - middleIndex);
+    let end: number = Math.min(this.totalPages, start + maxPageLinksToShow - 1);
   
     if (end - start < maxPageLinksToShow - 1) {
       start = Math.max(1, end - maxPageLinksToShow + 1);
@@ -328,6 +330,7 @@ export class ListProductComponent implements OnInit {
       this.fetchProductsByCategory(category.id);
     }
   }
+
   checkUserRole() {
     const storedUserRole = localStorage.getItem('userRole');
     if (storedUserRole !== null) {
@@ -344,6 +347,7 @@ export class ListProductComponent implements OnInit {
     });
     [].filter(num => num % 2 === 0);
   }
+  
   openProductById(id:any){
     this.router.navigate([`product/${id}`])
   }

@@ -24,8 +24,8 @@ export class CheckoutComponentComponent {
     debugger
     console.log('checkout Before---------Items: ', this.cartItems)
     debugger
-    this.cartItems = this.cartService.getItems();
-
+    this.cartItems =     this.cartService.getCartItems()
+    this.cartItems = this.cartItems.filter((item: any) => item !== undefined);
     // this.cartItems = this.cartService.getItems()
     console.log('checkout ---------Items: ', this.cartItems)
     // this.cartItems = [

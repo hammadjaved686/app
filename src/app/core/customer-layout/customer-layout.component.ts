@@ -55,6 +55,8 @@ export class CustomerLayoutComponent {
   cartItems: any[] = [];
 
   ngOnInit() {
+    this.cartItems = this.cartService.getCartItems()
+
     const storedUserRole = localStorage.getItem('userRole');
     if (storedUserRole !== null) {
       this.userRole = storedUserRole;
@@ -69,7 +71,7 @@ export class CustomerLayoutComponent {
     });
 
 
-        this.cartService.cartCount$.subscribe((cartItemRec) => {
+    this.cartService.cartCount$.subscribe((cartItemRec) => {
       debugger
       console.log('Entity Cart ------ component call ', cartItemRec)
       // product-details
@@ -77,12 +79,14 @@ export class CustomerLayoutComponent {
       if (cartItem?.name !== '')
       debugger
       this.cartItems = this.cartService.getItems()
-          if(cartItem){
+          if(cartItem && this.router.url!=='/cart'){
             this.cartItems.push(cartItem)
 
           }
+          this.cartItems = this.cartService.getCartItems()
+
       // this.cartItems = this.cartItems.filter(item => item.count !== 0 || item.name.trim() !== '');
-      this.cartService.setItems(this.cartItems)
+      // this.cartService.setItems(this.cartItems)
 
       console.log('Entity Cart Items------ component call ', this.cartItems)
 
@@ -186,7 +190,8 @@ export class CustomerLayoutComponent {
 
   clickCart() {
     // this.isCartOpen = !this.isCartOpen
-    this.authService.dothat({ message: 'selected-cart', data: this.isCartOpen })
+    this.cartItems = this.cartService.getCartItems()
+    // this.authService.dothat({ message: 'selected-cart', data: this.isCartOpen })
     if(this.cartService.getItems().length >0){
       debugger
       this.router.navigate(['/cart'])

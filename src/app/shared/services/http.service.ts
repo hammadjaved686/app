@@ -40,12 +40,5 @@ export class HttpService {
   delete<T>(url: string): Observable<T> {
     return this.http.delete<T>(url);
   }
-  setItems(items:any){
-   this.items = items.filter((item: any) => item !== undefined);
-
-    this.items = items
-  }
-  getItems (){
-    return this.items.filter((item: any) => item !== undefined);
-  }
+  
 }

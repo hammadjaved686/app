@@ -46,6 +46,7 @@ export class UserService {
       catchError(this.handleError)
     );
   }
+
   getUsers(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl)
       .pipe(
@@ -56,13 +57,15 @@ export class UserService {
         })
       );
   }
+
   getUserById(UserId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}${UserId}`);
   }
+
   updateUser(UserId: number, updatedUserData: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}${UserId}`, updatedUserData);
   }
-  // [POST] https://api.escuelajs.co/api/v1/users/is-available
+
   isUserAvailable(User:any): Observable<UserModel> {
     debugger
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -70,7 +73,7 @@ export class UserService {
       catchError(this.handleError)
     );
   }
-
+  
   deleteUser(UserId: number): Observable<any> {
     debugger
     console.log(UserId, 'prodductId del')

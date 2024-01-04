@@ -34,16 +34,20 @@
 
     <ng-container matColumnDef="quantity">
       <th mat-header-cell *matHeaderCellDef> Quantity </th>
-      <td mat-cell *matCellDef="let item">
-        <button mat-icon-button (click)="decreaseQuantity(item)">
+      <td mat-cell *matCellDef="let item" class="quantity-cell">
+        <button mat-icon-button class="quantity-btn" (click)="decreaseQuantity(item)">
           <mat-icon>remove</mat-icon>
         </button>
-        {{ item.quantity || 1 }}
-        <button mat-icon-button (click)="increaseQuantity(item)">
+        <span class="quantity-value">{{ item.quantity || 1 }}</span>
+        <button mat-icon-button class="quantity-btn" (click)="increaseQuantity(item)">
           <mat-icon>add</mat-icon>
         </button>
       </td>
     </ng-container>
+    
+    
+    
+    
 
     <ng-container matColumnDef="total">
       <th mat-header-cell *matHeaderCellDef> Total </th>

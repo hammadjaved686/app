@@ -14,6 +14,5 @@ export class LoggerService {
   error(message: string): void {
     console.error(`[LoggerService] ERROR: ${message}`);
   }
-
-  // Add more logging functions as needed
+  
 }

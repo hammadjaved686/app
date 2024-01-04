@@ -20,7 +20,9 @@ export class CartComponent {
     console.log('cart Before---------Items: ', this.cartItems)
     this.isLoading = true; // Set isLoading to true before data fetching starts
 
-    this.cartItems = this.cartService.getItems()
+    this.cartItems =     this.cartService.getCartItems()
+    this.cartItems = this.cartItems.filter((item: any) => item !== undefined);
+
     this.isLoading = false; // Set isLoading to false when data is fetched
 
     console.log('cart---------Items: ', this.cartItems)
@@ -32,31 +34,31 @@ export class CartComponent {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     
-    this.cartService.cartCount$.subscribe((cartItemRec) => {
-      debugger
-      console.log('Entity Cart ------ component call ', cartItemRec)
-      // product-details
-      const cartItem = cartItemRec.product
-      if (cartItem?.name !== '')
-        debugger
-      if (cartItem)
-        this.cartItems.push(cartItem)
-        this.cartItems = this.cartItems.filter((item: any) => item !== undefined);
+    // this.cartService.cartCount$.subscribe((cartItemRec) => {
+    //   debugger
+    //   console.log('Entity Cart ------ component call ', cartItemRec)
+    //   // product-details
+    //   const cartItem = cartItemRec.product
+    //   if (cartItem?.name !== '')
+    //     debugger
+    //   if (cartItem)
+    //     // this.cartItems.push(cartItem)
+    //     this.cartItems = this.cartItems.filter((item: any) => item !== undefined);
 
-      this.cartItems = this.cartItems.filter((item, index, self) =>
-        index === self.findIndex((t) => (
-          t.id === item.id
-        ))
-      );
-      console.log('Entity Cart Items------ component call ', this.cartItems)
+    //   // this.cartItems = this.cartItems.filter((item, index, self) =>
+    //   //   index === self.findIndex((t) => (
+    //   //     t.id === item.id
+    //   //   ))
+    //   // );
+    //   console.log('Entity Cart Items------ component call ', this.cartItems)
 
-      // this.cartService.setItems(this.cartItems)
-      // this.productCount = entityCount.count
-      // this.childEvent.emit(`Data from Child Products Count ${entityCount.count}` );
-      this.getTotalPrice()
+    //   // this.cartService.setItems(this.cartItems)
+    //   // this.productCount = entityCount.count
+    //   // this.childEvent.emit(`Data from Child Products Count ${entityCount.count}` );
+    //   this.getTotalPrice()
 
-      // this.entityCount = entityCount;
-    });
+    //   // this.entityCount = entityCount;
+    // });
 
   }
   increaseQuantity(item: any): void {

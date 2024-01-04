@@ -40,6 +40,24 @@
   border: 1px solid #ccc;
   display: flex;
 }
+.quantity-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.quantity-btn {
+  min-width: auto; /* Adjust button width */
+  /* Add other styles as needed */
+}
+
+.quantity-value {
+  display: inline-block;
+  width: 20px; /* Adjust width for the value */
+  text-align: center;
+  /* Add other styles for the quantity value */
+}
 
 .order-totals {
   border: 1px solid #ccc;
