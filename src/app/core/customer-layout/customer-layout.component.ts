@@ -2,9 +2,11 @@
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../shared/services/auth-service.service';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ElementRef, ViewChild} from '@angular/core';
 import { CartService } from '../../shared/services//cart.service';
+// import { CartService } from '../../../assets/images/';
 
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-customer-layout',
@@ -12,13 +14,28 @@ import { CartService } from '../../shared/services//cart.service';
   styleUrls: ['./customer-layout.component.scss']
 })
 export class CustomerLayoutComponent {
+  @ViewChild('cartImage') cartImageElement!: ElementRef;
 
   @Input() parentData: string = '';
   @Output() childEvent = new EventEmitter<string>();
   parentDataa = '';
   do: any;
+  path: string = '../../assets/images/cart1.jpg'; // Make sure to initialize properly
   list: any = [];
   showCartDropdown: boolean = false;
+  imagePaths: string[] = [
+    '../../assets/images/cart1.jpg',
+    '../../assets/images/cart2.jpg',
+    '../../assets/images/cart3.jpg',
+    '../../assets/images/cart4.jpg',
+    '../../assets/images/cart5.jpg',
+    '../../assets/images/cart6.jpg',
+    '../../assets/images/cart7.jpg',
+    '../../assets/images/cart8.jpg',
+    // Add more paths as needed
+  ];
+  currentImagePathIndex: number = 0;
+  private updateSubscription: Subscription | undefined;
 
   showPriceFilter = false
   showCategoryFilter = false
@@ -55,6 +72,17 @@ export class CustomerLayoutComponent {
   cartItems: any[] = [];
 
   ngOnInit() {
+
+    // for image counter
+    this.updateSubscription = interval(500).subscribe(() => {
+
+      const randomIndex = Math.floor(Math.random() * this.imagePaths.length);
+      if (this.cartImageElement) {
+        this.cartImageElement.nativeElement.src = this.imagePaths[randomIndex];
+      }
+
+    });
+
     this.cartItems = this.cartService.getCartItems()
 
     const storedUserRole = localStorage.getItem('userRole');
@@ -122,6 +150,25 @@ export class CustomerLayoutComponent {
     });
   }
 
+  setImageSource(): void {
+    // Assuming you have the image source in a variable called imagePath
+    const imagePath = './../assets/images/cart8.jpg';
+
+  }
+  ngOnDestroy() {
+    if (this.updateSubscription) {
+      this.updateSubscription.unsubscribe();
+    }
+  }
+
+  getCurrentImagePath(): any {
+    console.log('currennt Image path : ', this.imagePaths[this.currentImagePathIndex] )
+    const randomIndex = Math.floor(Math.random() * this.imagePaths.length);
+    if (this.cartImageElement) {
+      this.cartImageElement.nativeElement.src = this.imagePaths[randomIndex];
+    }
+    return this.imagePaths[randomIndex];
+  }
   clickShop() {
     const currentRoute =  this.router.url;
     if (currentRoute !== '/shop') {
@@ -148,7 +195,10 @@ export class CustomerLayoutComponent {
 
   }
 
-
+  getCurrentPath(){
+    console.log('--------+++++++++____________+++++++++')
+   return '../../assets/images/cart1.jpg'
+  }
   clickContacts() {
     const currentRoute =  this.router.url;
     if (currentRoute !== '/contacts') {

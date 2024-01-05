@@ -102,18 +102,18 @@
   
 </div>
   
-  <!-- Payment Type and Place Order -->
-  <div class="payment-type">
+<!-- Payment Type and Place Order -->
+<div class="payment-type">
     <h2>Payment Type</h2>
     <label>
-      <input type="radio" name="paymentType" value="online"> Online
+      <input type="radio" name="paymentType" [(ngModel)]="selectedPaymentType" value="online"> Online
     </label>
     <label>
-      <input type="radio" name="paymentType" value="cash"> Cash
+      <input type="radio" name="paymentType" [(ngModel)]="selectedPaymentType" value="cash"> Cash
     </label>
     <!-- Add more payment options as needed -->
   
-    <button (click)="placeOrder()">Place Order</button>
-
+    <button (click)="processPayment()">Place Order</button>
   </div>
+  
   

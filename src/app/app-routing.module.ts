@@ -22,6 +22,7 @@ import { ContactsComponent } from './shared/contacts/contacts.component';
 import { VendorComponent } from './shared/vendor/vendor.component';
 import { ShopComponent } from './product/shop/shop.component';
 import { ProductDetailsModalComponent } from './product/product-details-modal/product-details-modal.component';
+import { InvoiceComponent } from './shared/invoice/invoice.component';
 
 
 const routes: Routes = [
@@ -137,6 +138,17 @@ const routes: Routes = [
       {
         path: 'cart',
         component: CartComponent // Component to be loaded inside customerLayout
+      },
+      // Other routes with the same layout
+    ]
+  },
+  {
+    path: '',
+    component: CustomerLayoutComponent, // Use customerLayout as the layout component
+    children: [
+      {
+        path: 'invoice',
+        component: InvoiceComponent // Component to be loaded inside customerLayout
       },
       // Other routes with the same layout
     ]

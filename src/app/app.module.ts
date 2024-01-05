@@ -32,6 +32,7 @@ import { CheckoutComponentComponent } from './shared/checkout-component/checkout
 import { BlogComponent } from './shared/blog/blog.component';
 import { ContactsComponent } from './shared/contacts/contacts.component';
 import { VendorComponent } from './shared/vendor/vendor.component';
+import { InvoiceComponent } from './shared/invoice/invoice.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { VendorComponent } from './shared/vendor/vendor.component';
     BlogComponent,
     ContactsComponent,
     VendorComponent,
+    InvoiceComponent,
 
     
   ],

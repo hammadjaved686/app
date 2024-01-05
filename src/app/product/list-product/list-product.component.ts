@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -13,6 +13,7 @@ import { CategoryService } from '../../shared/services/category.service'
 import { CartService } from '../../shared/services/cart.service'
 import { count } from 'console';
 import { Router } from '@angular/router';
+import { Subscription, interval } from 'rxjs';
 
 
 
@@ -25,6 +26,10 @@ import { Router } from '@angular/router';
   providers: [MyCapitalizePipe]
 })
 export class ListProductComponent implements OnInit {
+  currentImagePathIndex: number = 0;
+  @ViewChildren('cartImage') cartImages!: QueryList<ElementRef>;
+
+  private updateSubscription: Subscription | undefined;
   dataSource = new MatTableDataSource<any>(); // Change 'any' to your ProductModel type
   displayedColumns: string[] = ['id', 'title', 'price', 'description', 'category', 'images', 'actions'];
   filters: any = {}; // Define your filter model here
@@ -55,7 +60,17 @@ export class ListProductComponent implements OnInit {
 
     this.checkUserRole();
     this.fetchProductList();
+    this.updateSubscription = interval(3000).subscribe(() => {
 
+      debugger
+      this.cartImages.forEach((imageRef: ElementRef, index: number) => {
+        const randomIndex = Math.floor(Math.random() * 3);
+        const newSrc = this.dataSource.data[index].images[randomIndex]
+        /* Logic to get the new image src based on index or product data */;
+        imageRef.nativeElement.src = newSrc;
+      });
+  
+    });
     this.authService.entityCount$.subscribe((entityCount) => {
       debugger
       console.log('Entity Count list Product component call ', entityCount)
@@ -88,6 +103,14 @@ export class ListProductComponent implements OnInit {
       }
       // this.entityCount = entityCount;
     });
+  }
+
+  currentImageIndex = 0; // Initialize the index
+
+  changeImage(product: any) {
+    setInterval(() => {
+      this.currentImageIndex = (this.currentImageIndex + 1) % product.images.length;
+    }, 1000); // Change image every 1 second (1000 milliseconds)
   }
   appliedFilters() {
     return !!this.filters.length()
@@ -347,7 +370,7 @@ export class ListProductComponent implements OnInit {
     });
     [].filter(num => num % 2 === 0);
   }
-  
+
   openProductById(id:any){
     this.router.navigate([`product/${id}`])
   }

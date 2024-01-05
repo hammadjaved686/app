@@ -1,0 +1,91 @@
+/* Reset styles */
+html, body, div, span, app, h1, h2, h3, h4, h5, h6, p, img, table, thead, tbody, tr, th, td, button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+  }
+  
+  /* Global styles */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+  }
+  
+  /* Invoice wrapper styles */
+  .invoice-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Invoice header styles */
+  .invoice-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .company-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+  }
+  
+  .company-info {
+    flex: 1;
+    margin-left: 20px;
+  }
+  
+  .invoice-details {
+    flex: 1;
+    text-align: right;
+  }
+  
+  /* Invoice body styles */
+  .invoice-body {
+    margin-bottom: 20px;
+  }
+  
+  .cart-items {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .cart-items th, .cart-items td {
+    border-bottom: 1px solid #ddd;
+    padding: 8px 0;
+    text-align: left;
+  }
+  
+  .cart-items th:last-child, .cart-items td:last-child {
+    text-align: center;
+  }
+  
+  .order-totals {
+    margin-top: 4vh;
+    text-align: right;
+    font-weight: bold;
+  }
+  
+  /* Generate PDF button styles */
+  .generate-pdf-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .generate-pdf-btn:hover {
+    background-color: #0056b3;
+  }
+  

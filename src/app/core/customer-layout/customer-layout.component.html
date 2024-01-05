@@ -116,8 +116,8 @@
                               (mouseenter)="showCartDropdown = true"
                               (mouseleave)="showCartDropdown = false"
                             >
-                              <img src="../../assets/images/cart-image.png" alt="" width="100" height="60" class="d-inline-block align-text-top ng-tns-c43-0">
-                              <div [ngStyle]="{ 'color': cartItems.length ? 'red' : 'initial', 'font-weight': cartItems.length ? 'bold' : 'normal' }">
+                            <img #cartImage alt="" id="c" width="200" height="100" class="d-inline-block align-text-top ng-tns-c43-0">
+                            <div [ngStyle]="{ 'color': cartItems.length ? 'red' : 'initial', 'font-weight': cartItems.length ? 'bold' : 'normal' }">
                                 {{cartItems.length}}
                               </div>
                               <!-- Cart dropdown content -->

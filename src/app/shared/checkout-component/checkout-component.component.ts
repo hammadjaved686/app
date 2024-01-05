@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CartService } from '../services//cart.service';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { StripeService } from '../services/stripe.service';
 
 
 @Component({
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./checkout-component.component.css']
 })
 export class CheckoutComponentComponent {
+  selectedPaymentType: string = ''; // Initialize with a default value if needed
 
   name: string = '';
   address: string = '';
@@ -18,13 +20,16 @@ export class CheckoutComponentComponent {
   phone: string = '';
   email: string = '';
   isProfileAdded = false;
-  constructor(private cartService: CartService, private snackBar: MatSnackBar, private router: Router) {
+  constructor(private cartService: CartService, private snackBar: MatSnackBar, private router: Router,private stripeService: StripeService) {
     // this.cartItems = this.cartService.getCartItems();
     // this.cartService.setItems(this.cartItems)
     debugger
     console.log('checkout Before---------Items: ', this.cartItems)
     debugger
     this.cartItems =     this.cartService.getCartItems()
+    
+    localStorage.setItem('items', JSON.stringify(this.cartItems))
+
     this.cartItems = this.cartItems.filter((item: any) => item !== undefined);
     // this.cartItems = this.cartService.getItems()
     console.log('checkout ---------Items: ', this.cartItems)
@@ -52,6 +57,11 @@ export class CheckoutComponentComponent {
     }
 
     
+  }
+  processPayment(): void {
+    localStorage.setItem('paymentType', this.selectedPaymentType)
+    const amount = 100; // Replace with your amount
+    this.stripeService.initiatePayment(this.cartItems);
   }
   submitBillingDetails(): void {
     this.isProfileAdded = true
