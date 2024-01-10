@@ -3,6 +3,7 @@ import { CartService } from '../services//cart.service';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { StripeService } from '../services/stripe.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -12,6 +13,7 @@ import { StripeService } from '../services/stripe.service';
 })
 export class CheckoutComponentComponent {
   selectedPaymentType: string = ''; // Initialize with a default value if needed
+  registerForm: FormGroup;
 
   name: string = '';
   address: string = '';
@@ -19,10 +21,19 @@ export class CheckoutComponentComponent {
   postalCode: string = '';
   phone: string = '';
   email: string = '';
+  userRole = ''
+  isLogedIn: boolean = false;
   isProfileAdded = false;
-  constructor(private cartService: CartService, private snackBar: MatSnackBar, private router: Router,private stripeService: StripeService) {
+  constructor(private cartService: CartService, private snackBar: MatSnackBar, private router: Router,private stripeService: StripeService, private formBuilder: FormBuilder) {
     // this.cartItems = this.cartService.getCartItems();
     // this.cartService.setItems(this.cartItems)
+    this.registerForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      address: ['', Validators.required],
+      postalCode: ['', Validators.required],
+      phone: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]] // Include Validators.email for email validation
+    });
     debugger
     console.log('checkout Before---------Items: ', this.cartItems)
     debugger
@@ -46,27 +57,50 @@ export class CheckoutComponentComponent {
     // ];
     debugger
   }
-  userRole ='';
   cartItems: any[] = [
   ];
 
   ngOnInit(): void {
-    const storedUserRole = localStorage.getItem('userRole');
-    if (storedUserRole !== null) {
-      this.userRole = storedUserRole;
+    this.checkUserRole()
+    if(this.cartItems.length ===0) {
+      this.router.navigate(['/home'])
     }
-
     
   }
   processPayment(): void {
-    localStorage.setItem('paymentType', this.selectedPaymentType)
-    const amount = 100; // Replace with your amount
-    this.stripeService.initiatePayment(this.cartItems);
+    if(!this.isProfileAdded && !this.isLogedIn ) 
+    { alert('Add profile as guest Or LoggedIn as a Customer')
+      return
+    }
+      
+    if (!this.selectedPaymentType) {
+      alert('please add payment method first')
+      return
+    }
+      localStorage.setItem('paymentType', this.selectedPaymentType)
+      if(this.selectedPaymentType==='cash'){
+         this.router.navigate(['/invoice'])
+         return
+      }
+      this.stripeService.initiatePayment(this.cartItems);
+    
   }
+  
   submitBillingDetails(): void {
     this.isProfileAdded = true
   }
 
+  checkUserRole() {
+    const storedUserRole = localStorage.getItem('userRole');
+    if (storedUserRole !== null) {
+      this.userRole = storedUserRole;
+      this.isLogedIn = true
+    }
+    else {
+      this.isLogedIn = false
+      this.userRole = 'customer';
+    }
+  }
   placeOrder(): void {
     // Your place order logic here...
   

@@ -46,6 +46,7 @@ export class CustomerLayoutComponent {
   isContactsSelected= false;
   isHomeSelected= false;
   isCartOpen: boolean = false;
+  wishList: any = [];
 
 
   sendDataToParent() {
@@ -74,14 +75,7 @@ export class CustomerLayoutComponent {
   ngOnInit() {
 
     // for image counter
-    this.updateSubscription = interval(500).subscribe(() => {
-
-      const randomIndex = Math.floor(Math.random() * this.imagePaths.length);
-      if (this.cartImageElement) {
-        this.cartImageElement.nativeElement.src = this.imagePaths[randomIndex];
-      }
-
-    });
+    this.getFavourites()
 
     this.cartItems = this.cartService.getCartItems()
 
@@ -154,6 +148,18 @@ export class CustomerLayoutComponent {
     // Assuming you have the image source in a variable called imagePath
     const imagePath = './../assets/images/cart8.jpg';
 
+  }
+
+  getFavourites() {
+    const storedItems = localStorage.getItem('wishList');
+
+    if (storedItems) {
+      this.wishList = JSON.parse(storedItems).filter((item: any) => item !== undefined);
+      console.log('wishList : -- -- - --- ', this.wishList)
+    }
+  }
+  goToWishList(){
+    this.router.navigate(['wishlist'])
   }
   ngOnDestroy() {
     if (this.updateSubscription) {
@@ -242,7 +248,7 @@ export class CustomerLayoutComponent {
     // this.isCartOpen = !this.isCartOpen
     this.cartItems = this.cartService.getCartItems()
     // this.authService.dothat({ message: 'selected-cart', data: this.isCartOpen })
-    if(this.cartService.getItems().length >0){
+    if(this.cartItems.length >0){
       debugger
       this.router.navigate(['/cart'])
     }

@@ -238,3 +238,22 @@ color:lightgray;
   font-size: 14px;
   color: #666;
 }
+
+/* CSS styles for the wish list button and item */
+.item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  width: 200px;
+}
+
+.wish{
+  padding: 3%;
+}
+.wishlist-button {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  color: #333;
+  padding: 5px 10px;
+  cursor: pointer;
+}

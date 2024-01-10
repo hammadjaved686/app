@@ -13,7 +13,7 @@ import { CategoryService } from '../../shared/services/category.service'
 import { CartService } from '../../shared/services/cart.service'
 import { count } from 'console';
 import { Router } from '@angular/router';
-import { Subscription, interval } from 'rxjs';
+import { Subscription, firstValueFrom, interval } from 'rxjs';
 
 
 
@@ -49,6 +49,7 @@ export class ListProductComponent implements OnInit {
   allProducts: any[]= [];
   isCartOpen: boolean = false;
   isLoading: boolean = true; // Set it initially to true when fetching data
+  wishList: any[] = [];
 
   constructor(private http: HttpClient, private dialog: MatDialog, private productService: ProductService,
     private authService: AuthenticationService, private CategoryService: CategoryService, private cartService: CartService
@@ -60,17 +61,17 @@ export class ListProductComponent implements OnInit {
 
     this.checkUserRole();
     this.fetchProductList();
-    this.updateSubscription = interval(3000).subscribe(() => {
+    // this.updateSubscription = interval(3000).subscribe(() => {
 
-      debugger
-      this.cartImages.forEach((imageRef: ElementRef, index: number) => {
-        const randomIndex = Math.floor(Math.random() * 3);
-        const newSrc = this.dataSource.data[index].images[randomIndex]
-        /* Logic to get the new image src based on index or product data */;
-        imageRef.nativeElement.src = newSrc;
-      });
+    //   debugger
+    //   this.cartImages.forEach((imageRef: ElementRef, index: number) => {
+    //     const randomIndex = Math.floor(Math.random() * 3);
+    //     const newSrc = this.dataSource.data[index].images[randomIndex]
+    //     /* Logic to get the new image src based on index or product data */;
+    //     imageRef.nativeElement.src = newSrc;
+    //   });
   
-    });
+    // });
     this.authService.entityCount$.subscribe((entityCount) => {
       debugger
       console.log('Entity Count list Product component call ', entityCount)
@@ -103,8 +104,17 @@ export class ListProductComponent implements OnInit {
       }
       // this.entityCount = entityCount;
     });
+
+    this.getFavourites()
   }
 
+  getFavourites() {
+    const storedItems = localStorage.getItem('wishList');
+
+    if (storedItems) {
+      this.wishList = JSON.parse(storedItems).filter((item: any) => item !== undefined);
+    }
+  }
   currentImageIndex = 0; // Initialize the index
 
   changeImage(product: any) {
@@ -374,5 +384,6 @@ export class ListProductComponent implements OnInit {
   openProductById(id:any){
     this.router.navigate([`product/${id}`])
   }
+
 }
 

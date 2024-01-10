@@ -23,6 +23,7 @@ import { VendorComponent } from './shared/vendor/vendor.component';
 import { ShopComponent } from './product/shop/shop.component';
 import { ProductDetailsModalComponent } from './product/product-details-modal/product-details-modal.component';
 import { InvoiceComponent } from './shared/invoice/invoice.component';
+// import { WishlistComponent } from './shared/wishlist/wishlist.component';
 
 
 const routes: Routes = [
@@ -153,6 +154,17 @@ const routes: Routes = [
       // Other routes with the same layout
     ]
   },
+  // {
+  //   path: '',
+  //   component: CustomerLayoutComponent, // Use customerLayout as the layout component
+  //   children: [
+  //     {
+  //       path: 'wishlist',
+  //       component: WishlistComponent // Component to be loaded inside customerLayout
+  //     },
+  //     // Other routes with the same layout
+  //   ]
+  // },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'reset-password', component: ResetPasswordComponent },

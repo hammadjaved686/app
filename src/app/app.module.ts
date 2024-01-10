@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider'; // Example module, import the ones you need
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +33,7 @@ import { BlogComponent } from './shared/blog/blog.component';
 import { ContactsComponent } from './shared/contacts/contacts.component';
 import { VendorComponent } from './shared/vendor/vendor.component';
 import { InvoiceComponent } from './shared/invoice/invoice.component';
+// import { WishlistComponent } from './shared/wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { InvoiceComponent } from './shared/invoice/invoice.component';
     ContactsComponent,
     VendorComponent,
     InvoiceComponent,
+    // WishlistComponent,
 
     
   ],
@@ -59,6 +61,7 @@ import { InvoiceComponent } from './shared/invoice/invoice.component';
     HttpClientModule,
     MatIconModule,
     FormsModule,
+    ReactiveFormsModule,
     MatDialogModule,
     MatTableModule,
     MatPaginatorModule,

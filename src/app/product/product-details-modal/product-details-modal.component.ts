@@ -106,7 +106,20 @@ export class ProductDetailsModalComponent {
       }
     );
   }
-  
+  addToWishlist(item:any){
+    const storedItems = localStorage.getItem('wishList');
+
+    let items
+    if (storedItems) {
+      items = JSON.parse(storedItems).filter((item: any) => item !== undefined);
+    }
+    if(storedItems && items) {
+      localStorage.setItem('wishList',item);
+    }
+    else{
+      localStorage.setItem('wishList',item);
+    }
+  }
 }
 // {id: 3, name: 'Furniture', image: 'https://i.imgur.com/Qphac99.jpeg', creationAt: '2023-12-08T04:03:48.00'},id: 33, title: 'Unbranded Metal Pizza', price: 881, description: 'The beautiful range of Apple Naturalé that has an …ts. With the Goodness of 100% Natural Ingredients', images: ['https://i.imgur.com/3oXNBst.jpeg', 'https://i.imgur.com/ErYYZnT.jpeg', 'https://i.imgur.com/boBPwYW.jpeg']}
 

@@ -35,12 +35,14 @@ export class InvoiceComponent {
     console.log('checkout Before---------Items: ', this.cartItems)
     debugger
     this.cartItems =  this.cartService.getCartItems()
+
+    const paymentType= localStorage.getItem('paymentType');
+    if(paymentType) {
+      debugger
+      this.paymentType = paymentType
+    }
     if (this.cartItems.length === 0) {
       const storedItems = localStorage.getItem('items');
-      const paymentType= localStorage.getItem('paymentType');
-      if(paymentType) {
-        this.paymentType = paymentType
-      }
       if (storedItems) {
         this.cartItems = JSON.parse(storedItems).filter((item: any) => item !== undefined);
       }
@@ -61,49 +63,60 @@ export class InvoiceComponent {
 
   generatePdf(): void {
     const invoiceContent = document.getElementById('invoice-content')!;
-    debugger
+    const generatePdfBtn = document.querySelector('.generate-pdf-btn') as HTMLElement;
+  
+    // Hide the button temporarily
+    if (generatePdfBtn) {
+      generatePdfBtn.style.display = 'none';
+    }
+  
     // Create a new jsPDF instance
     const pdf = new jsPDF('p', 'mm', 'a4');
-
+  
     // Function to convert HTML element to canvas
     const elementToCanvas = (element: HTMLElement): Promise<HTMLCanvasElement> => {
       return new Promise(resolve => {
         const canvas = document.createElement('canvas');
         const scale = 2; // Adjust scale as needed
-
+  
         const width = element.clientWidth * scale;
         const height = element.clientHeight * scale;
-
+  
         canvas.width = width;
         canvas.height = height;
-
+  
         const context = canvas.getContext('2d')!;
         context.scale(scale, scale);
-
+  
         const options = {
           backgroundColor: 'white', // Adjust background color if needed
           scale: scale
         };
-
+  
         html2canvas(element, options).then((canvas: HTMLCanvasElement) => {
           resolve(canvas);
         });
       });
     };
-
+  
     // Convert HTML element to canvas and add it to the PDF
     elementToCanvas(invoiceContent).then((canvas: HTMLCanvasElement) => {
       const imgData = canvas.toDataURL('image/png');
       pdf.addImage(imgData, 'PNG', 10, 10, 180, 150); // Adjust position and size as needed
-
+  
       // Save the PDF
       pdf.save('invoice.pdf');
       
       localStorage.removeItem('items');
       localStorage.removeItem('paymentType');
-
+  
+      // Restore the button after PDF generation
+      if (generatePdfBtn) {
+        generatePdfBtn.style.display = 'block';
+      }
     });
   }
+  
 
   downloadPdf(): void {
     const anchor = document.createElement('a');

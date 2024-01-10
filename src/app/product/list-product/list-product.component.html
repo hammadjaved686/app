@@ -107,7 +107,7 @@
   <div class="product-card"  *ngFor="let product of pagedProducts">
     <!-- Product card content -->
     <div (click)="openProductById(product.id)" class="hover-zoom default-zoom">
-      <img #cartImage alt="Product Image" class="product-image">
+      <img [src]="product?.images[0]" alt="Product Image" class="product-image">
       <h1 [ngStyle]="{'font-size': '180%', 'font-weight':'bold', 'color': 'indigo'}">{{product?.title}}</h1>
       <h1 [ngStyle]="{'font-size': '120%', 'font-weight':'bold', 'color': 'red'}">${{product?.price}}</h1>
     </div>
