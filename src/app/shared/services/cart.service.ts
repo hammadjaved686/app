@@ -11,6 +11,7 @@ export class CartService {
   cartCount$: Observable<any> = this.cartCountSubject.asObservable();
   items: any[] = [];
   cartItems: any[] = [];
+  wishlist: any[] = []; // Wishlist array to store items
 
   setCartItems(item: any) {
     const existingItemIndex = this.cartItems.findIndex((cartItem: any) => cartItem.id === item.id);
@@ -40,4 +41,13 @@ export class CartService {
     this.cartCountSubject.next(obj);
   }
 
+  addItemToWishlist(item: any) {
+    const itemWithQuantity = { ...item };
+    this.wishlist.push(itemWithQuantity);
+  }
+
+  // Get the wishlist
+  getWishlist(): any[] {
+    return this.wishlist;
+  }
 }

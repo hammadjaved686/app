@@ -2,8 +2,8 @@
   <div class="modal-content">
     <div class="image-detail">
       <div class="large-image">
-        <img [src]="product.images[selectedImageIndex]" [alt]="product.title + ' Large Image'"
-          *ngIf="product.images && product.images.length > 0">
+        <img [src]="product?.images[selectedImageIndex]" [alt]="product.title + ' Large Image'"
+          *ngIf="product?.images?.length > 0">
         <div class="arrow left" (click)="changeImage('prev')">&lt;</div>
         <div class="arrow right" (click)="changeImage('next')">&gt;</div>
       </div>

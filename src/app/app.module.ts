@@ -33,6 +33,7 @@ import { BlogComponent } from './shared/blog/blog.component';
 import { ContactsComponent } from './shared/contacts/contacts.component';
 import { VendorComponent } from './shared/vendor/vendor.component';
 import { InvoiceComponent } from './shared/invoice/invoice.component';
+import { WishlistComponent } from './shared/wishlist/wishlist.component';
 // import { WishlistComponent } from './shared/wishlist/wishlist.component';
 
 @NgModule({
@@ -50,6 +51,7 @@ import { InvoiceComponent } from './shared/invoice/invoice.component';
     ContactsComponent,
     VendorComponent,
     InvoiceComponent,
+    WishlistComponent,
     // WishlistComponent,
 
     

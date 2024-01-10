@@ -75,7 +75,7 @@ export class CustomerLayoutComponent {
   ngOnInit() {
 
     // for image counter
-    this.getFavourites()
+    // this.getFavourites()
 
     this.cartItems = this.cartService.getCartItems()
 
