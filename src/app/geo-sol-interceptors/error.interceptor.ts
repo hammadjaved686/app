@@ -14,12 +14,14 @@ import { catchError, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { LoggerService } from '../shared/services/logger.service';
 import { AuthenticationService } from '../shared/services/auth-service.service';
+import { DialogComponent } from '../shared/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(private router: Router, private logger: LoggerService, private authService: AuthenticationService) { }
+  constructor(private router: Router, private logger: LoggerService, private authService: AuthenticationService, private dialog: MatDialog) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('auth_token');
@@ -47,7 +49,15 @@ export class ErrorInterceptor implements HttpInterceptor {
           if (error.status === 401) {
             // Handle unauthorized access
             // Redirect to login page, display a message, etc.
-            alert('you are unauthorized to do this action')
+            debugger
+            const dialogRef = this.dialog.open(DialogComponent, {
+              width: '400px', // Set width or other properties as needed
+              data: 'you are unauthorized to do this action' // You can pass data to the dialog if needed
+            });
+          
+            dialogRef.afterClosed().subscribe((result: any) => {
+              // Handle the result here if needed
+            });
 
             // this.router.navigateByUrl('/authentication/login');
           } 
@@ -55,8 +65,12 @@ export class ErrorInterceptor implements HttpInterceptor {
           return throwError(errorMessage);
         })
       );
+      
   }
+
+
 }
+
 
 
 /*

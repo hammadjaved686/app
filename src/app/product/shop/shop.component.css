@@ -122,3 +122,105 @@
     color: white;
     /* Add any other styles to indicate selection */
   }
+
+  .product-cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-left: 8%;
+  }
+  
+  .product-card {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    width: calc(33.33% - 20px); /* Adjust card width as needed */
+  }
+  
+  .product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  
+  .product-card h3 {
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  /* .product-card:hover img{
+    width: 200px; 
+    height: auto; 
+    transition: transform 0.3s ease;
+  }
+  .product-image :hover {
+    transform: scale(1.1);
+  } */
+  
+  .default-zoom img {
+    transform: scale(1);
+    transition: transform 0.3s ease;
+  }
+  
+  .hover-zoom:hover img {
+    transform: scale(1.7);
+  }
+  
+  .product-card p {
+    margin-top: 5px;
+    font-size: 14px;
+  }
+  .actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
+  /* Styles for the product cards */
+  /* Styles for the product cards */
+  .product-card {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    width: 200px;
+    display: inline-block;
+  }
+  .add-to-cart-btn {
+    font-family: "Quicksand", sans-serif;
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50; 
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bolder;
+    transition-duration: 0.4s;
+  }
+  
+  .add-to-cart-btn:hover {
+    background-color: #45a049; 
+  }
+
+  .slider-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%; /* Adjust width as needed */
+    margin: 20px auto; /* Adjust margins as needed */
+  }
+  
+  .start-slider,
+  .end-slider {
+    flex: 1;
+    margin: 0 10px;
+    width: calc(50% - 20px); /* Adjust width as needed */
+  }
+  
+  /* Customize other styles as per your requirement */
+  

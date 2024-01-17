@@ -51,10 +51,18 @@ export class AuthenticationService {
     // In a real application, this would involve communicating with a server
     // For simplicity, we'll just set isAuthenticated to false
     debugger
-    console.log('called logout auth')
-    localStorage.clear()
-    this.router.navigateByUrl('/authentication/login')
-    this.isAuthenticatedSubject.next(false);
+    const storedUserRole = localStorage.getItem('userRole');
+    if (storedUserRole !== null) {
+      console.log('called logout auth')
+      localStorage.clear()
+      this.router.navigateByUrl('/authentication/login')
+  
+      if (storedUserRole==='customer') {
+        this.router.navigateByUrl('')
+      }
+      this.isAuthenticatedSubject.next(false);
+    }
+
   }
 
   isAuthenticated(): boolean {

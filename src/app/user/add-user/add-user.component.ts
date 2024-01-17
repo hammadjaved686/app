@@ -11,6 +11,8 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class AddUserComponent {
   userForm: FormGroup;
+  submitted: boolean = false
+  error: boolean = false;
 
   constructor(private UserService: UserService,
     private dialogRef: MatDialogRef<AddUserComponent>,
@@ -19,14 +21,16 @@ export class AddUserComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.userForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      name: ['', Validators.required],
-      password: ['', Validators.required],
+      email: ['', [Validators.required, Validators.pattern(/^\S+@\S+\.\S+$/)]],
+      name: ['', [Validators.required, Validators.pattern(/[a-zA-Z ]{3,50}/)]],
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]+$/)]],
       avatar: [[]]
     });
   }
 
   submitUser(): void {
+    this.submitted = true;
+
     if (this.userForm.valid) {
       const newUser = this.userForm.value;
       console.log('user : ', newUser)
@@ -45,6 +49,9 @@ export class AddUserComponent {
         }
       );
 
+    }
+    else {
+      this.error = true
     }
   }
 }

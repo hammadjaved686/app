@@ -34,6 +34,7 @@ import { ContactsComponent } from './shared/contacts/contacts.component';
 import { VendorComponent } from './shared/vendor/vendor.component';
 import { InvoiceComponent } from './shared/invoice/invoice.component';
 import { WishlistComponent } from './shared/wishlist/wishlist.component';
+import { DialogComponent } from './shared/dialog/dialog.component';
 // import { WishlistComponent } from './shared/wishlist/wishlist.component';
 
 @NgModule({
@@ -52,6 +53,7 @@ import { WishlistComponent } from './shared/wishlist/wishlist.component';
     VendorComponent,
     InvoiceComponent,
     WishlistComponent,
+    DialogComponent,
     // WishlistComponent,
 
     

@@ -1,9 +1,44 @@
-<form [formGroup]="userForm" (ngSubmit)="submitUser()">
-    <!-- Form fields for user details -->
-    <input formControlName="email" placeholder="email">
-    <input formControlName="password" placeholder="password">
-    <input formControlName="name" placeholder="name">
-    <input formControlName="avatar" placeholder="avatar">
+<!-- app.component.html -->
+<!-- app.component.html -->
+<div>
+  <form [formGroup]="userForm" (ngSubmit)="submitUser()" class="styled-form">
+    <div class="form-group input-container">
+      <label for="name">Name</label>
+      <input type="text" formControlName="name" placeholder="Name" required pattern="[a-zA-Z ]{3,50}">
+      <div *ngIf="userForm.get('name')!.hasError('required') && (userForm.get('name')!.touched || submitted)" class="error-message">
+        Name is required.
+      </div>
+      <div *ngIf="userForm.get('name')!.hasError('pattern') && userForm.get('name')!.touched" class="error-message">
+        Name should contain only characters and a single space, and length should be between 3 and 50.
+      </div>
+    </div>
+
+    <div class="form-group input-container">
+      <label for="email">Email</label>
+      <input type="email" formControlName="email" placeholder="Email" required>
+      <div *ngIf="userForm.get('email')!.hasError('required') && (userForm.get('email')!.touched || submitted)" class="error-message">
+        Email is required.
+      </div>
+      <div *ngIf="userForm.get('email')!.hasError('pattern') && userForm.get('email')!.touched" class="error-message">
+        Please enter a valid email address.
+      </div>
+    </div>
+
+    <div class="form-group input-container">
+      <label for="password">Password</label>
+      <input type="password" formControlName="password" placeholder="Password" required pattern="^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]+$">
+      <div *ngIf="userForm.get('password')!.hasError('required') && (userForm.get('password')!.touched || submitted)" class="error-message">
+        Password is required.
+      </div>
+      <div *ngIf="userForm.get('password')!.hasError('pattern') && userForm.get('password')!.touched" class="error-message">
+        Password must contain at least one lowercase letter, one uppercase letter, and no special characters.
+      </div>
+    </div>
+
+    <!-- Add more form fields as needed with appropriate validation -->
+
     <button type="submit">Submit</button>
+    <div class="color" *ngIf="error">Invalid form</div>
   </form>
-  
+</div>
+

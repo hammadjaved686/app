@@ -1,0 +1,25 @@
+.red-text {
+    color: red;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .styled-button {
+    background-color: #ff5757; /* Adjust the background color */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add a smooth transition effect */
+  
+    /* Optional: Add hover styles */
+    &:hover {
+      background-color: #e54545; /* Adjust the hover background color */
+    }
+  }
+  

@@ -1,6 +1,7 @@
 /* add-product.component.css */
 
 /* Form container */
+
 .form-container {
     width: 400px;
     margin: 20px auto;
@@ -10,7 +11,54 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: #fff;
   }
-  
+  /* app.component.css */
+.styled-form {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.error-message {
+  color: #ff0000;
+  margin-top: 5px;
+}
+
+button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.color {
+  color: #ff0000;
+  margin-top: 10px;
+  text-align: center;
+
+}
+
   /* Form input fields */
   .form-input {
     width: 100%;

@@ -14,7 +14,13 @@ span {
   display: block;
   margin-top: 5px;
 }
-
+.color {
+  text-align: center;
+  color: red;
+}
+.padding {
+  padding: 10px;
+}
 /* Hide error messages by default */
 span[hidden] {
   display: none;

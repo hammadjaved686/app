@@ -4,6 +4,8 @@ import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { StripeService } from '../services/stripe.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DialogComponent } from '../dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -24,15 +26,41 @@ export class CheckoutComponentComponent {
   userRole = ''
   isLogedIn: boolean = false;
   isProfileAdded = false;
-  constructor(private cartService: CartService, private snackBar: MatSnackBar, private router: Router,private stripeService: StripeService, private formBuilder: FormBuilder) {
+  constructor(private cartService: CartService, private dialog: MatDialog, private snackBar: MatSnackBar, private router: Router,private stripeService: StripeService, private formBuilder: FormBuilder) {
     // this.cartItems = this.cartService.getCartItems();
     // this.cartService.setItems(this.cartItems)
     this.registerForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      address: ['', Validators.required],
-      postalCode: ['', Validators.required],
-      phone: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]] // Include Validators.email for email validation
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^([A-Za-z]+ )*[A-Za-z]+$/),
+          Validators.minLength(3),
+          Validators.maxLength(50)
+        ]
+      ],
+      address: [
+        '',
+        [Validators.required, Validators.minLength(5), Validators.maxLength(300)]
+      ],
+      postalCode: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[a-zA-Z0-9]{1,20}$/),
+          Validators.maxLength(20)
+        ]
+      ],
+      phone: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^\+\d{6,20}$/),
+          Validators.minLength(6),
+          Validators.maxLength(20)
+        ]
+      ],
+      email: ['', [Validators.required, Validators.email]]
     });
     debugger
     console.log('checkout Before---------Items: ', this.cartItems)
@@ -67,14 +95,30 @@ export class CheckoutComponentComponent {
     }
     
   }
+  openDialog(message:any): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '400px', // Set width or other properties as needed
+      data: message // You can pass data to the dialog if needed
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      // Handle the result here if needed
+     
+    });
+  }
   processPayment(): void {
     if(!this.isProfileAdded && !this.isLogedIn ) 
-    { alert('Add profile as guest Or LoggedIn as a Customer')
+    { 
+      this.openDialog('Add profile as guest Or LoggedIn as a Customer')
       return
     }
       
     if (!this.selectedPaymentType) {
-      alert('please add payment method first')
+      this.openDialog('please add payment method first')
+      return
+    }
+    if (!this.isProfileAdded) {
+      this.openDialog('please add profile first')
       return
     }
       localStorage.setItem('paymentType', this.selectedPaymentType)

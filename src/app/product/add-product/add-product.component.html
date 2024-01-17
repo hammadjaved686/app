@@ -1,39 +1,51 @@
+<div class="padding">
+<!-- app.component.html -->
 <form [formGroup]="productForm" (ngSubmit)="submitProduct()">
   <div class="form-group input-container d-flex flex-column title">
     <label for="title">Title</label>
-    <input type="text" formControlName="title">
-    <!-- Display validation error message for title -->
-    <div *ngIf="productForm.get('title')!.hasError('required') && productForm.get('title')!.touched" class="error-message">
+    <input type="text" formControlName="title" pattern="[a-zA-Z ]{3,50}" required>
+    <div *ngIf="productForm.get('title')!.hasError('pattern') && productForm.get('title')!.touched" class="error-message">
+      Title should contain only characters and a single space, and length should be between 3 and 50.
+    </div>
+    <div *ngIf="productForm.get('title')!.hasError('required') && (productForm.get('title')!.touched || submitted)" class="error-message">
       Title is required.
     </div>
   </div>
-
   <div class="form-group input-container d-flex flex-column price">
     <label for="price">Price</label>
-    <input type="number" formControlName="price">
-    <!-- Display validation error message for price -->
-    <div *ngIf="productForm.get('price')!.hasError('required') && productForm.get('price')!.touched" class="error-message">
+    <input type="number" formControlName="price" required>
+    <div *ngIf="productForm.get('price')!.hasError('required') && (productForm.get('price')!.touched || submitted)" class="error-message">
       Price is required.
     </div>
   </div>
 
   <div class="form-group input-container d-flex flex-column description">
     <label for="description">Description</label>
-    <input type="text" formControlName="description">
-    <!-- Display validation error message for description -->
-    <div *ngIf="productForm.get('description')!.hasError('required') && productForm.get('description')!.touched" class="error-message">
+    <input type="text" formControlName="description" pattern="[a-zA-Z0-9 ]{1,300}" required>
+    <div *ngIf="productForm.get('description')!.hasError('pattern') && (productForm.get('description')!.touched || submitted)" class="error-message">
+      Description should contain only numbers and alphabets, and length should not exceed 300 characters.
+    </div>
+    <div *ngIf="productForm.get('description')!.hasError('required') && (productForm.get('description')!.touched || submitted)" class="error-message">
       Description is required.
     </div>
   </div>
 
   <div class="form-group input-container d-flex flex-column categoryId">
     <label for="categoryId">Category ID</label>
-    <input type="text" formControlName="categoryId">
-    <!-- Display validation error message for categoryId -->
-    <div *ngIf="productForm.get('categoryId')!.hasError('required') && productForm.get('categoryId')!.touched" class="error-message">
+    <input type="number" formControlName="categoryId" required>
+    <div *ngIf="productForm.get('categoryId')!.hasError('required') && (productForm.get('categoryId')!.touched || submitted)" class="error-message">
       Category ID is required.
     </div>
   </div>
 
+  <!-- Add more form fields as needed with appropriate validation -->
+
   <button type="submit" class="btn btn-primary login-btn">Save</button>
+  <div class="color" *ngIf="error">Invalid form</div>
 </form>
+
+
+
+
+  
+</div>

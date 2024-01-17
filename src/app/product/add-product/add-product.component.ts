@@ -15,6 +15,8 @@ export class AddProductComponent {productForm: FormGroup;
   productId: number = 0;
   images: any = [[]];
   categoryId: any
+  error: boolean =false;
+  submitted: boolean =false;
   constructor(
     private productService: ProductService,
     private dialogRef: MatDialogRef<AddProductComponent>,
@@ -23,9 +25,9 @@ export class AddProductComponent {productForm: FormGroup;
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.productForm = this.formBuilder.group({
-      title: ['', Validators.required],
+      title: ['', [Validators.required, Validators.pattern(/[a-zA-Z ]{3,50}/)]],
       price: ['', Validators.required],
-      description: ['', Validators.required],
+      description: ['', [Validators.required, Validators.pattern(/[a-zA-Z0-9 ]{1,300}/)]],
       categoryId: ['', Validators.required],
       images: [[]]
     });
@@ -53,12 +55,17 @@ export class AddProductComponent {productForm: FormGroup;
   }
 
   submitProduct(): void {
+    this.submitted = true;
+
     if (this.productForm.valid) {
       const productData = this.productForm.value;
 
       if (this.editMode && this.productId) {
         debugger
         // Update an existing product
+        if(typeof(this.images)==='string'){
+          this.images= JSON.parse(this.images);
+        }
         productData.images = this.images
 
         this.productService.updateProduct(this.productId, productData).subscribe(
@@ -92,6 +99,9 @@ export class AddProductComponent {productForm: FormGroup;
           }
         );
       }
+    }
+    else{
+      this.error = true
     }
   }
 }

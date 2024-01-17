@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../../enviroments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: ''
 })
 export class CartService {
   private cartCountSubject = new BehaviorSubject<any>({ count: 0, name: '' });
