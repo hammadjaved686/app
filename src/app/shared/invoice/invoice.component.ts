@@ -7,6 +7,7 @@ import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { StripeService } from '../services/stripe.service';
 import jsPDF from 'jspdf';
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -27,15 +28,16 @@ export class InvoiceComponent {
   isProfileAdded = false;
   safePdfUrl: SafeUrl | undefined;
   paymentType: string = '';
+  userDetail: any;
 
-  constructor(private cartService: CartService, private snackBar: MatSnackBar, private router: Router,private stripeService: StripeService,private sanitizer: DomSanitizer) {
+  constructor(private cartService: CartService, private snackBar: MatSnackBar, private router: Router,private stripeService: StripeService,private userService: UserService) {
     // this.cartItems = this.cartService.getCartItems();
     // this.cartService.setItems(this.cartItems)
     debugger
     console.log('checkout Before---------Items: ', this.cartItems)
     debugger
     this.cartItems =  this.cartService.getCartItems()
-
+    this.userDetail =  this.userService.getUserDetail()
     const paymentType= localStorage.getItem('paymentType');
     if(paymentType) {
       debugger

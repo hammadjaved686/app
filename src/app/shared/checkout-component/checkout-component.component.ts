@@ -6,6 +6,7 @@ import { StripeService } from '../services/stripe.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class CheckoutComponentComponent {
   userRole = ''
   isLogedIn: boolean = false;
   isProfileAdded = false;
-  constructor(private cartService: CartService, private dialog: MatDialog, private snackBar: MatSnackBar, private router: Router,private stripeService: StripeService, private formBuilder: FormBuilder) {
+  constructor(private cartService: CartService, private dialog: MatDialog, private snackBar: MatSnackBar, private router: Router,private stripeService: StripeService, private formBuilder: FormBuilder, private userService: UserService) {
     // this.cartItems = this.cartService.getCartItems();
     // this.cartService.setItems(this.cartItems)
     this.registerForm = this.formBuilder.group({
@@ -132,6 +133,10 @@ export class CheckoutComponentComponent {
   
   submitBillingDetails(): void {
     this.isProfileAdded = true
+    if (this.registerForm.valid) {
+      const userDetail = this.registerForm.value;
+      this.userService.setUserDetail(userDetail)
+    }
   }
 
   checkUserRole() {

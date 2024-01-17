@@ -14,6 +14,14 @@ import { environment } from '../../../enviroments/environment';
   providedIn: 'root'
 })
 export class UserService {
+  userDetail: any;
+  setUserDetail(userDetail:any) {
+    this.userDetail = userDetail
+  }
+  getUserDetail(){
+    debugger
+    return this.userDetail
+  }
   private apiUrl: string = '';
 
   constructor(private http: HttpClient) {

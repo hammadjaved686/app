@@ -7,6 +7,10 @@
         <p>Eifiel PYK, Gerogrio 807 D</p>
       </div>
       <div class="invoice-details">
+        <h1 [ngStyle]="{'font-size': '120%', 'font-weight':'bold', 'padding-bottom': '5vh', 'color': 'blue'}">Customer Name: {{userDetail.name}}</h1>
+        <p>Delivery Address:  {{userDetail.address}}</p>
+    </div>
+      <div class="invoice-details">
         <h1 [ngStyle]="{'font-size': '120%', 'font-weight':'bold', 'padding-bottom': '5vh', 'color': 'green'}">Invoice</h1>
         <h1 [ngStyle]="{'font-size': '120%', 'font-weight':'bold', 'padding-bottom': '5vh', 'color': 'blue'}">Payment Type: {{paymentType}}</h1>
         <p>Invoice Number: #INV-12345</p>
