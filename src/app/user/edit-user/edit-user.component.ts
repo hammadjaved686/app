@@ -35,11 +35,14 @@ export class EditUserComponent implements OnInit {
     // Get the user ID from the route params
     this.route.paramMap.subscribe((params: ParamMap) => {
       debugger
+      debugger
       this.userId = this.data.userId;
     });    
     // Fetch the user details based on the ID
+    debugger
     this.userService.getUserById(this.userId).subscribe(user => {
       // Pre-fill the form with fetched user details
+      debugger
       this.userForm.patchValue({
         email: user.email,
         name: user.name,

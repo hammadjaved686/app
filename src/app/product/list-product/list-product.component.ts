@@ -165,6 +165,7 @@ export class ListProductComponent implements OnInit {
       console.log('Dialog closed with result:', result);
 
       if (result) {
+        debugger
         this.dataSource.data.unshift(result); // Append newObj to
       }
       // this.authService.dothat({ name: 'products', count: this.dataSource.data.length })
@@ -268,6 +269,9 @@ export class ListProductComponent implements OnInit {
 
   addToCart(product: any): void {
     this.cartService.setCartItems(product)
+    const maxPriceProduct = this.allProducts.reduce((maxProduct, currentProduct) => {
+      return currentProduct.price > maxProduct.price ? currentProduct : maxProduct;
+    }, this.allProducts[0]);
     this.cartService.setToCart({ product: product, source: 'list-products' });
     this.openProductDetailsModal = false
     this.isCloseModal = true
@@ -284,9 +288,11 @@ export class ListProductComponent implements OnInit {
         console.log('categoryCounts : ', categoryCounts);
         console.log('products data', this.dataSource.data.length)
         console.log('products all data', this.allProducts.length)
-
-
-        this.authService.dothat({ message: 'cat-count-list', data: categoryCounts })
+        const maxPriceProduct = this.allProducts.reduce((maxProduct, currentProduct) => {
+          return currentProduct.price > maxProduct.price ? currentProduct : maxProduct;
+        }, this.allProducts[0]);
+debugger
+        this.authService.dothat({ message: 'cat-count-list', maxPrice: maxPriceProduct.price, data: categoryCounts })
 
         debugger
       },

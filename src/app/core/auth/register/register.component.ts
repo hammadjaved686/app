@@ -18,6 +18,8 @@ import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
 import { mergeMap } from 'rxjs/operators';
+import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 // Suppose source$ emits values 1, 2, 3...
 
@@ -34,14 +36,14 @@ export class RegisterComponent implements OnInit {
   numbers: number[] = [];
   private alive = true;
   private subscription: Subscription | undefined;
-
   registerForm!: FormGroup;
   email: string = '';
   password: string = '';
   name: string = ''; // Added field for name
   avatar: string = '';
   role: string = 'admin';
-  constructor(private httpService: HttpService,private UserService: UserService,
+  isSubmit: boolean = false;
+  constructor(private httpService: HttpService,private UserService: UserService, private dialog: MatDialog,
     private authService: AuthenticationService,
     private router: Router,
     private fb: FormBuilder) { }
@@ -49,8 +51,11 @@ export class RegisterComponent implements OnInit {
     createForms = () => {
       this.registerForm = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required]],
-        name: ['', [Validators.required]],
+        password: [
+          '',
+          [Validators.required, Validators.pattern(/^[a-zA-Z0-9]+$/)],
+        ],
+        name: ['', [Validators.required, Validators.pattern(/[a-zA-Z ]{3,50}/)]],
         role: ['', [Validators.required]] // Add the 'role' field with required validation
       });
     }
@@ -75,6 +80,8 @@ export class RegisterComponent implements OnInit {
 
 
   register() {
+    debugger
+    this.isSubmit = true
     if (this.registerForm.valid) {
       const newUser = this.registerForm.value;
       console.log('user : ', newUser)
@@ -84,8 +91,8 @@ export class RegisterComponent implements OnInit {
           // Handle success: Response received from API
           console.log('User added:', response);
           // this.dialogRef.close(response);
-          alert('Registered Succefully')
-          this.router.navigate(['/product']);
+          this.openDialog('Registered Succefully')
+          this.router.navigate(['/authentication/login']);
           // Additional operations based on API response
         },
         (error: any) => {
@@ -97,7 +104,18 @@ export class RegisterComponent implements OnInit {
     }
     }
       
-
+    openDialog(message:any): void {
+      const dialogRef = this.dialog.open(DialogComponent, {
+        width: '400px', // Set width or other properties as needed
+        data: message // You can pass data to the dialog if needed
+      });
+  
+      dialogRef.afterClosed().subscribe((result: any) => {
+        // Handle the result here if needed
+       
+      });
+    }
+    
   }
 
 

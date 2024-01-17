@@ -52,7 +52,7 @@ export class ShopComponent {
     this.fetchProductList();
 
 
-    this.authService.entityCount$.subscribe((entityCount) => {
+    this.authService.entityCount$.subscribe(async (entityCount) => {
       debugger
       console.log('Entity Count list Product component call ', entityCount)
       this.paginateProducts();
@@ -79,9 +79,58 @@ export class ShopComponent {
         this.dataSource.data = this.allProducts.filter(item => item.price < this.price);
         debugger
         this.dataSource._updateChangeSubscription(); // this.dataSource.data = updatedDataArray;
+      }
+      // if (entityCount.message === 'selected-minprice') {
+      //   debugger
+      //   console.log(entityCount.data)
+      //   this.price = entityCount.data 
+      //   this.dataSource.data = this.allProducts.filter(item => item.price < this.price);
+      //   debugger
+      //   this.dataSource._updateChangeSubscription(); // this.dataSource.data = updatedDataArray;
+      // }
+      if (entityCount.message === 'selected-priceRange') {
+        debugger
+        console.log(entityCount.data)
+        const minPrice = entityCount.data.maxPrice
+        const maxPrice = entityCount.data.minPrice
+        this.dataSource.data = this.allProducts.filter((item: any) => {
+          // Check if any of the conditions match using OR operator (||)
+          return (
+            item.price < maxPrice &&
+            item.price > minPrice
+          );
+        });
+        debugger
+        this.dataSource._updateChangeSubscription(); // this.dataSource.data = updatedDataArray;
+      }
+      if (entityCount.message === 'selected-sort') {
+        debugger
+        console.log(entityCount.data)
+        const sortType = entityCount.data 
+        this.pagedProducts 
+        = await this.sortProducts(sortType)
+        debugger
+        this.dataSource._updateChangeSubscription();      
+      }
+      if (entityCount.message === 'selected-search') {
+        debugger
+        console.log(entityCount.data)
+        const searchTerm = entityCount.data 
+        debugger
+        this.dataSource.data = this.allProducts.filter((item: any) => {
+          // Check if any of the conditions match using OR operator (||)
+          return (
+            item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.price < parseInt(searchTerm,10) ||
+            item.description.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        });
+        debugger
+        this.dataSource._updateChangeSubscription(); // this.dataSource.data = updatedDataArray;
 
 
       }
+      
       // this.entityCount = entityCount;
     });
   }
@@ -107,6 +156,29 @@ export class ShopComponent {
 
   }
 
+
+  async  sortProducts(sortType: string) {
+    try {
+      // Assuming this is an asynchronous operation to fetch products
+  
+      // Sort the products based on price
+      const sortedProducts = this.allProducts.slice().sort((a: any, b: any) => {
+        if (sortType === 'asc') {
+          return a.price - b.price;
+        } else {
+          return b.price - a.price;
+        }
+      });
+  
+      // Use the sorted products
+      console.log(sortedProducts);
+      return sortedProducts;
+    } catch (error) {
+      // Handle errors here
+      console.error(error);
+      return [];
+    }
+  }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator; // Set paginator for the MatTableDataSource
   }
@@ -241,9 +313,11 @@ export class ShopComponent {
         console.log('categoryCounts : ', categoryCounts);
         console.log('products data', this.dataSource.data.length)
         console.log('products all data', this.allProducts.length)
-
-
-        this.authService.dothat({ message: 'cat-count-list', data: categoryCounts })
+        const maxPriceProduct = this.allProducts.reduce((maxProduct, currentProduct) => {
+          return currentProduct.price > maxProduct.price ? currentProduct : maxProduct;
+        }, this.allProducts[0]);
+debugger
+        this.authService.dothat({ message: 'cat-count-list', maxPrice: maxPriceProduct.price, data: categoryCounts })
 
         debugger
       },

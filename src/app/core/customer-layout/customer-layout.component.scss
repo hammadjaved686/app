@@ -232,4 +232,47 @@
     display: block;
   }
 
+  .search-container {
+    max-width: 3%;
+    display: flex;
+    align-items: center;
+    width: 300px;
+    margin-bottom: 20px;
+  }
+  .orderbyPrice{
+    margin-top: 10%;
+    font-weight: bold;
+  }
+  .priceRange{
+    margin-top: 10%
+  }
+  .custom-slider {
+    width: 200%; /* Adjust the width as per your requirement */
+  }
+  .mat-mdc-slider.mat-primary {
+    width: 100%; /* Adjust the width as per your requirement */
+  }
+  .search-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 5px;
+    font-size: 14px;
+  }
+  
+  .search-button {
+    // padding: 8px 16px;
+    max-width: 3%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .search-button:hover {
+    background-color: #0056b3;
+  }
   

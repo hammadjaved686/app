@@ -35,7 +35,7 @@
                 <div *ngIf="registerForm.get('email')!.hasError('required') && registerForm.get('email')!.touched">
                   Email is required.
                 </div>
-                <div *ngIf="registerForm.get('email')!.hasError('email') && registerForm.get('email')!.touched">
+                <div *ngIf="(registerForm.get('email')!.hasError('email') && registerForm.get('email')!.touched) || (isSubmit && registerForm.value.email==='')">
                   Please enter a valid email address.
                 </div>
               </div>
@@ -46,6 +46,9 @@
                 <div *ngIf="registerForm.get('name')!.hasError('required') && registerForm.get('name')!.touched">
                   Name is required.
                 </div>
+                <div *ngIf="registerForm.get('name')!.hasError('pattern') && registerForm.get('name')!.touched" class="error-message">
+                  Name should contain only characters and a single space, and length should be between 3 and 50.
+                </div>
               </div>
 
               
@@ -55,6 +58,9 @@
                 <!-- Display validation error message for password -->
                 <div *ngIf="registerForm.get('password')!.hasError('required') && registerForm.get('password')!.touched">
                   Password is required.
+                </div>
+                <div *ngIf="registerForm.get('password')!.hasError('pattern') && registerForm.get('password')!.touched" class="error-message">
+                  Password must contain only letters and number 
                 </div>
               </div>
               <div class="form-group input-container d-flex flex-column role">

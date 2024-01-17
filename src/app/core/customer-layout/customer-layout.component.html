@@ -4,7 +4,7 @@
 
 </div> -->
 
-<div class="page-flex" >
+<div class="page-flex">
     <aside class="sidebar" *ngIf="isShopSelected">
         <div class="media text-center mt-2 mb-5">
             <a href="#">
@@ -19,6 +19,11 @@
                         <i class="icon icon-document-outline"></i>
                         Products {{productCount}}
                     </a> -->
+                    <div class="search-container">
+                        <input type="text" [(ngModel)]="searchTerm" placeholder="Search..." class="search-input"
+                            (input)="search()">
+                    </div>
+
                     <div class="accordion">
                         <div class="accordion-item" *ngFor="let item of items; let i = index">
                             <div class="accordion-header" (click)="toggleAccordion(i, 'category')">
@@ -29,7 +34,7 @@
                             <div class="accordion-content" [ngClass]="{'show': showCategoryFilter}"
                                 *ngFor="let content of item?.content; let j = index">
                                 <div (click)="clickCategory(content[j]?.name, j)">
-                                    <div [ngClass]="{'highlight': boolArray[j]}" >{{ content[j]?.name}}</div>
+                                    <div [ngClass]="{'highlight': boolArray[j]}">{{ content[j]?.name}}</div>
                                     <div>{{ content[j]?.count}}</div>
                                 </div>
                             </div>
@@ -55,6 +60,27 @@
                         </div>
                     </div>
 
+                    <div class="orderbyPrice">
+                        <label  class="orderbyPrice">Order by Price   </label>
+                        <select [(ngModel)]="orderByPrice" (change)="onOrderByPriceChange()">
+                            <option value="asc">Ascending</option>
+                            <option value="desc">Descending</option>
+                        </select>
+                    </div>
+
+                    <!-- Filter by Min and Max Price -->
+                    <div class="priceRange">
+                        <div>
+                            <label  class="orderbyPrice">Price Range   </label>
+
+                            <mat-slider  class="priceRange" min="0" [max]="maxPrice" #slider [(ngModel)]="orderByPrice"
+                                (change)="priceRangeChange($event)" class="custom-slider">{{startValue}}
+                                <input #startInput value="0" matSliderStartThumb>
+                                <input #endInput value="10000" matSliderEndThumb>
+                            </mat-slider>{{endValue}}
+
+                        </div>
+                    </div>
 
                 </li>
                 <!-- <li [ngClass]="{'active': isUser}" class="has-child">
@@ -78,93 +104,97 @@
 
 
 
-<nav _ngcontent-dfr-c43="" id="navbar"
-    class="navbar navbar-expand-lg navbar-light shadow-sm animated fadeInDown ng-tns-c43-0">
-    <div _ngcontent-dfr-c43="" class="container ng-tns-c43-0"><a _ngcontent-dfr-c43="" routerlink="/"
-            class="navbar-brand ng-tns-c43-0" href="/"><img _ngcontent-dfr-c43="" src="../../assets/images/logo-dark.png"
-                alt="" width="100" height="24" class="d-inline-block align-text-top ng-tns-c43-0"></a><button
-            _ngcontent-dfr-c43="" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
-            class="navbar-toggler ng-tns-c43-0"><span _ngcontent-dfr-c43=""
-                class="navbar-toggler-icon ng-tns-c43-0"></span></button>
-        <div _ngcontent-dfr-c43="" id="navbarSupportedContent" class="collapse navbar-collapse ng-tns-c43-0">
-            <ul _ngcontent-dfr-c43="" class="navbar-nav me-auto mb-2 mb-lg-0 ng-tns-c43-0">
-                <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43="" 
-                        routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0 active" [ngStyle]="{ 'color': isHomeSelected ? 'white' : 'inherrit', 'font-size': isHomeSelected ? '24px' : 'initial' }" (click)="clickHome()">home</a>
-                </li>
-                <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43="" 
-                        routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0" [ngStyle]="{ 'color': isShopSelected ? 'white' : 'inherrit', 'font-size': isShopSelected ? '24px' : 'initial' }" (click)="clickShop()">shop</a>
-                </li>
-                <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43="" 
-                        routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0" [ngStyle]="{ 'color': isBlogSelected ? 'white' : 'inherrit', 'font-size': isBlogSelected ? '24px' : 'initial' }" (click)="clickBlog()" >blog</a>
-                </li>
-                <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43="" 
-                        routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0" [ngStyle]="{ 'color': isVendorSelected ? 'white' : 'inherrit', 'font-size': isVendorSelected ? '24px' : 'initial' }" (click)="clickVendor()"
-                        >vendor</a></li>
-                <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43="" 
-                        routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0" [ngStyle]="{ 'color': isContactsSelected ? 'white' : 'inherrit', 'font-size': isShopSelected ? '24px' : 'initial' }" (click)="clickContacts()"
-                        >contact</a></li>
-            </ul>
-            <!-- <ul _ngcontent-dfr-c43="" class="mb-0 ng-tns-c43-0"><span _ngcontent-dfr-c43=""
+            <nav _ngcontent-dfr-c43="" id="navbar"
+                class="navbar navbar-expand-lg navbar-light shadow-sm animated fadeInDown ng-tns-c43-0">
+                <div _ngcontent-dfr-c43="" class="container ng-tns-c43-0"><a _ngcontent-dfr-c43="" routerlink="/"
+                        class="navbar-brand ng-tns-c43-0" href="/"><img _ngcontent-dfr-c43=""
+                            src="../../assets/images/logo-dark.png" alt="" width="100" height="24"
+                            class="d-inline-block align-text-top ng-tns-c43-0"></a><button _ngcontent-dfr-c43=""
+                        type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                        class="navbar-toggler ng-tns-c43-0"><span _ngcontent-dfr-c43=""
+                            class="navbar-toggler-icon ng-tns-c43-0"></span></button>
+                    <div _ngcontent-dfr-c43="" id="navbarSupportedContent"
+                        class="collapse navbar-collapse ng-tns-c43-0">
+                        <ul _ngcontent-dfr-c43="" class="navbar-nav me-auto mb-2 mb-lg-0 ng-tns-c43-0">
+                            <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43=""
+                                    routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0 active"
+                                    [ngStyle]="{ 'color': isHomeSelected ? 'white' : 'inherrit', 'font-size': isHomeSelected ? '24px' : 'initial' }"
+                                    (click)="clickHome()">home</a>
+                            </li>
+                            <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43=""
+                                    routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0"
+                                    [ngStyle]="{ 'color': isShopSelected ? 'white' : 'inherrit', 'font-size': isShopSelected ? '24px' : 'initial' }"
+                                    (click)="clickShop()">shop</a>
+                            </li>
+                            <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43=""
+                                    routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0"
+                                    [ngStyle]="{ 'color': isBlogSelected ? 'white' : 'inherrit', 'font-size': isBlogSelected ? '24px' : 'initial' }"
+                                    (click)="clickBlog()">blog</a>
+                            </li>
+                            <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43=""
+                                    routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0"
+                                    [ngStyle]="{ 'color': isVendorSelected ? 'white' : 'inherrit', 'font-size': isVendorSelected ? '24px' : 'initial' }"
+                                    (click)="clickVendor()">vendor</a></li>
+                            <li _ngcontent-dfr-c43="" class="nav-item ng-tns-c43-0"><a _ngcontent-dfr-c43=""
+                                    routerlinkactive="active" class="nav-link text-capitalize ng-tns-c43-0"
+                                    [ngStyle]="{ 'color': isContactsSelected ? 'white' : 'inherrit', 'font-size': isShopSelected ? '24px' : 'initial' }"
+                                    (click)="clickContacts()">contact</a></li>
+                        </ul>
+                        <!-- <ul _ngcontent-dfr-c43="" class="mb-0 ng-tns-c43-0"><span _ngcontent-dfr-c43=""
                     class="cart-count btn-color ng-tns-c43-0"><i _ngcontent-dfr-c43="" routerlink="/cart"
                         class="bi bi-cart ng-tns-c43-0" tabindex="0"></i><em _ngcontent-dfr-c43=""
                         class="ng-tns-c43-0">0</em></span></ul> -->
-                        <ul>            
-                            <a 
-                              (click)="clickCart()"
-                              class="navbar-brand ng-tns-c43-0"
-                              (mouseenter)="showCartDropdown = true"
-                              (mouseleave)="showCartDropdown = false"
-                            >
-                            <img src="../../../assets/images/cart3.jpg" alt="" id="c" width="100" height="100" class="d-inline-block align-text-top ng-tns-c43-0">
-                            <div [ngStyle]="{ 'color': cartItems.length ? 'red' : 'initial', 'font-weight': cartItems.length ? 'bold' : 'normal' }">
-                                {{cartItems.length}}
-                              </div>
-                              <!-- Cart dropdown content -->
-                              <div 
-                                class="cart-dropdown" 
-                                [ngClass]="{'active': showCartDropdown}" 
-                                (mouseenter)="showCartDropdown = true"
-                                (mouseleave)="showCartDropdown = false"
-                              >
-                                <ul>
-                                  <li *ngFor="let item of cartItems">{{ item.title }} - {{ item.price }}</li>
-                                  <!-- Replace with your actual cart item structure -->
-                                </ul>
-                              </div>
+                        <ul>
+                            <a (click)="clickCart()" class="navbar-brand ng-tns-c43-0"
+                                (mouseenter)="showCartDropdown = true" (mouseleave)="showCartDropdown = false">
+                                <img src="../../../assets/images/cart3.jpg" alt="" id="c" width="100" height="100"
+                                    class="d-inline-block align-text-top ng-tns-c43-0">
+                                <div
+                                    [ngStyle]="{ 'color': cartItems.length ? 'red' : 'initial', 'font-weight': cartItems.length ? 'bold' : 'normal' }">
+                                    {{cartItems.length}}
+                                </div>
+                                <!-- Cart dropdown content -->
+                                <div class="cart-dropdown" [ngClass]="{'active': showCartDropdown}"
+                                    (mouseenter)="showCartDropdown = true" (mouseleave)="showCartDropdown = false">
+                                    <ul>
+                                        <li *ngFor="let item of cartItems">{{ item.title }} - {{ item.price }}</li>
+                                        <!-- Replace with your actual cart item structure -->
+                                    </ul>
+                                </div>
                             </a>
                         </ul>
 
                         <a (click)="goToWishList()" class="nav-link" id="navbarDropdown"> Wish List
-                    </a>
-                          
-                          
-        </div>
-    </div>
-    <div *ngIf="userRole" class="right-side">
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="icon icon-logout"></span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
-                </ul>
-            </li>
-
-            <li class="nav-item dropdown">
-
-            </li>
+                        </a>
 
 
-        </ul>
-    </div>
-</nav>
-        
+                    </div>
+                </div>
+                <div *ngIf="userRole" class="right-side">
+                    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
 
-</nav>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="icon icon-logout"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+
+                        </li>
+
+
+                    </ul>
+                </div>
+            </nav>
+
+
+        </nav>
 
         <router-outlet></router-outlet>
     </div>

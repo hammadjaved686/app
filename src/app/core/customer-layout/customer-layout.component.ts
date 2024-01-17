@@ -1,12 +1,17 @@
 
 
 import { Router, ActivatedRoute } from '@angular/router';
+
 import { AuthenticationService } from '../../shared/services/auth-service.service';
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ElementRef, ViewChild} from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit,Renderer2, OnDestroy, ElementRef, ViewChild} from '@angular/core';
 import { CartService } from '../../shared/services//cart.service';
 // import { CartService } from '../../../assets/images/';
+import { MatSliderModule } from '@angular/material/slider';
+
 
 import { interval, Subscription } from 'rxjs';
+import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-customer-layout',
@@ -15,13 +20,20 @@ import { interval, Subscription } from 'rxjs';
 })
 export class CustomerLayoutComponent {
   @ViewChild('cartImage') cartImageElement!: ElementRef;
-
+  @ViewChild('slider')
+  slider!: ElementRef;
+  @ViewChild('startInput')
+  startInput!: ElementRef;
+  @ViewChild('endInput')
+  endInput!: ElementRef;
   @Input() parentData: string = '';
   @Output() childEvent = new EventEmitter<string>();
   parentDataa = '';
   do: any;
   path: string = '../../assets/images/cart1.jpg'; // Make sure to initialize properly
   list: any = [];
+  minPrice: number = 100; // Default min price
+  maxPrice: number = 1000; // Default max price
   showCartDropdown: boolean = false;
   imagePaths: string[] = [
     '../../assets/images/cart1.jpg',
@@ -37,6 +49,8 @@ export class CustomerLayoutComponent {
   currentImagePathIndex: number = 0;
   private updateSubscription: Subscription | undefined;
 
+  startVal = 0
+  endVal = 10000
   showPriceFilter = false
   showCategoryFilter = false
   boolArray: boolean[]= [];
@@ -47,13 +61,15 @@ export class CustomerLayoutComponent {
   isHomeSelected= false;
   isCartOpen: boolean = false;
   wishList: any = [];
+  orderByPrice: string = 'asc'; // Default order by price (ascending)
 
+  priceRange: number[] = [300, 400]; // Default price range
 
   sendDataToParent() {
     this.childEvent.emit('Data from Child');
   }
   userRole = ''
-
+  searchTerm: string = '';
   isAuthenticated: boolean = false; // Flag to track authentication status
   sidnav: { [key: string]: boolean } = {
     users: false,
@@ -68,7 +84,9 @@ export class CustomerLayoutComponent {
   constructor(public router: Router,
     private authService: AuthenticationService,
     private cartService: CartService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private renderer: Renderer2,
+    private dialog: MatDialog,
   ) { }
   cartItems: any[] = [];
 
@@ -91,7 +109,6 @@ export class CustomerLayoutComponent {
       this.isAuthenticated = isAuthenticated;
       // You can perform actions based on the authentication status here...
     });
-
 
     this.cartService.cartCount$.subscribe((cartItemRec) => {
       debugger
@@ -122,6 +139,8 @@ export class CustomerLayoutComponent {
       console.log('------------------- :', entityCount)
       // this.productCount = entityCount.count
       if (entityCount.message === 'cat-count-list') {
+       this.endValue = this.maxPrice = entityCount.maxPrice
+        debugger
         console.log(entityCount.data)
         this.items[0].content =
           this.do = entityCount.data
@@ -144,6 +163,27 @@ export class CustomerLayoutComponent {
     });
   }
 
+  search() {
+    // Implement search logic here using this.searchTerm
+    console.log('Searching for:', this.searchTerm);
+    this.authService.dothat({ message: 'selected-search', data: this.searchTerm })
+  }
+
+  onOrderByPriceChange() {
+    this.authService.dothat({ message: 'selected-sort', data: this.orderByPrice })
+  }
+  startValue: number = 1;
+  endValue: number = 10000;
+
+  updateRange() {
+    console.log(`Start value: ${this.startValue}, End value: ${this.endValue}`);
+    this.authService.dothat({ message: 'selected-priceRange', data: {maxPrice:this.startValue, minPrice: this.endValue }})
+
+    // Perform actions with updated values here
+  }
+
+
+
   setImageSource(): void {
     // Assuming you have the image source in a variable called imagePath
     const imagePath = './../assets/images/cart8.jpg';
@@ -159,6 +199,13 @@ export class CustomerLayoutComponent {
     }
   }
   goToWishList(){
+    const wishList = this.cartService.getWishlist();
+    if(wishList.length===0)
+    {
+      this.openDialog('WishLish is Empty')
+      return
+    }
+      
     this.router.navigate(['wishlist'])
   }
   ngOnDestroy() {
@@ -243,15 +290,27 @@ export class CustomerLayoutComponent {
     this.authService.dothat({ message: 'selected-category', data: data })
     this.updateIndexTrue(index)
   }
+  openDialog(message:any): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '400px', // Set width or other properties as needed
+      data: message // You can pass data to the dialog if needed
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      // Handle the result here if needed
+     
+    });
+  }
 
   clickCart() {
     // this.isCartOpen = !this.isCartOpen
     this.cartItems = this.cartService.getCartItems()
     // this.authService.dothat({ message: 'selected-cart', data: this.isCartOpen })
-    if(this.cartItems.length >0){
-      debugger
-      this.router.navigate(['/cart'])
+    if(this.cartItems.length ===0){
+      this.openDialog('Cart is Empty')
+      return
     }
+    this.router.navigate(['/cart'])
   }
   goToProducts() {
     this.showParent = false
@@ -304,6 +363,7 @@ export class CustomerLayoutComponent {
   logout() {
     debugger
     this.authService.doLogout()
+    this.userRole = ''
   }
   goToUsers() {
     this.isUser = true
@@ -337,4 +397,30 @@ export class CustomerLayoutComponent {
 
     console.log('Selected Price:', value);
   }
+
+  priceRangeChange(event: Event) {
+        const startValue = this.startInput.nativeElement.value;
+        this.startValue = startValue
+        const endValue = this.endInput.nativeElement.value;
+        this.endValue = endValue
+        this.authService.dothat({ message: 'selected-priceRange', data: {maxPrice: startValue, minPrice: endValue }})
+  }
+
+//   ngAfterViewInit(): void {
+//     // Accessing the start and end thumb values
+//     const startValue = parseInt(this.startInput.nativeElement.value, 10);
+//     const endValue = parseInt(this.endInput.nativeElement.value, 10);
+
+//     console.log('Start Value:', startValue);
+//     console.log('End Value:', endValue);
+
+//     // Example: Adding an event listener for value changes
+//     this.renderer.listen(this.slider.nativeElement, 'input', () => {
+//       const newStartValue = parseInt(this.startInput.nativeElement.value, 10);
+//       const newEndValue = parseInt(this.endInput.nativeElement.value, 10);
+// debugger
+//       console.log('Updated Start Value:', newStartValue);
+//       console.log('Updated End Value:', newEndValue);
+//     });
+//   }
 }
