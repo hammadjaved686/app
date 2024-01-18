@@ -110,7 +110,7 @@ export class CheckoutComponentComponent {
   processPayment(): void {
     if(!this.isProfileAdded && !this.isLogedIn ) 
     { 
-      this.openDialog('Add profile as guest Or LoggedIn as a Customer')
+      this.openDialog('Add User detail or LoggedIn as a Customer')
       return
     }
       
@@ -119,7 +119,7 @@ export class CheckoutComponentComponent {
       return
     }
     if (!this.isProfileAdded) {
-      this.openDialog('please add profile first')
+      this.openDialog('please add User Detail')
       return
     }
       localStorage.setItem('paymentType', this.selectedPaymentType)

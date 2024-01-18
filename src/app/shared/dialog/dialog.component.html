@@ -2,6 +2,10 @@
 <mat-dialog-content>
   <p class="red-text">{{ message }}</p>
 </mat-dialog-content>
+<div  *ngIf="((message.includes('LoggedIn') || message.includes('profile'))&& (userRole === ''))" class="flex">
+<a class="black" >Click here to</a>
+<div href="authentication/login" (click)="login()"class="red"> Login</div>
+</div>
 <mat-dialog-actions class="button-container">
   <button mat-button (click)="closeDialog()" cdkFocusInitial class="styled-button">Close</button>
 </mat-dialog-actions>
