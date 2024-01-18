@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    apiBaseUrl: 'https://your-prod-api-url.com',
+    apiBaseUrl: 'https://cartvilla-4552d.web.app',
   };
   

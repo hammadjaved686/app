@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { loadStripe } from '@stripe/stripe-js';
 const stripe = require('stripe')('sk_test_51OUsGLACt5FmHWsvUxYHiJC9UZeB6BeSZOzIKVbkUeuWPiellKdLnMNGGDI7VS4dbeYddhBfOYCee9HxJuaPuR9H003HA0UoRH'); // Replace with your Stripe secret key
+import { environment } from '../../../enviroments/environment';
+
+const apiUrl = environment.apiBaseUrl
 
 @Injectable({
   providedIn: 'root',
@@ -24,8 +27,8 @@ export class StripeService {
     console.log('price Items : : ', priceItems)
     const { error } = await stripe.redirectToCheckout({
       mode: 'payment',
-      successUrl: 'http://localhost:4200/invoice',
-      cancelUrl: 'http://localhost:4200/checkout',
+      successUrl: `${apiUrl}/invoice`,
+      cancelUrl: `${apiUrl}/checkout`,
       lineItems: priceItems,
     });
   

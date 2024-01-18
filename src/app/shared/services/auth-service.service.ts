@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpService } from './http.service'
 import { Router } from '@angular/router';
-import { environment } from 'src/enviroments/environment';
+import { environment } from '../../../enviroments/environment';
 import {JwtService} from './jwt.service'
 import { UserService } from './user.service';
 import { of } from 'rxjs';
