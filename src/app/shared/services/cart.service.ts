@@ -13,7 +13,7 @@ export class CartService {
   items: any[] = [];
   cartItems: any[] = [];
   wishlist: any[] = []; // Wishlist array to store items
-
+  state: boolean[]=[false, false, false, false, false]; 
   setCartItems(item: any) {
     const existingItemIndex = this.cartItems.findIndex((cartItem: any) => cartItem.id === item.id);
 
@@ -81,4 +81,13 @@ export class CartService {
       return [];
     }
   }
+
+  getHeaderState(){
+    return this.state
+  }
+
+  setHeaderState(state:any){
+    this.state = state
+  }
 }
+

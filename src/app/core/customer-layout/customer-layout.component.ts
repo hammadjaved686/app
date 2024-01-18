@@ -95,6 +95,13 @@ export class CustomerLayoutComponent {
     // for image counter
     // this.getFavourites()
 
+    let state = this.cartService.getHeaderState()
+    this.isShopSelected = state[0]
+    debugger
+    this.isVendorSelected= state[1];
+    this.isBlogSelected= state[2];
+    this.isContactsSelected= state[3];
+    this.isHomeSelected= state[4];
     this.cartItems = this.cartService.getCartItems()
 
     const storedUserRole = localStorage.getItem('userRole');
@@ -228,10 +235,13 @@ export class CustomerLayoutComponent {
       this.router.navigate(['/shop'])
     }
     this.isShopSelected = true
+    debugger
     this.isVendorSelected= false;
     this.isBlogSelected= false;
     this.isContactsSelected= false;
     this.isHomeSelected= false;
+
+    this.cartService.setHeaderState([true,false,false,false,false,false])
 
   }
 
@@ -245,6 +255,7 @@ export class CustomerLayoutComponent {
     this.isBlogSelected= true;
     this.isContactsSelected= false;
     this.isHomeSelected= false;
+    this.cartService.setHeaderState([false,false,true,false,false])
 
   }
 
@@ -262,6 +273,8 @@ export class CustomerLayoutComponent {
     this.isBlogSelected= false;
     this.isContactsSelected= true;
     this.isHomeSelected= false;
+    this.cartService.setHeaderState([false,false,false,true,false])
+
   }
   clickVendor() {
     const currentRoute =  this.router.url;
@@ -285,6 +298,8 @@ export class CustomerLayoutComponent {
     this.isBlogSelected= false;
     this.isContactsSelected= false;
     this.isHomeSelected= true;
+    this.cartService.setHeaderState([false,false,false,false,true])
+
   }
   clickCategory(data: any, index: number) {
     this.authService.dothat({ message: 'selected-category', data: data })
