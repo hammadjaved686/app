@@ -28,9 +28,9 @@ export class DialogComponent {
     this.dialogRef.close('Dialog closed with result');
   }
   login() {
+    this.closeDialog()
     this.router.navigate(['authentication/login'])
+
   }
-  // confirmDeletion(): void {
-  //   this.dialogRef.close(true); // Emitting 'true' to indicate confirmation
-  // }
+  
 }
