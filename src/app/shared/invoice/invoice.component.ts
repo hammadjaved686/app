@@ -37,6 +37,10 @@ export class InvoiceComponent {
     console.log('checkout Before---------Items: ', this.cartItems)
     debugger
     this.cartItems =  this.cartService.getCartItems()
+    if(this.cartItems.length===0)
+    {
+      this.cartItems = this.cartService.getInvoiceItems()
+    }
     this.userDetail =  this.userService.getUserDetail()
     const paymentType= localStorage.getItem('paymentType');
     if(paymentType) {
@@ -61,6 +65,8 @@ export class InvoiceComponent {
     if (storedUserRole !== null) {
       this.userRole = storedUserRole;
     }
+    
+
   }
 
   generatePdf(): void {

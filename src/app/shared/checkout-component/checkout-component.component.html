@@ -43,8 +43,8 @@
       <div class="color"  *ngIf="registerForm.get('phone')!.invalid && (registerForm.get('phone')!.dirty || registerForm.get('phone')!.touched)">
         <span *ngIf="registerForm.get('phone')!.hasError('required')">Phone is required.</span>
         <span *ngIf="registerForm.get('phone')!.hasError('pattern')">Invalid phone format.</span>
-        <span *ngIf="registerForm.get('phone')!.hasError('minlength')">Phone must be at least 6 characters.</span>
-        <span *ngIf="registerForm.get('phone')!.hasError('maxlength')">Phone must be at most 20 characters.</span>
+        <span *ngIf="registerForm.get('phone')!.hasError('minlength')">Phone must be at least 6 digits.</span>
+        <span *ngIf="registerForm.get('phone')!.hasError('maxlength')">Phone must be at most 20 digits.</span>
       </div>
     </div>
   </div>
@@ -58,11 +58,9 @@
     </div>
   </div>
 
-  <button type="submit" [disabled]="registerForm.invalid">Submit</button>
+  <button class="button" type="submit" [disabled]="registerForm.invalid" [class.green-button]="!registerForm.invalid">Submit</button>
 </form>
 
-    
-    
     
     
     
@@ -147,7 +145,7 @@
     </label>
     <!-- Add more payment options as needed -->
   
-    <button (click)="processPayment()">Place Order</button>
+    <button class="cursor" (click)="processPayment()">Place Order</button>
   </div>
   
   

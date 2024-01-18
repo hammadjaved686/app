@@ -7,6 +7,7 @@ import { environment } from '../../../enviroments/environment';
 })
 export class CartService {
   private cartCountSubject = new BehaviorSubject<any>({ count: 0, name: '' });
+  private localStorageKey = 'inVoiceItems';
   // Expose an observable to allow components to subscribe to changes
   cartCount$: Observable<any> = this.cartCountSubject.asObservable();
   items: any[] = [];
@@ -49,5 +50,35 @@ export class CartService {
   // Get the wishlist
   getWishlist(): any[] {
     return this.wishlist;
+  }
+
+  setInvoiceItems(items: any[]): void {
+    // Validate items before storing (optional)
+    if (items && Array.isArray(items)) {
+      localStorage.setItem(this.localStorageKey, JSON.stringify(items));
+    } else {
+      console.error('Invalid items format');
+    }
+  }
+
+  getInvoiceItems(): any[] {
+    const storedData = localStorage.getItem(this.localStorageKey);
+    // Validate and parse stored data
+    if (storedData) {
+      try {
+        const parsedData = JSON.parse(storedData);
+        if (Array.isArray(parsedData)) {
+          return parsedData;
+        } else {
+          console.error('Invalid data format in local storage');
+          return [];
+        }
+      } catch (error) {
+        console.error('Error parsing data from local storage:', error);
+        return [];
+      }
+    } else {
+      return [];
+    }
   }
 }

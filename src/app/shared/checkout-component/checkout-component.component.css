@@ -59,7 +59,17 @@
     width: 100%;
     border-collapse: collapse;
   }
-  
+  .button {
+    /* margin: 10px; */
+    margin-left: 100px;
+    margin-top: 25px;
+
+  }
+  .green-button {
+    background-color: rgb(70, 147, 70);
+    color: white;
+    /* Add any other styles you want for a green button */
+  }
   .your-order table td,
   .your-order table th {
     border: 1px solid #ddd;
@@ -75,6 +85,9 @@
     border-radius: 5px;
     background-color: #f9f9f9;
     margin-left: 34%;
+  }
+  .cursor {
+    cursor: pointer;
   }
   
   .payment-type label {

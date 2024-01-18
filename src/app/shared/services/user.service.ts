@@ -15,13 +15,8 @@ import { environment } from '../../../enviroments/environment';
 })
 export class UserService {
   userDetail: any;
-  setUserDetail(userDetail:any) {
-    this.userDetail = userDetail
-  }
-  getUserDetail(){
-    debugger
-    return this.userDetail
-  }
+  private localStorageKey = 'customerDetail'
+
   private apiUrl: string = '';
 
   constructor(private http: HttpClient) {
@@ -33,7 +28,35 @@ export class UserService {
     console.error('API Error:', error);
     return throwError(error);
   }
+  setUserDetail(item: any): void {
+    // Validate item before storing (optional)
+    if (item && typeof item === 'object') {
+      localStorage.setItem(this.localStorageKey, JSON.stringify(item));
+    } else {
+      console.error('Invalid item format');
+    }
+  }
 
+  getUserDetail(): any {
+    const storedData = localStorage.getItem(this.localStorageKey);
+    // Validate and parse stored data
+    if (storedData) {
+      try {
+        const parsedData = JSON.parse(storedData);
+        if (typeof parsedData === 'object') {
+          return parsedData;
+        } else {
+          console.error('Invalid data format in local storage');
+          return null;
+        }
+      } catch (error) {
+        console.error('Error parsing data from local storage:', error);
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
   // Add User API call
   addUser(user: any): Observable<any> {
     debugger

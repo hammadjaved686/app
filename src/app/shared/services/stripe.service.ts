@@ -21,7 +21,7 @@ export class StripeService {
 
     const priceItems = await registerProdcutsToStripe(cartItems)
     // const pIds = await getAllPriceIds();
-    console.log('price Items : +-+-+-=_=_ : ', priceItems)
+    console.log('price Items : : ', priceItems)
     const { error } = await stripe.redirectToCheckout({
       mode: 'payment',
       successUrl: 'http://localhost:4200/invoice',

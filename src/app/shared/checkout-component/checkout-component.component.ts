@@ -127,8 +127,8 @@ export class CheckoutComponentComponent {
          this.router.navigate(['/invoice'])
          return
       }
+      this.cartService.setInvoiceItems(this.cartItems)
       this.stripeService.initiatePayment(this.cartItems);
-    
   }
   
   submitBillingDetails(): void {
