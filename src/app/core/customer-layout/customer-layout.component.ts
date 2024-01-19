@@ -95,13 +95,7 @@ export class CustomerLayoutComponent {
     // for image counter
     // this.getFavourites()
 
-    let state = this.cartService.getHeaderState()
-    this.isShopSelected = state[0]
-    debugger
-    this.isVendorSelected= state[1];
-    this.isBlogSelected= state[2];
-    this.isContactsSelected= state[3];
-    this.isHomeSelected= state[4];
+    this.setHeaderState()
     this.cartItems = this.cartService.getCartItems()
 
     const storedUserRole = localStorage.getItem('userRole');
@@ -182,6 +176,15 @@ export class CustomerLayoutComponent {
   startValue: number = 1;
   endValue: number = 10000;
 
+  setHeaderState(){
+    let state = this.cartService.getHeaderState()
+    this.isShopSelected = state[0]
+    debugger
+    this.isVendorSelected= state[1];
+    this.isBlogSelected= state[2];
+    this.isContactsSelected= state[3];
+    this.isHomeSelected= state[4];
+  }
   updateRange() {
     console.log(`Start value: ${this.startValue}, End value: ${this.endValue}`);
     this.authService.dothat({ message: 'selected-priceRange', data: {maxPrice:this.startValue, minPrice: this.endValue }})
@@ -278,8 +281,8 @@ export class CustomerLayoutComponent {
   }
   clickVendor() {
     const currentRoute =  this.router.url;
-    if (currentRoute !== '/Vendor') {
-      this.router.navigate(['/Vendor'])
+    if (currentRoute !== '/vendor') {
+      this.router.navigate(['/vendor'])
     }
     this.isShopSelected = false
     this.isVendorSelected= true;

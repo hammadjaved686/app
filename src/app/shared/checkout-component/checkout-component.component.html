@@ -11,9 +11,9 @@
       <input type="text" id="name" formControlName="name" pattern="[a-zA-Z ]{3,50}" required>
       <div class="color"  *ngIf="registerForm.get('name')!.invalid && (registerForm.get('name')!.dirty || registerForm.get('name')!.touched)">
         <span *ngIf="registerForm.get('name')!.hasError('required')">Name is required.</span>
-        <span *ngIf="registerForm.get('name')!.hasError('pattern')">Invalid name format.</span>
-        <span *ngIf="registerForm.get('name')!.hasError('minlength')">Name must be at least 3 characters.</span>
-        <span *ngIf="registerForm.get('name')!.hasError('maxlength')">Name must be at most 50 characters.</span>
+        <span *ngIf="registerForm.get('name')!.hasError('pattern')">only characters or one space allowed.</span>
+        <span *ngIf="registerForm.get('name')!.hasError('minlength')">length must be at least 3 characters.</span>
+        <span *ngIf="registerForm.get('name')!.hasError('maxlength')">length must be at most 50 characters.</span>
       </div>
     </div>
     <div class="form-group">
@@ -33,7 +33,6 @@
       <input type="text" id="postalCode" formControlName="postalCode" pattern="[a-zA-Z0-9]{1,20}" required>
       <div class="color" *ngIf="registerForm.get('postalCode')!.invalid && (registerForm.get('postalCode')!.dirty || registerForm.get('postalCode')!.touched)">
         <span *ngIf="registerForm.get('postalCode')!.hasError('required')">Postal Code is required.</span>
-        <span *ngIf="registerForm.get('postalCode')!.hasError('pattern')">Invalid postal code format.</span>
         <span *ngIf="registerForm.get('postalCode')!.hasError('maxlength')">Postal Code must be at most 20 characters.</span>
       </div>
     </div>
@@ -42,7 +41,7 @@
       <input type="text" id="phone" formControlName="phone" pattern="\+[0-9]{6,20}" required>
       <div class="color"  *ngIf="registerForm.get('phone')!.invalid && (registerForm.get('phone')!.dirty || registerForm.get('phone')!.touched)">
         <span *ngIf="registerForm.get('phone')!.hasError('required')">Phone is required.</span>
-        <span *ngIf="registerForm.get('phone')!.hasError('pattern')">Invalid phone format.</span>
+        <span *ngIf="registerForm.get('phone')!.hasError('pattern')">Enter Digits and atleast one '+'.</span>
         <span *ngIf="registerForm.get('phone')!.hasError('minlength')">Phone must be at least 6 digits.</span>
         <span *ngIf="registerForm.get('phone')!.hasError('maxlength')">Phone must be at most 20 digits.</span>
       </div>
